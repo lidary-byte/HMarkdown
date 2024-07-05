@@ -1,0 +1,16 @@
+/node_modules
+/oh_modules
+/local.properties
+/.idea
+/.hvigor
+**/build
+.cxx
+/.clangd
+/.clang-format
+/.clang-tidy
+**/.test
+oh-package-lock.json5
+.DS_Store
+/Markdown/.idea
+/Markdown/build
+/Markdown/oh-package-lock.json5
