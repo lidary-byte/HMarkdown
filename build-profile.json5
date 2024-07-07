@@ -1,6 +1,20 @@
 {
   "app": {
-    "signingConfigs": [],
+    "signingConfigs": [
+      {
+        "name": "default",
+        "type": "HarmonyOS",
+        "material": {
+          "certpath": "/Users/lidary/.ohos/config/default_HMarkdown_TboDKwVJ8wAiI2xyYhJhvYUR1zzmPEUYnZW0a0myVWU=.cer",
+          "storePassword": "0000001BFBFD7C762E61DD4B5CDACF46C1568F0F1C0E859B076DAB16384CAF5276B1784C5305224483AE84",
+          "keyAlias": "debugKey",
+          "keyPassword": "0000001BAF0AC5649C38FC0186EB9F570983DA39FF278C9D2EBF21706E023CA5DB087770ADB6A3D2093D13",
+          "profile": "/Users/lidary/.ohos/config/default_HMarkdown_TboDKwVJ8wAiI2xyYhJhvYUR1zzmPEUYnZW0a0myVWU=.p7b",
+          "signAlg": "SHA256withECDSA",
+          "storeFile": "/Users/lidary/.ohos/config/default_HMarkdown_TboDKwVJ8wAiI2xyYhJhvYUR1zzmPEUYnZW0a0myVWU=.p12"
+        }
+      }
+    ],
     "products": [
       {
         "name": "default",

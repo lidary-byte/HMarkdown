@@ -15,6 +15,17 @@ export const markConfig = (): IMarkConfig => {
   return MarkConfig.getMarkConfig()
 }
 
+export  const codeHighlight: Record<string, ResourceColor | undefined> = {
+  'string': undefined,
+  'text': undefined,
+  'keyword': undefined,
+  'type': undefined,
+  'symbol': undefined,
+
+  'number': '#ffecd9ac',
+  'boolean': '#ff3c1dc3',
+}
+
 export class MarkConfig {
   private static markTheme: MarkdownTheme
   private static markConfig: IMarkConfig
@@ -46,6 +57,22 @@ export class MarkConfig {
     }
     MarkConfig.markTheme =
       MarkConfig.markConfig.isDark ? MarkConfig.markConfig.darkTheme! : MarkConfig.markConfig.lightTheme!
+    if (!codeHighlight['text']) {
+      codeHighlight['text'] = MarkConfig.markTheme.defaultFont?.fontColor
+    }
+    if (!codeHighlight['string']) {
+      codeHighlight['string'] = '#653170'
+    }
+    if (!codeHighlight['symbol']) {
+      codeHighlight['symbol'] = MarkConfig.markTheme.defaultFont?.fontColor
+    }
+
+    if (!codeHighlight['keyword']) {
+      codeHighlight['keyword'] = MarkConfig.markTheme.themeColor
+    }
+    if (!codeHighlight['type']) {
+      codeHighlight['type'] = MarkConfig.markTheme.themeColor
+    }
   }
 
   static getMarkTheme() {

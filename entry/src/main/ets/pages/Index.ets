@@ -2,7 +2,6 @@ import { Markdown } from '@lidar/markdown';
 import { common } from '@kit.AbilityKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { util } from '@kit.ArkTS';
-import { data } from '../content';
 
 @Entry
 @Component
@@ -16,7 +15,7 @@ struct Index {
   readFile(context: common.UIAbilityContext) {
     // this.text = data
     try {
-      context.resourceManager.getRawFileContent("mark_test_1.md", (error: BusinessError, value: Uint8Array) => {
+      context.resourceManager.getRawFileContent("mark_test.md", (error: BusinessError, value: Uint8Array) => {
         if (error != null) {
           console.error("error is " + error);
         } else {
@@ -38,7 +37,8 @@ struct Index {
       Scroll() {
         Markdown({
           content: this.text,
-        })
+        })//.height('100%')
+          .padding(16)
       }
       .layoutWeight(1)
       .width('100%')

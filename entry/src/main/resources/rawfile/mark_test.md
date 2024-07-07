@@ -1,3 +1,4 @@
+ 
 # HMarkdown
  基于鸿蒙的markdown渲染库
 
@@ -90,18 +91,24 @@ Markdown语法主要分为如下几大部分：
 代码区块的建立是在每行加上4个空格或者一个制表符（如同写代码一样）。如    
 普通段落：
 
-void main()    
-{    
-printf("Hello, Markdown.");    
+ 
+ public static void main(){ 
+     System.out.println("hello world");
 }
-
+ 
 代码区块：
-
-    void main()
-    {
-        printf("Hello, Markdown.");
-    }
-
+```java
+ public static boolean main() { 
+     System.out.println("hello world");
+}
+```
+```typescript
+function main(): number {
+  const a : boolean = false;
+  const b : number = 1;
+  println('hello wolrd')
+}
+```
 **注意**:需要和普通段落之间存在空行。
 
 #### 4.5 强调
@@ -194,8 +201,7 @@ Markdown的使用者：
 
 ****
 **注意**：不同的Markdown解释器或工具对相应语法（扩展语法）的解释效果不尽相同，具体可参见工具的使用说明。
-虽然有人想出面搞一个所谓的标准化的Markdown，[没想到还惹怒了健在的创始人John Gruber]
-(http://blog.codinghorror.com/standard-markdown-is-now-common-markdown/ )。
+虽然有人想出面搞一个所谓的标准化的Markdown，[没想到还惹怒了健在的创始人John Gruber](http://blog.codinghorror.com/standard-markdown-is-now-common-markdown/ )。
 ****
 以上基本是所有traditonal markdown的语法。
 
@@ -204,10 +210,10 @@ Markdown的使用者：
 
 用`|`表示表格纵向边界，表头和表内容用`-`隔开，并可用`:`进行对齐设置，两边都有`:`则表示居中，若不加`:`则默认左对齐。
 
-|代码库                              |链接                                |
-|:------------------------------------:|------------------------------------|
-|MarkDown                              |[https://github.com/younghz/Markdown](https://github.com/younghz/Markdown "Markdown")|
-|MarkDownCopy                              |[https://github.com/younghz/Markdown](https://github.com/younghz/Markdown "Markdown")|
+|代码库|                                           链接                                           |                                                                                    链接 | 链接
+|:--:|:--------------------------------------------------------------------------------------:|--------------------------------------------------------------------------------------:|:-----------:|
+|            MarkDown            | [https://github.com/younghz/Markdown](https://github.com/younghz/Markdown "Markdown")  |                                                                             baidu.com |  https://www.google.com 
+| MarkDownCopy                   | [https://github.com/younghz/Markdown](https://github.com/younghz/Markdown "Markdown")  | google.com
 
 
 关于其它扩展语法可参见具体工具的使用说明。

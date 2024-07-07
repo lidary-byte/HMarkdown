@@ -18,7 +18,7 @@ export function defaultLightTheme(): MarkdownTheme {
     blockQuote: {
       borderRadius: 4,
       driveWidth: 4,
-      backgroundColor: '#EFF1F2'
+      backgroundColor: '#10808080'
     },
     h1: {
       fontColor: Color.Black,
