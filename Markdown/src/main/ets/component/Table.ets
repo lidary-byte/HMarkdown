@@ -4,101 +4,140 @@
  * @Description:
  */
 import { Tokens } from '../core'
+import { markTheme } from '../Index'
+import { SpanText } from './span/SpanText'
 
-@Component
-export struct TableHeader{
-  tokens: Tokens.TableCell[] = []
-  textAlign: TextAlign[] = []
+const defaultHorPadding: number = 20
 
-  build() {
-    Row() {
-      ForEach(this.tokens, (item: Tokens.TableCell, index: number) => {
-        Text(item.text)
-          .width((100 / this.tokens.length) + '%')
-          .padding({
-            left: 10,
-            right: 10,
-            top: 15,
-            bottom: 15
-          })
-          .fontWeight(FontWeight.Bold)
-          .textAlign(this.textAlign[index])
-          // .fontColor(this.style?.base?.fontColor)
-      })
-    }
-    .width('100%')
-    // .backgroundColor(this.style?.table?.headerBackgroundColor)
+const itemLineHeight: number = 44
+
+function textAlign(align?: 'center' | 'left' | 'right' | null) {
+  if (align === 'left') {
+    return TextAlign.Start
   }
+  if (align === 'right') {
+    return TextAlign.End
+  }
+  return TextAlign.Center
 }
 
-@Component
-struct TableBody {
-  tokens: Tokens.TableCell[][] = []
-  textAlign: TextAlign[] = []
-
-  build() {
-    Row() {
-      Column() {
-        ForEach(this.tokens, (row: Tokens.TableCell[], index: number) => {
-          Row() {
-            ForEach(row, (item: Tokens.TableCell, eIndex: number) => {
-              Row() {
-                Text(item.text)
-                  .padding({
-                    bottom: 10,
-                    top: 10,
-                    left: 10,
-                    right: 10,
-                  })
-                  .textAlign(this.textAlign[eIndex])
-                  // .fontColor(this.style?.base?.fontColor)
-              }.width((100 / row.length) + '%')
-            })
-          }
-          .width('100%')
-          // .backgroundColor(index % 2 === 0 ? this.style?.table?.evenRowBackgroundColor : this.style?.table?.oddRowBackgroundColor)
-        })
-      }
-    }
-    .width('100%')
-  }
-}
 
 @Component
 export struct Table {
   token?: Tokens.Table
-  // style?: BiuMarkDownStyle
-  private textAlign: TextAlign[] = []
+  // 每一列最大宽度
+  @State itemMaxWidth: Map<number, number> = new Map()
 
-  aboutToAppear() {
-    this.token?.align.forEach(a => {
-      if (a === 'center') {
-        this.textAlign.push(TextAlign.Center);
-      } else if (a === 'right') {
-        this.textAlign.push(TextAlign.End)
-      } else {
-        this.textAlign.push(TextAlign.Start)
-      }
-    })
+  build() {
+
+    Column() {
+      TableHeader({ tokens: this.token?.header, itemMaxWidth: this.itemMaxWidth })
+      TableDivider(false, true)
+      TableBody({ tokens: this.token?.rows, itemMaxWidth: this.itemMaxWidth })
+    }.alignItems(HorizontalAlign.Start)
+    .borderWidth(1.5)
+    .borderColor(markTheme().blockQuote?.backgroundColor)
   }
+}
+
+
+@Component
+export struct TableHeader {
+  tokens: Tokens.TableCell[] = []
+  @Link itemMaxWidth: Map<number, number>
+
+  build() {
+
+    Scroll() {
+      Row() {
+        ForEach(this.tokens, (item: Tokens.TableCell, index: number) => {
+          Text(item.text)
+            .fontWeight(FontWeight.Bold)
+            .textAlign(textAlign(item.align))
+            .padding({ top: 10, bottom: 10 })
+            .maxLines(1)
+            .width(this.itemMaxWidth[index])
+            .fontColor(markTheme().defaultFont?.fontColor)
+            .fontSize(markTheme().defaultFont?.fontSize)
+            .onSizeChange((_: SizeOptions, newValue: SizeOptions) => {
+              const width: number = this.itemMaxWidth[index]
+              if (typeof newValue.width === 'number') {
+                if (!width) {
+                  this.itemMaxWidth[index] = newValue.width + defaultHorPadding
+                } else {
+                  if (newValue.width > width) {
+                    this.itemMaxWidth[index] = newValue.width + defaultHorPadding
+                  }
+                }
+                console.error('-------body:' + index + "----" + item.text + '------' + width + '-------' +
+                newValue.width)
+              }
+            })
+
+          TableDivider(true, index != this.tokens.length - 1)
+        })
+      }
+    }.scrollable(ScrollDirection.Horizontal)
+    .height(itemLineHeight)
+    .scrollBar(BarState.Off)
+
+  }
+}
+
+
+@Component
+struct TableBody {
+  tokens: Tokens.TableCell[][] = []
+  @Link itemMaxWidth: Map<number, number>
 
   build() {
     Column() {
-      TableHeader({
-        tokens: this.token?.header,
-        // style: this.style,
-        textAlign: this.textAlign
-      })
-      TableBody({
-        tokens: this.token?.rows,
-        // style: this.style,
-        textAlign: this.textAlign
+      ForEach(this.tokens, (row: Tokens.TableCell[], index: number) => {
+        Scroll() {
+          Row() {
+            ForEach(row, (item: Tokens.TableCell, index: number) => {
+              Text() {
+                SpanText(item.tokens)
+              }
+              .textAlign(textAlign(item.align))
+              .fontColor(markTheme().defaultFont?.fontColor)
+              .padding({ top: 10, bottom: 10 })
+              .maxLines(1)
+              .fontSize(markTheme().defaultFont?.fontSize)
+              .width(this.itemMaxWidth[index])
+              .onSizeChange((_: SizeOptions, newValue: SizeOptions) => {
+                const width: number = this.itemMaxWidth[index]
+                if (typeof newValue.width === 'number') {
+                  if (!width) {
+                    this.itemMaxWidth[index] = newValue.width + defaultHorPadding
+                  } else {
+                    if (newValue.width > width) {
+                      this.itemMaxWidth[index] = newValue.width + defaultHorPadding
+                    }
+                  }
+                  console.error('-------body:' + index + "----" + item.text + '------' + width + '-------' +
+                  newValue.width)
+                }
+              })
+
+              TableDivider(true, index != row.length - 1)
+            })
+          }
+        }.scrollBar(BarState.Off)
+        .scrollable(ScrollDirection.Horizontal)
+        .height(itemLineHeight)
+
+        TableDivider(false, index != this.tokens.length - 1)
       })
     }
-    .border({
-      width: 1,
-      // color: this.style?.table?.borderColor,
-      style: BorderStyle.Solid
-    })
+  }
+}
+
+@Builder
+function TableDivider(vertical: boolean, isShow: boolean) {
+  if (isShow) {
+    Divider().color(markTheme().blockQuote?.backgroundColor)
+      .strokeWidth(1.5)
+      .vertical(vertical)
   }
 }
