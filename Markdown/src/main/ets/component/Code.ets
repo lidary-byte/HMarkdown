@@ -3,57 +3,17 @@
  * @CreateData : 2024/7/4
  * @Description:
  */
-import { CodeToken, highlightCodeAnalyzer } from '../analyzer/HighlightAnalyzer'
+import { CodeToken, highlightCodeAnalyzer } from '../core/analyzer/HighlightAnalyzer'
 import { Tokens } from '../core'
+import { codeHighlight, markTheme } from '../Index'
+import { copyToPasteboard } from '../utils'
 
-
-@Component
-struct TrafficLight {
-  @Styles
-  circle(){
-    .width(16)
-    .height(16)
-    .borderRadius(8)
-  }
-
-  build() {
-    Flex({
-      justifyContent: FlexAlign.SpaceBetween
-    }) {
-      Row()
-        .circle()
-        .backgroundColor('#fc625d')
-      Row()
-        .circle()
-        .backgroundColor('#fdbc40')
-      Row()
-        .circle()
-        .backgroundColor('#35cd4b')
-    }
-    .width(70)
-  }
-}
-
-const codeHighlight: Record<string, ResourceColor | undefined> = {
-  'keyword': '#A626A4',
-  'type': '#4078F2',
-  'number': '#986801',
-  'symbol': '#E4564A',
-  'string': '#50A14E',
-  'text': undefined,
-  'boolean': '#986801',
-}
 
 @Component
 export struct Code {
   token?: Tokens.Code
-  // style?: BiuMarkDownStyle
   private codes: string[] = []
   private codeLineHeight: number = 25
-
-  // @Consume themeColor: ResourceColor
-  // @Consume fontColor: ResourceColor
-  // @Consume fontSize: Length
 
   aboutToAppear() {
     this.codes = this.token?.text.split("\n") ?? []
@@ -64,22 +24,16 @@ export struct Code {
     Text() {
       ForEach(highlightCodeAnalyzer(code), (token: CodeToken) => {
         Span(token.text)
-        // .fontColor(codeHighlight[token.type] ?? this.fontColor)
-        // .fontSize(this.fontSize)
+          .fontColor(codeHighlight[token.type])
+          .fontSize(markTheme().defaultFont?.fontSize)
       })
     }
     .textAlign(TextAlign.Start)
   }
 
   build() {
-
-
     //代码体
     Row() {
-
-
-      //代码
-
       Column() {
         Scroll() {
           Column() {
@@ -106,7 +60,7 @@ export struct Code {
         .width(20)
         .margin({ right: 8, top: 8 })
         .onClick(() => {
-
+          copyToPasteboard(this.token?.text)
         })
     }
     .width('100%')
