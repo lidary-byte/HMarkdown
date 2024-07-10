@@ -1,7 +1,7 @@
 {
   "name": "@lidar/markdown",
   "version": "1.0.0",
-  "description": "Please describe the basic information.",
+  "description": "基于鸿蒙的Markdown解析库",
   "main": "Index.ets",
   "author": "lidar",
   "license": "Apache-2.0",
