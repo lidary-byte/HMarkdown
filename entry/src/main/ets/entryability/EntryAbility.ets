@@ -6,9 +6,14 @@ import { markConfig } from '@lidar/markdown';
 export default class EntryAbility extends UIAbility {
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
     hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onCreate');
-    // MarkConfig.setConfig({
-    //   isDark: true
-    // }).init()
+    markConfig.initConfig({
+      theme: {
+        themeColor: Color.Red,
+        link: {
+          fontColor: Color.Red
+        }
+      }
+    })
     markConfig.registerImageClick = (url: string) => {
       promptAction.showToast({
         message: `图片被点击:${url}`,

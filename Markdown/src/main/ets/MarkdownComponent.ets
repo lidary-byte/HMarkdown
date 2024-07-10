@@ -5,40 +5,42 @@ import { Hr } from './component/Hr'
 import { MList } from './component/MList'
 import { Paragraph } from './component/Paragraph'
 import { Table } from './component/Table'
+import { IMarkConfig } from './config/MarkConfig'
 import { Token, Tokens } from './core'
-import { markConfig } from './Index'
 
 @Component
 export struct MarkdownComponent {
   tokenList: Token[] = []
+  @Link config: IMarkConfig
 
   build() {
-    Column({ space: markConfig.lineSpace }) {
+    Column({ space: this.config.lineSpace }) {
       ForEach(this.tokenList, (token: Token) => {
         if (token.type === 'hr') {
           Hr()
         } else if (token.type === 'heading') {
-          Heading({ token: token as Tokens.Heading })
+          Heading({ token: token as Tokens.Heading, markConfig: this.config })
         } else if (token.type === 'space') {
           Stack()
-            .height(markConfig.lineSpace)
+            .height(this.config.lineSpace)
         } else if (token.type === 'code') {
-          Code({ token: token as Tokens.Code })
+          Code({ token: token as Tokens.Code, markConfig: this.config })
         } else if (token.type === 'blockquote') {
           BlockQuote({
             token: token as Tokens.Blockquote,
+            markConfig: this.config
           })
         } else if (token.type === 'paragraph') {
           Paragraph({
-            token: token as Tokens.Paragraph
+            token: token as Tokens.Paragraph, markConfig: this.config
           })
         } else if (token.type === 'list') {
           MList({
-            tokens: token as Tokens.List,
+            tokens: token as Tokens.List, markConfig: this.config
           })
         } else if (token.type === 'table') {
           Table({
-            token: token as Tokens.Table
+            token: token as Tokens.Table, markConfig: this.config
           })
         }
         // else if (item.type === 'html') {

@@ -5,8 +5,8 @@
  */
 import { CodeToken, highlightCodeAnalyzer } from '../core/analyzer/HighlightAnalyzer'
 import { Tokens } from '../core'
-import { markConfig } from '../Index'
 import { copyToPasteboard } from '../utils'
+import { IMarkConfig } from '../config/MarkConfig'
 
 
 @Component
@@ -14,7 +14,7 @@ export struct Code {
   token?: Tokens.Code
   private codes: string[] = []
   private codeLineHeight: number = 25
-
+  @Link markConfig: IMarkConfig
   aboutToAppear() {
     this.codes = this.token?.text.split("\n") ?? []
   }
@@ -24,8 +24,8 @@ export struct Code {
     Text() {
       ForEach(highlightCodeAnalyzer(code), (token: CodeToken) => {
         Span(token.text)
-          .fontColor(markConfig.theme.codeHighlight?.[token.type])
-          .fontSize(markConfig.theme.defaultFont?.fontSize)
+          .fontColor(this.markConfig.theme?.codeHighlight?.[token.type])
+          .fontSize(this.markConfig.theme?.defaultFont?.fontSize)
       })
     }
     .textAlign(TextAlign.Start)

@@ -1,4 +1,4 @@
-import { Markdown } from '@lidar/markdown';
+import { IMarkConfig, Markdown } from '@lidar/markdown';
 import { common } from '@kit.AbilityKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { util } from '@kit.ArkTS';
@@ -7,13 +7,20 @@ import { util } from '@kit.ArkTS';
 @Component
 struct Index {
   @State text: string = ''
+  @State markConfig: IMarkConfig = {
+    theme: {
+      themeColor: Color.Green,
+      link: {
+        fontColor: Color.Green
+      }
+    }
+  }
 
   aboutToAppear(): void {
     this.readFile(getContext(this) as common.UIAbilityContext)
   }
 
   readFile(context: common.UIAbilityContext) {
-    // this.text = data
     try {
       context.resourceManager.getRawFileContent("mark_test.md", (error: BusinessError, value: Uint8Array) => {
         if (error != null) {
@@ -33,10 +40,20 @@ struct Index {
 
   build() {
     Column() {
-
+      Button('更改主题').onClick(() => {
+        this.markConfig = {
+          theme: {
+            themeColor: Color.Orange,
+            link: {
+              fontColor: Color.Orange
+            }
+          }
+        }
+      })
       Scroll() {
         Markdown({
           content: this.text,
+          markConfig: this.markConfig
         })//.height('100%')
           .padding(16)
       }

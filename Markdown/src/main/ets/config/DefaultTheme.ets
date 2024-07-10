@@ -83,6 +83,7 @@ export function mergeTheme(theme?: MarkdownTheme): MarkdownTheme {
 }
 
 
+
 export const defaultTheme: MarkdownTheme = {
   themeColor: '#0A69DA',
   defaultFont: {

@@ -4,10 +4,8 @@
  * @Description:
  */
 import { Token } from '../../core'
-import { SpanImage } from './SpanImage'
-import promptAction from '@ohos.promptAction'
 import { markConfig } from '../../Index'
-
+import { SpanImage } from './SpanImage'
 
 @Builder
 export function SpanText(tokens?: Token[], fontColor?: ResourceColor, onClick?: (text: string) => void) {

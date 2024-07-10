@@ -1,30 +1,31 @@
 import { Token } from './core'
 import { MarkdownComponent } from './MarkdownComponent'
-import parseTask, { init } from './ParseTask'
+import parseTask from './ParseTask'
 import { IMarkConfig } from './config/MarkConfig'
 import { markConfig } from './Index'
-import { LengthMetrics } from '@ohos.arkui.node'
-import { defaultTheme } from './config/DefaultTheme'
+import { mergeTheme } from './config/DefaultTheme'
 
 
 @Component
 export struct Markdown {
-  @Prop @Watch('watchConfig') config: IMarkConfig = {
-    lineSpace: 4,
-    textLineSpace: new LengthMetrics(4)
-  }
+  @Prop @Watch('watchConfig') markConfig: IMarkConfig = markConfig.globalConfig
   @Prop @Watch('watchContent') content: string = ''
+  @State config: IMarkConfig = this.markConfig
   @State tokenList: Token[] = []
 
-
   aboutToAppear(): void {
-    init()
     this.watchConfig()
     this.watchContent()
   }
 
   watchConfig() {
-    markConfig.initConfig(this.config)
+    console.error('---------------config:')
+    this.config = {
+      lineSpace: this.markConfig.lineSpace,
+      textLineSpace: this.markConfig.textLineSpace,
+      theme: mergeTheme(this.markConfig.theme)
+    }
+    markConfig.initConfig(this.markConfig)
   }
 
   watchContent() {
@@ -38,7 +39,7 @@ export struct Markdown {
   build() {
     Stack({ alignContent: Alignment.TopStart }) {
       if (this.tokenList.length !== 0) {
-        MarkdownComponent({ tokenList: this.tokenList })
+        MarkdownComponent({ tokenList: this.tokenList, config: this.config })
       }
     }
   }

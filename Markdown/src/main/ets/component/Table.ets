@@ -3,8 +3,8 @@
  * @CreateData : 2024/7/4
  * @Description:
  */
+import { IMarkConfig } from '../config/MarkConfig'
 import { Tokens } from '../core'
-import { markConfig } from '../Index'
 import { SpanText } from './span/SpanText'
 
 const defaultHorPadding: number = 20
@@ -27,16 +27,16 @@ export struct Table {
   token?: Tokens.Table
   // 每一列最大宽度
   @State itemMaxWidth: Map<number, number> = new Map()
+  @Link markConfig: IMarkConfig
 
   build() {
-
     Column() {
-      TableHeader({ tokens: this.token?.header, itemMaxWidth: this.itemMaxWidth })
-      TableDivider(false, true)
-      TableBody({ tokens: this.token?.rows, itemMaxWidth: this.itemMaxWidth })
+      TableHeader({ tokens: this.token?.header, itemMaxWidth: this.itemMaxWidth, markConfig: this.markConfig })
+      TableDivider(false, true, this.markConfig.theme?.blockQuote?.backgroundColor)
+      TableBody({ tokens: this.token?.rows, itemMaxWidth: this.itemMaxWidth, markConfig: this.markConfig })
     }.alignItems(HorizontalAlign.Start)
     .borderWidth(1.5)
-    .borderColor(markConfig.theme.blockQuote?.backgroundColor)
+    .borderColor(this.markConfig.theme?.blockQuote?.backgroundColor)
   }
 }
 
@@ -45,6 +45,7 @@ export struct Table {
 export struct TableHeader {
   tokens: Tokens.TableCell[] = []
   @Link itemMaxWidth: Map<number, number>
+  @Link markConfig: IMarkConfig
 
   build() {
 
@@ -57,8 +58,8 @@ export struct TableHeader {
             .padding({ top: 10, bottom: 10 })
             .maxLines(1)
             .width(this.itemMaxWidth[index])
-            .fontColor(markConfig.theme.defaultFont?.fontColor)
-            .fontSize(markConfig.theme.defaultFont?.fontSize)
+            .fontColor(this.markConfig.theme?.defaultFont?.fontColor)
+            .fontSize(this.markConfig.theme?.defaultFont?.fontSize)
             .onSizeChange((_: SizeOptions, newValue: SizeOptions) => {
               const width: number = this.itemMaxWidth[index]
               if (typeof newValue.width === 'number') {
@@ -69,12 +70,10 @@ export struct TableHeader {
                     this.itemMaxWidth[index] = newValue.width + defaultHorPadding
                   }
                 }
-                console.error('-------body:' + index + "----" + item.text + '------' + width + '-------' +
-                newValue.width)
               }
             })
 
-          TableDivider(true, index != this.tokens.length - 1)
+          TableDivider(true, index != this.tokens.length - 1, this.markConfig.theme?.blockQuote?.backgroundColor)
         })
       }
     }.scrollable(ScrollDirection.Horizontal)
@@ -89,6 +88,7 @@ export struct TableHeader {
 struct TableBody {
   tokens: Tokens.TableCell[][] = []
   @Link itemMaxWidth: Map<number, number>
+  @Link markConfig: IMarkConfig
 
   build() {
     Column() {
@@ -100,10 +100,10 @@ struct TableBody {
                 SpanText(item.tokens)
               }
               .textAlign(textAlign(item.align))
-              .fontColor(markConfig.theme.defaultFont?.fontColor)
+              .fontColor(this.markConfig.theme?.defaultFont?.fontColor)
               .padding({ top: 10, bottom: 10 })
               .maxLines(1)
-              .fontSize(markConfig.theme.defaultFont?.fontSize)
+              .fontSize(this.markConfig.theme?.defaultFont?.fontSize)
               .width(this.itemMaxWidth[index])
               .onSizeChange((_: SizeOptions, newValue: SizeOptions) => {
                 const width: number = this.itemMaxWidth[index]
@@ -115,28 +115,26 @@ struct TableBody {
                       this.itemMaxWidth[index] = newValue.width + defaultHorPadding
                     }
                   }
-                  console.error('-------body:' + index + "----" + item.text + '------' + width + '-------' +
-                  newValue.width)
                 }
               })
 
-              TableDivider(true, index != row.length - 1)
+              TableDivider(true, index != row.length - 1, this.markConfig.theme?.blockQuote?.backgroundColor)
             })
           }
         }.scrollBar(BarState.Off)
         .scrollable(ScrollDirection.Horizontal)
         .height(itemLineHeight)
 
-        TableDivider(false, index != this.tokens.length - 1)
+        TableDivider(false, index != this.tokens.length - 1, this.markConfig.theme?.blockQuote?.backgroundColor)
       })
     }
   }
 }
 
 @Builder
-function TableDivider(vertical: boolean, isShow: boolean) {
+function TableDivider(vertical: boolean, isShow: boolean, color?: ResourceColor) {
   if (isShow) {
-    Divider().color(markConfig.theme.blockQuote?.backgroundColor)
+    Divider().color(color)
       .strokeWidth(1.5)
       .vertical(vertical)
   }

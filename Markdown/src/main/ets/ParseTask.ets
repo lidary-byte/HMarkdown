@@ -15,7 +15,6 @@ export default function parseTask(src: string): TokensList {
         name: 'blockKatex',
         level: 'block',
         tokenizer(src: string): Tokens.Generic | undefined {
-          console.error('插件解析:------' + src)
           const match = src.match(blockRule);
           if (match) {
             return {
