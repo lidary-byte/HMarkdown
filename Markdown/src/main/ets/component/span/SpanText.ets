@@ -6,7 +6,7 @@
 import { Token } from '../../core'
 import { SpanImage } from './SpanImage'
 import promptAction from '@ohos.promptAction'
-import { markTheme } from '../../Index'
+import { markConfig } from '../../Index'
 
 
 @Builder
@@ -40,11 +40,11 @@ export function SpanText(tokens?: Token[], fontColor?: ResourceColor, onClick?: 
       ContainerSpan() {
         Span(` ${tokenItem.text} `)
       }.textBackgroundStyle({
-        color: markTheme().codeSpan?.backgroundColor,
-        radius: markTheme().codeSpan?.borderRadius
+        color: markConfig.theme.codeSpan?.backgroundColor,
+        radius: markConfig.theme.codeSpan?.borderRadius
       })
     } else if (tokenItem.type === 'link') {
-      SpanText(tokenItem.tokens, markTheme().link?.fontColor, () => {
+      SpanText(tokenItem.tokens, markConfig.theme.link?.fontColor, () => {
         promptAction.showToast({
           message: 'link 点击事件 ---- ' + tokenItem.href
         })

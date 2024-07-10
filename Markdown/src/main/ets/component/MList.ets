@@ -14,7 +14,7 @@ export struct MList {
 
   build() {
 
-    Column({ space: markConfig().lineSpace }) {
+    Column({ space: markConfig.lineSpace }) {
       ForEach(this.tokens?.items, (item: Tokens.ListItem) => {
         ForEach(item.tokens, (itemChild: Token) => {
           if (itemChild.type === 'list') {

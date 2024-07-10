@@ -3,26 +3,50 @@
  * @CreateData : 2024/7/3
  * @Description:
  */
-import { MarkedExtension, MarkedOptions, TokenizerExtension, Tokens, TokensList, Token } from '../core';
+import { MarkedExtension, MarkedOptions, TokenizerExtension, Tokens } from '../core';
 
 // import katex from 'katex';
 
 const inlineRule = /^(\${1,2})(?!\$)((?:\\.|[^\\\n])*?(?:\\.|[^\\\n\$]))\1(?=[\s?!\.,:？！。，：]|$)/;
-const blockRule = /^(\${1,2})\n((?:\\[^]|[^\\])+?)\n\1(?:\n|$)/;
+
+export const blockRule = /^(\${1,2})\n((?:\\[^]|[^\\])+?)\n\1(?:\n|$)/;
+
+
 
 export default function LatexPlugin(options: MarkedOptions = {}): MarkedExtension {
   return {
     extensions: [
     // inlineKatex(options, createRenderer(options, false)),
-      blockKatex(options,[])
+    //   blockKatex(options, []),
+    //   descriptionList,
+      {
+        name: 'blockKatex',
+        level: 'block',
+        tokenizer(src: string): Tokens.Generic {
+          const match = src.match(blockRule);
+          if (match) {
+            return {
+              type: 'blockKatex',
+              raw: match[0],
+              text: match[2].trim(),
+              displayMode: match[1].length === 2,
+            }
+          }
+        },
+        renderer(token: Tokens.Generic): string {
+          return `<latex>${token.tokens}</latex>`
+        },
+        childTokens: ['latex']
+      }
     ]
   };
 }
 
 
-function createRenderer(options: MarkedOptions, newlineAfter: boolean) :string[] | undefined{
+function createRenderer(options: MarkedOptions, newlineAfter: boolean): string[] | undefined {
   // return (token) => katex.renderToString(token.text, { ...options, displayMode: token.displayMode }) +
   //   (newlineAfter ? '\n' : '');
+
   return []
 }
 
@@ -42,7 +66,7 @@ function blockKatex(options: MarkedOptions, renderer: string[] | undefined): Tok
         }
       }
     },
-    childTokens: renderer
+    // childTokens: renderer
   };
 }
 

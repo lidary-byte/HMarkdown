@@ -13,7 +13,7 @@ export struct MarkdownComponent {
   tokenList: Token[] = []
 
   build() {
-    Column({ space: markConfig().lineSpace }) {
+    Column({ space: markConfig.lineSpace }) {
       ForEach(this.tokenList, (token: Token) => {
         if (token.type === 'hr') {
           Hr()
@@ -21,7 +21,7 @@ export struct MarkdownComponent {
           Heading({ token: token as Tokens.Heading })
         } else if (token.type === 'space') {
           Stack()
-            .height(markConfig().lineSpace)
+            .height(markConfig.lineSpace)
         } else if (token.type === 'code') {
           Code({ token: token as Tokens.Code })
         } else if (token.type === 'blockquote') {

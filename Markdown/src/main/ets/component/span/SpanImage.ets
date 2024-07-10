@@ -3,7 +3,7 @@
  * @CreateData : 2024/7/6
  * @Description:
  */
-import { markTheme } from '../../Index'
+import { markConfig } from '../../Index'
 
 @Component
 export struct SpanImage {
@@ -16,7 +16,7 @@ export struct SpanImage {
       // .width(this.imgWidth)
       // .height(this.imgHeight)
       .width('100%')
-      .objectFit(markTheme().image?.objectFit)
+      .objectFit(markConfig.theme.image?.objectFit)
       .backgroundColor(Color.Orange)
       // .onComplete((imageLoadResult) => {
       //   // if (imageLoadResult.loadingStatus == 0) {

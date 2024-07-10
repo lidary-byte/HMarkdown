@@ -4,7 +4,7 @@
  * @Description:
  */
 import { Tokens } from '../core'
-import { markTheme } from '../Index'
+import { markConfig } from '../Index'
 import { SpanText } from './span/SpanText'
 
 const defaultHorPadding: number = 20
@@ -36,7 +36,7 @@ export struct Table {
       TableBody({ tokens: this.token?.rows, itemMaxWidth: this.itemMaxWidth })
     }.alignItems(HorizontalAlign.Start)
     .borderWidth(1.5)
-    .borderColor(markTheme().blockQuote?.backgroundColor)
+    .borderColor(markConfig.theme.blockQuote?.backgroundColor)
   }
 }
 
@@ -57,8 +57,8 @@ export struct TableHeader {
             .padding({ top: 10, bottom: 10 })
             .maxLines(1)
             .width(this.itemMaxWidth[index])
-            .fontColor(markTheme().defaultFont?.fontColor)
-            .fontSize(markTheme().defaultFont?.fontSize)
+            .fontColor(markConfig.theme.defaultFont?.fontColor)
+            .fontSize(markConfig.theme.defaultFont?.fontSize)
             .onSizeChange((_: SizeOptions, newValue: SizeOptions) => {
               const width: number = this.itemMaxWidth[index]
               if (typeof newValue.width === 'number') {
@@ -100,10 +100,10 @@ struct TableBody {
                 SpanText(item.tokens)
               }
               .textAlign(textAlign(item.align))
-              .fontColor(markTheme().defaultFont?.fontColor)
+              .fontColor(markConfig.theme.defaultFont?.fontColor)
               .padding({ top: 10, bottom: 10 })
               .maxLines(1)
-              .fontSize(markTheme().defaultFont?.fontSize)
+              .fontSize(markConfig.theme.defaultFont?.fontSize)
               .width(this.itemMaxWidth[index])
               .onSizeChange((_: SizeOptions, newValue: SizeOptions) => {
                 const width: number = this.itemMaxWidth[index]
@@ -136,7 +136,7 @@ struct TableBody {
 @Builder
 function TableDivider(vertical: boolean, isShow: boolean) {
   if (isShow) {
-    Divider().color(markTheme().blockQuote?.backgroundColor)
+    Divider().color(markConfig.theme.blockQuote?.backgroundColor)
       .strokeWidth(1.5)
       .vertical(vertical)
   }

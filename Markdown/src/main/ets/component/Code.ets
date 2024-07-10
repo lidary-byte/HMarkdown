@@ -5,7 +5,7 @@
  */
 import { CodeToken, highlightCodeAnalyzer } from '../core/analyzer/HighlightAnalyzer'
 import { Tokens } from '../core'
-import { codeHighlight, markTheme } from '../Index'
+import { markConfig } from '../Index'
 import { copyToPasteboard } from '../utils'
 
 
@@ -24,8 +24,8 @@ export struct Code {
     Text() {
       ForEach(highlightCodeAnalyzer(code), (token: CodeToken) => {
         Span(token.text)
-          .fontColor(codeHighlight[token.type])
-          .fontSize(markTheme().defaultFont?.fontSize)
+          .fontColor(markConfig.theme.codeHighlight?.[token.type])
+          .fontSize(markConfig.theme.defaultFont?.fontSize)
       })
     }
     .textAlign(TextAlign.Start)

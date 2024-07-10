@@ -6,7 +6,6 @@
 
 export interface MarkdownTheme {
   themeColor?: ResourceColor
-  backgroundColor?: ResourceColor
   defaultFont?: MarkdownFontStyle
   blockQuote?: BlockQuoteTheme
   h1?: HeadingTheme
@@ -17,7 +16,8 @@ export interface MarkdownTheme {
   h6?: HeadingTheme
   image?: ImageTheme
   link?: LinkTheme
-  codeSpan?: CodeSpan
+  codeSpan?: CodeSpan,
+  codeHighlight?: Record<CodeHighLight, ResourceColor | undefined>
 }
 
 
@@ -50,3 +50,6 @@ export interface BlockQuoteTheme {
 }
 
 export interface HeadingTheme extends MarkdownFontStyle {}
+
+
+type CodeHighLight = 'string' | 'text' | 'keyword' | 'type' | 'symbol' | 'number' | 'boolean'

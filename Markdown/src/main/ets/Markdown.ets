@@ -1,41 +1,45 @@
 import { Token } from './core'
-import { IMarkConfig, MarkConfig, markTheme } from './Index'
 import { MarkdownComponent } from './MarkdownComponent'
-import parseTask from './ParseTask'
-import { taskpool } from '@kit.ArkTS'
+import parseTask, { init } from './ParseTask'
+import { IMarkConfig } from './config/MarkConfig'
+import { markConfig } from './Index'
+import { LengthMetrics } from '@ohos.arkui.node'
+import { defaultTheme } from './config/DefaultTheme'
 
 
 @Component
 export struct Markdown {
-  @Prop @Watch('watchConfig') config: IMarkConfig
+  @Prop @Watch('watchConfig') config: IMarkConfig = {
+    lineSpace: 4,
+    textLineSpace: new LengthMetrics(4)
+  }
   @Prop @Watch('watchContent') content: string = ''
   @State tokenList: Token[] = []
 
-  // @Provide globalConfig?: GlobalConfig = undefined
 
   aboutToAppear(): void {
+    init()
     this.watchConfig()
     this.watchContent()
   }
 
   watchConfig() {
-    MarkConfig.setConfig(this.config)
-      .init()
+    markConfig.initConfig(this.config)
   }
 
   watchContent() {
-    taskpool.execute(parseTask, this.content)
-      .then((tokenList: ESObject) => {
-         this.tokenList = tokenList
-      })
+    this.tokenList = parseTask(this.content)
+    // taskpool.execute(parseTask, this.content)
+    //   .then((tokenList: ESObject) => {
+    //      this.tokenList = tokenList
+    //   })
   }
 
   build() {
-   Stack({alignContent: Alignment.TopStart}){
-     if (this.tokenList.length !== 0) {
-       MarkdownComponent({ tokenList: this.tokenList })
-         .backgroundColor(markTheme().backgroundColor)
-     }
-   }
+    Stack({ alignContent: Alignment.TopStart }) {
+      if (this.tokenList.length !== 0) {
+        MarkdownComponent({ tokenList: this.tokenList })
+      }
+    }
   }
 }

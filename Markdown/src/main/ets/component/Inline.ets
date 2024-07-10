@@ -4,7 +4,7 @@
  * @Description:
  */
 import { Token } from '../core'
-import { markTheme } from '../Index'
+import { markConfig } from '../Index'
 import { SpanText } from './span/SpanText'
 
 
@@ -15,10 +15,10 @@ export struct Inline {
   build() {
     Row() {
       Text() {
-        SpanText(this.token,markTheme().defaultFont?.fontColor)
-      }.fontColor(markTheme().defaultFont?.fontColor)
-      .fontSize(markTheme().defaultFont?.fontSize)
-      .fontWeight(markTheme().defaultFont?.fontWeight)
+        SpanText(this.token,markConfig.theme.defaultFont?.fontColor)
+      }.fontColor(markConfig.theme.defaultFont?.fontColor)
+      .fontSize(markConfig.theme.defaultFont?.fontSize)
+      .fontWeight(markConfig.theme.defaultFont?.fontWeight)
     }
   }
 }
