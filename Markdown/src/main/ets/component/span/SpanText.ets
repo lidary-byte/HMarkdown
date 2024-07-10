@@ -10,7 +10,7 @@ import { markConfig } from '../../Index'
 
 
 @Builder
-export function SpanText(tokens?: Token[], fontColor?: ResourceColor, onClick?: () => void) {
+export function SpanText(tokens?: Token[], fontColor?: ResourceColor, onClick?: (text: string) => void) {
   ForEach(tokens, (tokenItem: Token) => {
     if (tokenItem.type === 'image') {
       SpanImage({ href: tokenItem.href })
@@ -21,20 +21,20 @@ export function SpanText(tokens?: Token[], fontColor?: ResourceColor, onClick?: 
         .fontWeight(FontWeight.Bold)
         .fontColor(fontColor)
         .onClick(() => {
-          onClick?.()
+          onClick?.(tokenItem.text)
         })
     } else if (tokenItem.type === 'text') {
       Span(tokenItem.text)
         .fontColor(fontColor)
         .onClick(() => {
-          onClick?.()
+          onClick?.(tokenItem.text)
         })
     } else if (tokenItem.type === 'em') {
       Span(tokenItem.text)
         .fontColor(fontColor)
         .fontStyle(FontStyle.Italic)
         .onClick(() => {
-          onClick?.()
+          onClick?.(tokenItem.text)
         })
     } else if (tokenItem.type === 'codespan') {
       ContainerSpan() {
@@ -44,11 +44,10 @@ export function SpanText(tokens?: Token[], fontColor?: ResourceColor, onClick?: 
         radius: markConfig.theme.codeSpan?.borderRadius
       })
     } else if (tokenItem.type === 'link') {
-      SpanText(tokenItem.tokens, markConfig.theme.link?.fontColor, () => {
-        promptAction.showToast({
-          message: 'link 点击事件 ---- ' + tokenItem.href
-        })
+      SpanText(tokenItem.tokens, markConfig.theme.link?.fontColor, (text: string) => {
+        markConfig.registerLinkClick(tokenItem.href, text)
       })
+
     }
   })
 }

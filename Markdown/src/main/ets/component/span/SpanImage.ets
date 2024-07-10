@@ -18,6 +18,9 @@ export struct SpanImage {
       .width('100%')
       .objectFit(markConfig.theme.image?.objectFit)
       .backgroundColor(Color.Orange)
+      .onClick(()=>{
+        markConfig.registerImageClick(this.href)
+      })
       // .onComplete((imageLoadResult) => {
       //   // if (imageLoadResult.loadingStatus == 0) {
       //     if (!(markTheme().image?.width) || typeof markTheme().image?.width === 'string') {

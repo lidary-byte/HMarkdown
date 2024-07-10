@@ -1,6 +1,7 @@
 import { AbilityConstant, UIAbility, Want } from '@kit.AbilityKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
-import { window } from '@kit.ArkUI';
+import { promptAction, window } from '@kit.ArkUI';
+import { markConfig } from '@lidar/markdown';
 
 export default class EntryAbility extends UIAbility {
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
@@ -8,6 +9,21 @@ export default class EntryAbility extends UIAbility {
     // MarkConfig.setConfig({
     //   isDark: true
     // }).init()
+    markConfig.registerImageClick = (url: string) => {
+      promptAction.showToast({
+        message: `图片被点击:${url}`,
+        duration: 1500,
+        bottom: "center",
+      })
+    }
+
+    markConfig.registerLinkClick = (url: string, text: string) => {
+      promptAction.showToast({
+        message: `[${text}]的超链接被点击----url:${url}`,
+        duration: 1500,
+        bottom: "center",
+      })
+    }
   }
 
   onDestroy(): void {

@@ -17,10 +17,19 @@ export namespace markConfig {
 
   export let theme: MarkdownTheme
 
+
   export function initConfig(config: IMarkConfig) {
     lineSpace = config.lineSpace!
     textLineSpace = config.textLineSpace!
     theme = mergeTheme(config.theme)
   }
+
+  export let registerImageClick: ImageClick
+
+  export let registerLinkClick: LinkClick
 }
 
+
+type ImageClick = (imageUrl: string) => void
+
+export type LinkClick = (url: string, text: string) => void
