@@ -24,6 +24,11 @@
 | textLineSpace |  否   | Text中每一行的间距     |
 | theme         |  否   | 主题，字体颜色，大小等相关配置 |
 
+## 下载安装
+```typescript
+ohpm install @lidary/markdown
+```
+
 ## 使用方式
 
 ```typescript
@@ -118,3 +123,7 @@ function InlineBuilder(type: string, token: Token) {
 markConfig.customBlockBuilder = wrapBuilder(BlockBuilder)
 markConfig.customInlineBuilder = wrapBuilder(InlineBuilder)
 ```
+
+
+## 开源协议
+本项目基于 [MIT License](https://gitee.com/daryl_code/HMarkdown/blob/main/Markdown/LICENSE) ，请自由地享受和参与开源

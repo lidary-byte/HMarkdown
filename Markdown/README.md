@@ -24,6 +24,11 @@
 | textLineSpace |  否   | Text中每一行的间距     |
 | theme         |  否   | 主题，字体颜色，大小等相关配置 |
 
+## 下载安装
+```typescript
+ohpm install @lidary/markdown
+```
+
 ## 使用方式
 
 ```typescript
@@ -51,11 +56,11 @@ Markdown({
   }
 })
 ```
-> ### 关于配置的优先级又高到低分别是: 
-> #####  1.通过Markdown组件传入**config**设置 
+> ### 关于配置的优先级又高到低分别是:
+> #####  1.通过Markdown组件传入**config**设置
 > #####  2.调用markConfig.initConfig设置
 > #####  3.HMarkdown内自带的默认config
- 
+
 
 2. 超链接点击回调:
 
@@ -118,3 +123,7 @@ function InlineBuilder(type: string, token: Token) {
 markConfig.customBlockBuilder = wrapBuilder(BlockBuilder)
 markConfig.customInlineBuilder = wrapBuilder(InlineBuilder)
 ```
+
+
+## 开源协议
+本项目基于 [MIT License](https://gitee.com/daryl_code/HMarkdown/blob/main/Markdown/LICENSE) ，请自由地享受和参与开源
