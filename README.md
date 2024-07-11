@@ -27,7 +27,7 @@
 ## 使用方式
 
 ```typescript
-import { Markdown } from '@lidar/markdown';
+import { Markdown } from '@lidary/markdown';
 
 Markdown({
   content: this.markdownContent,
@@ -51,11 +51,11 @@ Markdown({
   }
 })
 ```
-> ### 关于配置的优先级又高到低分别是: 
-> #####  1.通过Markdown组件传入**config**设置 
+> ### 关于配置的优先级又高到低分别是:
+> #####  1.通过Markdown组件传入**config**设置
 > #####  2.调用markConfig.initConfig设置
 > #####  3.HMarkdown内自带的默认config
- 
+
 
 2. 超链接点击回调:
 
