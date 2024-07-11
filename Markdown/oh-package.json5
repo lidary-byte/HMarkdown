@@ -4,6 +4,12 @@
   "description": "基于鸿蒙的Markdown解析库",
   "main": "Index.ets",
   "author": "lidar",
+  "keywords": [
+    'Markdown',
+    '富文本',
+    '解析'
+  ],
   "license": "Apache-2.0",
+  "repository": "",
   "dependencies": {}
 }
