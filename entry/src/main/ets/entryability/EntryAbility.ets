@@ -3,11 +3,12 @@ import { hilog } from '@kit.PerformanceAnalysisKit';
 import { promptAction, window } from '@kit.ArkUI';
 import { markConfig, Token } from '@lidar/markdown';
 import { latexBlock, latexInline } from '../Plugin';
+import { LengthMetrics } from '@ohos.arkui.node';
 
 @Builder
 function BlockBuilder(type: string, token: Token) {
   if (type === 'blockKatex') {
-    // 可以讲token.text交给后台生成svg处理
+    // 可以将token.text交给后台生成svg处理
     Row() {
       Image($r('app.media.latex_test'))
         .height(40)
@@ -19,7 +20,7 @@ function BlockBuilder(type: string, token: Token) {
 @Builder
 function InlineBuilder(type: string, token: Token) {
   if (type === 'inlineKatex') {
-    // 可以讲token.text交给后台生成svg处理
+    // 可以将token.text交给后台生成svg处理
     ImageSpan($r('app.media.latex_test'))
       .height(40)
       .verticalAlign(ImageSpanAlignment.CENTER)
@@ -29,6 +30,8 @@ function InlineBuilder(type: string, token: Token) {
 export default class EntryAbility extends UIAbility {
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
     markConfig.initConfig({
+      lineSpace: 4,
+      textLineSpace: new LengthMetrics(4),
       theme: {
         themeColor: Color.Red,
         link: {
