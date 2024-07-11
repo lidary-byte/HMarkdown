@@ -1,7 +1,7 @@
 import { AbilityConstant, UIAbility, Want } from '@kit.AbilityKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { promptAction, window } from '@kit.ArkUI';
-import { markConfig, Token } from '@lidar/markdown';
+import { markConfig, Token } from '@lidary/markdown';
 import { latexBlock, latexInline } from '../Plugin';
 import { LengthMetrics } from '@ohos.arkui.node';
 

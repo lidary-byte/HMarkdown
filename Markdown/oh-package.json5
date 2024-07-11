@@ -1,9 +1,9 @@
 {
-  "name": "@lidar/markdown",
+  "name": "@lidary/markdown",
   "version": "1.0.0",
   "description": "基于鸿蒙的Markdown解析库",
   "main": "Index.ets",
-  "author": "lidar",
+  "author": "lidary",
   "keywords": [
     'Markdown',
     '富文本',

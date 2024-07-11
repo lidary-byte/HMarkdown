@@ -1,4 +1,4 @@
-import { IMarkConfig, Markdown } from '@lidar/markdown';
+import { IMarkConfig, Markdown } from '@lidary/markdown';
 import { common } from '@kit.AbilityKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { util } from '@kit.ArkTS';

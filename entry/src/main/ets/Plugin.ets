@@ -3,7 +3,7 @@
  * @CreateData : 2024/7/11
  * @Description:
  */
-import { TokenizerExtension, Tokens } from '@lidar/markdown';
+import { TokenizerExtension, Tokens } from '@lidary/markdown';
 
 const inlineRule = /^(\${1,2})(?!\$)((?:\\.|[^\\\n])*?(?:\\.|[^\\\n\$]))\1(?=[\s?!\.,:？！。，：]|$)/;
 

@@ -6,7 +6,7 @@
   "author": "",
   "license": "",
   "dependencies": {
-    '@lidar/markdown': "file:../Markdown"
+    '@lidary/markdown': "file:../Markdown"
   }
 }
 
