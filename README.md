@@ -2,6 +2,8 @@
 
 基于[**marked**](https://github.com/markedjs/marked)的鸿蒙端markdown渲染库
 
+![截图](https://github.com/lidary-byte/HMarkdown/blob/main/screen/img.png)
+
 部分特性:
 
 1. 支持主题的动态修改
