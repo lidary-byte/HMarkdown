@@ -1,11 +1,33 @@
 import { AbilityConstant, UIAbility, Want } from '@kit.AbilityKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { promptAction, window } from '@kit.ArkUI';
-import { markConfig } from '@lidar/markdown';
+import { markConfig, Token } from '@lidar/markdown';
+import { latexBlock, latexInline } from '../Plugin';
+
+@Builder
+function BlockBuilder(type: string, token: Token) {
+  if (type === 'blockKatex') {
+    // 可以讲token.text交给后台生成svg处理
+    Row() {
+      Image($r('app.media.latex_test'))
+        .height(40)
+    }.width('100%')
+    .justifyContent(FlexAlign.Center)
+  }
+}
+
+@Builder
+function InlineBuilder(type: string, token: Token) {
+  if (type === 'inlineKatex') {
+    // 可以讲token.text交给后台生成svg处理
+    ImageSpan($r('app.media.latex_test'))
+      .height(40)
+      .verticalAlign(ImageSpanAlignment.CENTER)
+  }
+}
 
 export default class EntryAbility extends UIAbility {
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
-    hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onCreate');
     markConfig.initConfig({
       theme: {
         themeColor: Color.Red,
@@ -14,6 +36,7 @@ export default class EntryAbility extends UIAbility {
         }
       }
     })
+    markConfig.addPlugin([latexBlock(), latexInline()])
     markConfig.registerImageClick = (url: string) => {
       promptAction.showToast({
         message: `图片被点击:${url}`,
@@ -29,6 +52,8 @@ export default class EntryAbility extends UIAbility {
         bottom: "center",
       })
     }
+    markConfig.customBlockBuilder = wrapBuilder(BlockBuilder)
+    markConfig.customInlineBuilder = wrapBuilder(InlineBuilder)
   }
 
   onDestroy(): void {
