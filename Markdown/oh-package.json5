@@ -9,7 +9,7 @@
     '富文本',
     '解析'
   ],
-  "license": "Apache-2.0",
-  "repository": "https://github.com/lidary-byte/HMarkdown",
+  "license": "MIT",
+  "repository": "https://gitee.com/daryl_code/HMarkdown",
   "dependencies": {}
 }
