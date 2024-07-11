@@ -7,3 +7,8 @@ export { markConfig } from './src/main/ets/Index'
 
 export { IMarkConfig } from './src/main/ets/config/MarkConfig'
 
+export { TokenizerExtension, TokenizerStartFunction } from './src/main/ets/core/MarkedOptions'
+
+export { MarkedToken, Token, Tokens, Links, TokensList } from './src/main/ets/core/Tokens'
+
+

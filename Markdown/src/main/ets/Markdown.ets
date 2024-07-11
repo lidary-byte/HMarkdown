@@ -1,6 +1,5 @@
-import { Token } from './core'
+import { marked, Token } from './core'
 import { MarkdownComponent } from './MarkdownComponent'
-import parseTask from './ParseTask'
 import { IMarkConfig } from './config/MarkConfig'
 import { markConfig } from './Index'
 import { mergeTheme } from './config/DefaultTheme'
@@ -28,11 +27,7 @@ export struct Markdown {
   }
 
   watchContent() {
-    this.tokenList = parseTask(this.content)
-    // taskpool.execute(parseTask, this.content)
-    //   .then((tokenList: ESObject) => {
-    //      this.tokenList = tokenList
-    //   })
+    this.tokenList = marked.lexer(this.content)
   }
 
   build() {

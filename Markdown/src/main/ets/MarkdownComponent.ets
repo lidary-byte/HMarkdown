@@ -7,11 +7,11 @@ import { Paragraph } from './component/Paragraph'
 import { Table } from './component/Table'
 import { IMarkConfig } from './config/MarkConfig'
 import { Token, Tokens } from './core'
+import { markConfig } from './Index'
 
 @Component
 export struct MarkdownComponent {
   tokenList: Token[] = []
-
   @Consume config: IMarkConfig
 
   build() {
@@ -20,12 +20,12 @@ export struct MarkdownComponent {
         if (token.type === 'hr') {
           Hr()
         } else if (token.type === 'heading') {
-          Heading({ token: token as Tokens.Heading  })
+          Heading({ token: token as Tokens.Heading })
         } else if (token.type === 'space') {
           Stack()
             .height(this.config.lineSpace)
         } else if (token.type === 'code') {
-          Code({ token: token as Tokens.Code  })
+          Code({ token: token as Tokens.Code })
         } else if (token.type === 'blockquote') {
           BlockQuote({
             token: token as Tokens.Blockquote
@@ -42,6 +42,8 @@ export struct MarkdownComponent {
           Table({
             token: token as Tokens.Table
           })
+        } else {
+          markConfig.customBlockBuilder.builder(token.type, token)
         }
         // else if (item.type === 'html') {
         //     //   RichText((item as Tokens.HTML).text)
