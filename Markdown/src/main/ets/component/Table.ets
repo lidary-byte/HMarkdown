@@ -27,16 +27,16 @@ export struct Table {
   token?: Tokens.Table
   // 每一列最大宽度
   @State itemMaxWidth: Map<number, number> = new Map()
-  @Link markConfig: IMarkConfig
+  @Consume config: IMarkConfig
 
   build() {
     Column() {
-      TableHeader({ tokens: this.token?.header, itemMaxWidth: this.itemMaxWidth, markConfig: this.markConfig })
-      TableDivider(false, true, this.markConfig.theme?.blockQuote?.backgroundColor)
-      TableBody({ tokens: this.token?.rows, itemMaxWidth: this.itemMaxWidth, markConfig: this.markConfig })
+      TableHeader({ tokens: this.token?.header, itemMaxWidth: this.itemMaxWidth })
+      TableDivider(false, true, this.config.theme?.blockQuote?.backgroundColor)
+      TableBody({ tokens: this.token?.rows, itemMaxWidth: this.itemMaxWidth })
     }.alignItems(HorizontalAlign.Start)
     .borderWidth(1.5)
-    .borderColor(this.markConfig.theme?.blockQuote?.backgroundColor)
+    .borderColor(this.config.theme?.blockQuote?.backgroundColor)
   }
 }
 
@@ -45,7 +45,7 @@ export struct Table {
 export struct TableHeader {
   tokens: Tokens.TableCell[] = []
   @Link itemMaxWidth: Map<number, number>
-  @Link markConfig: IMarkConfig
+  @Consume config: IMarkConfig
 
   build() {
 
@@ -58,8 +58,8 @@ export struct TableHeader {
             .padding({ top: 10, bottom: 10 })
             .maxLines(1)
             .width(this.itemMaxWidth[index])
-            .fontColor(this.markConfig.theme?.defaultFont?.fontColor)
-            .fontSize(this.markConfig.theme?.defaultFont?.fontSize)
+            .fontColor(this.config.theme?.defaultFont?.fontColor)
+            .fontSize(this.config.theme?.defaultFont?.fontSize)
             .onSizeChange((_: SizeOptions, newValue: SizeOptions) => {
               const width: number = this.itemMaxWidth[index]
               if (typeof newValue.width === 'number') {
@@ -73,7 +73,7 @@ export struct TableHeader {
               }
             })
 
-          TableDivider(true, index != this.tokens.length - 1, this.markConfig.theme?.blockQuote?.backgroundColor)
+          TableDivider(true, index != this.tokens.length - 1, this.config.theme?.blockQuote?.backgroundColor)
         })
       }
     }.scrollable(ScrollDirection.Horizontal)
@@ -88,7 +88,7 @@ export struct TableHeader {
 struct TableBody {
   tokens: Tokens.TableCell[][] = []
   @Link itemMaxWidth: Map<number, number>
-  @Link markConfig: IMarkConfig
+  @Consume config: IMarkConfig
 
   build() {
     Column() {
@@ -97,13 +97,13 @@ struct TableBody {
           Row() {
             ForEach(row, (item: Tokens.TableCell, index: number) => {
               Text() {
-                SpanText(item.tokens)
+                SpanText(item.tokens, this)
               }
               .textAlign(textAlign(item.align))
-              .fontColor(this.markConfig.theme?.defaultFont?.fontColor)
+              .fontColor(this.config.theme?.defaultFont?.fontColor)
               .padding({ top: 10, bottom: 10 })
               .maxLines(1)
-              .fontSize(this.markConfig.theme?.defaultFont?.fontSize)
+              .fontSize(this.config.theme?.defaultFont?.fontSize)
               .width(this.itemMaxWidth[index])
               .onSizeChange((_: SizeOptions, newValue: SizeOptions) => {
                 const width: number = this.itemMaxWidth[index]
@@ -118,14 +118,14 @@ struct TableBody {
                 }
               })
 
-              TableDivider(true, index != row.length - 1, this.markConfig.theme?.blockQuote?.backgroundColor)
+              TableDivider(true, index != row.length - 1, this.config.theme?.blockQuote?.backgroundColor)
             })
           }
         }.scrollBar(BarState.Off)
         .scrollable(ScrollDirection.Horizontal)
         .height(itemLineHeight)
 
-        TableDivider(false, index != this.tokens.length - 1, this.markConfig.theme?.blockQuote?.backgroundColor)
+        TableDivider(false, index != this.tokens.length - 1, this.config.theme?.blockQuote?.backgroundColor)
       })
     }
   }

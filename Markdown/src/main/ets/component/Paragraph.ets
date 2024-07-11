@@ -10,9 +10,8 @@ import { Inline } from './Inline'
 @Component
 export struct Paragraph {
   token?: Tokens.Paragraph
-  @Link markConfig: IMarkConfig
 
   build() {
-    Inline({ token: this.token?.tokens, markConfig: this.markConfig })
+    Inline({ token: this.token?.tokens })
   }
 }

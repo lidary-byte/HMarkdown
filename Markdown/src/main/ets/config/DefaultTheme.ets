@@ -10,78 +10,77 @@ import { MarkdownTheme } from './MarkdownTheme'
  * 合并theme 将外部传入的theme内的空字段用defaultTheme()的值覆盖
  * @returns
  */
-export function mergeTheme(theme?: MarkdownTheme): MarkdownTheme {
+export function mergeTheme(oldTheme: MarkdownTheme, theme?: MarkdownTheme): MarkdownTheme {
   if (!theme) {
     return defaultTheme
   }
   return {
-    themeColor: theme.themeColor ?? defaultTheme.themeColor,
+    themeColor: theme.themeColor ?? oldTheme.themeColor,
     defaultFont: {
-      fontColor: theme.defaultFont?.fontColor ?? defaultTheme.defaultFont?.fontColor,
-      fontSize: theme.defaultFont?.fontSize ?? defaultTheme.defaultFont?.fontSize,
-      fontWeight: theme.defaultFont?.fontWeight ?? defaultTheme.defaultFont?.fontWeight
+      fontColor: theme.defaultFont?.fontColor ?? oldTheme.defaultFont?.fontColor,
+      fontSize: theme.defaultFont?.fontSize ?? oldTheme.defaultFont?.fontSize,
+      fontWeight: theme.defaultFont?.fontWeight ?? oldTheme.defaultFont?.fontWeight
     },
     blockQuote: {
-      borderRadius: theme.blockQuote?.borderRadius ?? defaultTheme.blockQuote?.borderRadius,
-      driveWidth: theme.blockQuote?.driveWidth ?? defaultTheme.blockQuote?.driveWidth,
-      backgroundColor: theme.blockQuote?.backgroundColor ?? defaultTheme.blockQuote?.backgroundColor
+      borderRadius: theme.blockQuote?.borderRadius ?? oldTheme.blockQuote?.borderRadius,
+      driveWidth: theme.blockQuote?.driveWidth ?? oldTheme.blockQuote?.driveWidth,
+      backgroundColor: theme.blockQuote?.backgroundColor ?? oldTheme.blockQuote?.backgroundColor
     },
     h1: {
-      fontColor: theme.h1?.fontColor ?? defaultTheme.h1?.fontColor,
-      fontWeight: theme.h1?.fontWeight ?? defaultTheme.h1?.fontWeight,
-      fontSize: theme.h1?.fontSize ?? defaultTheme.h1?.fontSize,
+      fontColor: theme.h1?.fontColor ?? oldTheme.h1?.fontColor,
+      fontWeight: theme.h1?.fontWeight ?? oldTheme.h1?.fontWeight,
+      fontSize: theme.h1?.fontSize ?? oldTheme.h1?.fontSize,
     },
     h2: {
-      fontColor: theme.h2?.fontColor ?? defaultTheme.h2?.fontColor,
-      fontWeight: theme.h2?.fontWeight ?? defaultTheme.h2?.fontWeight,
-      fontSize: theme.h2?.fontSize ?? defaultTheme.h2?.fontSize,
+      fontColor: theme.h2?.fontColor ?? oldTheme.h2?.fontColor,
+      fontWeight: theme.h2?.fontWeight ?? oldTheme.h2?.fontWeight,
+      fontSize: theme.h2?.fontSize ?? oldTheme.h2?.fontSize,
     },
     h3: {
-      fontColor: theme.h3?.fontColor ?? defaultTheme.h3?.fontColor,
-      fontWeight: theme.h3?.fontWeight ?? defaultTheme.h3?.fontWeight,
-      fontSize: theme.h3?.fontSize ?? defaultTheme.h3?.fontSize,
+      fontColor: theme.h3?.fontColor ?? oldTheme.h3?.fontColor,
+      fontWeight: theme.h3?.fontWeight ?? oldTheme.h3?.fontWeight,
+      fontSize: theme.h3?.fontSize ?? oldTheme.h3?.fontSize,
 
     },
     h4: {
-      fontColor: theme.h4?.fontColor ?? defaultTheme.h4?.fontColor,
-      fontWeight: theme.h4?.fontWeight ?? defaultTheme.h4?.fontWeight,
-      fontSize: theme.h4?.fontSize ?? defaultTheme.h4?.fontSize,
+      fontColor: theme.h4?.fontColor ?? oldTheme.h4?.fontColor,
+      fontWeight: theme.h4?.fontWeight ?? oldTheme.h4?.fontWeight,
+      fontSize: theme.h4?.fontSize ?? oldTheme.h4?.fontSize,
     },
     h5: {
 
-      fontColor: theme.h5?.fontColor ?? defaultTheme.h5?.fontColor,
-      fontWeight: theme.h5?.fontWeight ?? defaultTheme.h5?.fontWeight,
-      fontSize: theme.h5?.fontSize ?? defaultTheme.h5?.fontSize,
+      fontColor: theme.h5?.fontColor ?? oldTheme.h5?.fontColor,
+      fontWeight: theme.h5?.fontWeight ?? oldTheme.h5?.fontWeight,
+      fontSize: theme.h5?.fontSize ?? oldTheme.h5?.fontSize,
     },
     h6: {
-      fontColor: theme.h6?.fontColor ?? defaultTheme.h6?.fontColor,
-      fontWeight: theme.h6?.fontWeight ?? defaultTheme.h6?.fontWeight,
-      fontSize: theme.h6?.fontSize ?? defaultTheme.h6?.fontSize,
+      fontColor: theme.h6?.fontColor ?? oldTheme.h6?.fontColor,
+      fontWeight: theme.h6?.fontWeight ?? oldTheme.h6?.fontWeight,
+      fontSize: theme.h6?.fontSize ?? oldTheme.h6?.fontSize,
     },
     image: {
-      width: theme.image?.width ?? defaultTheme.image?.width,
-      height: theme.image?.height ?? defaultTheme.image?.height,
-      objectFit: theme.image?.objectFit ?? defaultTheme.image?.objectFit,
+      width: theme.image?.width ?? oldTheme.image?.width,
+      height: theme.image?.height ?? oldTheme.image?.height,
+      objectFit: theme.image?.objectFit ?? oldTheme.image?.objectFit,
     },
     link: {
-      fontColor: theme.link?.fontColor ?? defaultTheme.link?.fontColor,
+      fontColor: theme.link?.fontColor ?? oldTheme.link?.fontColor,
     },
     codeSpan: {
-      backgroundColor: theme.codeSpan?.backgroundColor ?? defaultTheme.codeSpan?.backgroundColor,
-      borderRadius: theme.codeSpan?.borderRadius ?? defaultTheme.codeSpan?.borderRadius,
+      backgroundColor: theme.codeSpan?.backgroundColor ?? oldTheme.codeSpan?.backgroundColor,
+      borderRadius: theme.codeSpan?.borderRadius ?? oldTheme.codeSpan?.borderRadius,
     },
     codeHighlight: {
-      'string': theme.codeHighlight?.string ?? defaultTheme.codeHighlight?.string,
-      'text': theme.codeHighlight?.text ?? defaultTheme.codeHighlight?.text,
-      'keyword': theme.codeHighlight?.keyword ?? defaultTheme.codeHighlight?.keyword,
-      'type': theme.codeHighlight?.type ?? defaultTheme.codeHighlight?.type,
-      'symbol': theme.codeHighlight?.symbol ?? defaultTheme.codeHighlight?.symbol,
-      'number': theme.codeHighlight?.number ?? defaultTheme.codeHighlight?.number,
-      'boolean': theme.codeHighlight?.boolean ?? defaultTheme.codeHighlight?.boolean,
+      'string': theme.codeHighlight?.string ?? oldTheme.codeHighlight?.string,
+      'text': theme.codeHighlight?.text ?? oldTheme.codeHighlight?.text,
+      'keyword': theme.codeHighlight?.keyword ?? oldTheme.codeHighlight?.keyword,
+      'type': theme.codeHighlight?.type ?? oldTheme.codeHighlight?.type,
+      'symbol': theme.codeHighlight?.symbol ?? oldTheme.codeHighlight?.symbol,
+      'number': theme.codeHighlight?.number ?? oldTheme.codeHighlight?.number,
+      'boolean': theme.codeHighlight?.boolean ?? oldTheme.codeHighlight?.boolean,
     }
   }
 }
-
 
 
 export const defaultTheme: MarkdownTheme = {

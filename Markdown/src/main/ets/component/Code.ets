@@ -14,7 +14,7 @@ export struct Code {
   token?: Tokens.Code
   private codes: string[] = []
   private codeLineHeight: number = 25
-  @Link markConfig: IMarkConfig
+  @Consume config: IMarkConfig
   aboutToAppear() {
     this.codes = this.token?.text.split("\n") ?? []
   }
@@ -24,8 +24,8 @@ export struct Code {
     Text() {
       ForEach(highlightCodeAnalyzer(code), (token: CodeToken) => {
         Span(token.text)
-          .fontColor(this.markConfig.theme?.codeHighlight?.[token.type])
-          .fontSize(this.markConfig.theme?.defaultFont?.fontSize)
+          .fontColor(this.config.theme?.codeHighlight?.[token.type])
+          .fontSize(this.config.theme?.defaultFont?.fontSize)
       })
     }
     .textAlign(TextAlign.Start)

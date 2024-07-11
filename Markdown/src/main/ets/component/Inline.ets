@@ -11,15 +11,17 @@ import { SpanText } from './span/SpanText'
 @Component
 export struct Inline {
   token?: Token[]
-  @Link markConfig: IMarkConfig
+  @Consume  config: IMarkConfig
 
   build() {
     Row() {
       Text() {
-        SpanText(this.token, this.markConfig.theme?.defaultFont?.fontColor)
-      }.fontColor(this.markConfig.theme?.defaultFont?.fontColor)
-      .fontSize(this.markConfig.theme?.defaultFont?.fontSize)
-      .fontWeight(this.markConfig.theme?.defaultFont?.fontWeight)
+        SpanText(this.token, this)
+      }
+      .fontColor(this.config.theme?.defaultFont?.fontColor)
+      .fontSize(this.config.theme?.defaultFont?.fontSize)
+      .fontWeight(this.config.theme?.defaultFont?.fontWeight)
+      .lineSpacing(this.config.textLineSpace)
     }
   }
 }

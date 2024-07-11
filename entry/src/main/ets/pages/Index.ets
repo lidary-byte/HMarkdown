@@ -7,17 +7,60 @@ import { util } from '@kit.ArkTS';
 @Component
 struct Index {
   @State text: string = ''
-  @State markConfig: IMarkConfig = {
-    theme: {
-      themeColor: Color.Green,
-      link: {
-        fontColor: Color.Green
-      }
-    }
-  }
+  @State @Watch('changeTheme') isDark: boolean = false
+  @State markConfig?: IMarkConfig = undefined
 
   aboutToAppear(): void {
+    this.changeTheme()
     this.readFile(getContext(this) as common.UIAbilityContext)
+  }
+
+  changeTheme() {
+    this.markConfig = this.isDark ? {
+      theme: {
+        themeColor: Color.Orange,
+        defaultFont: {
+          fontColor: Color.White
+        },
+        link: {
+          fontColor: Color.Orange
+        },
+        h1: {
+          fontColor: Color.White
+        },
+        h2: {
+          fontColor: Color.White
+        },
+        h3: {
+          fontColor: Color.White
+        },
+        h4: {
+          fontColor: Color.White
+        }
+      }
+    } : {
+      theme: {
+        themeColor: Color.Green,
+        defaultFont: {
+          fontColor: Color.Black
+        },
+        link: {
+          fontColor: Color.Green
+        },
+        h1: {
+          fontColor: Color.Black
+        },
+        h2: {
+          fontColor: Color.Black
+        },
+        h3: {
+          fontColor: Color.Black
+        },
+        h4: {
+          fontColor: Color.Black
+        }
+      }
+    }
   }
 
   readFile(context: common.UIAbilityContext) {
@@ -40,25 +83,18 @@ struct Index {
 
   build() {
     Column() {
-      Button('更改主题').onClick(() => {
-        this.markConfig = {
-          theme: {
-            themeColor: Color.Orange,
-            link: {
-              fontColor: Color.Orange
-            }
-          }
-        }
+      Button(this.isDark ? '亮色主题' : '暗色主题').onClick(() => {
+        this.isDark = !this.isDark
       })
       Scroll() {
         Markdown({
           content: this.text,
           markConfig: this.markConfig
-        })//.height('100%')
+        })
           .padding(16)
       }
       .layoutWeight(1)
       .width('100%')
-    }
+    }.backgroundColor(this.isDark ? Color.Black : Color.White)
   }
 }

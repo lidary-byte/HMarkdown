@@ -11,7 +11,8 @@ import { Token, Tokens } from './core'
 @Component
 export struct MarkdownComponent {
   tokenList: Token[] = []
-  @Link config: IMarkConfig
+
+  @Consume config: IMarkConfig
 
   build() {
     Column({ space: this.config.lineSpace }) {
@@ -19,28 +20,27 @@ export struct MarkdownComponent {
         if (token.type === 'hr') {
           Hr()
         } else if (token.type === 'heading') {
-          Heading({ token: token as Tokens.Heading, markConfig: this.config })
+          Heading({ token: token as Tokens.Heading  })
         } else if (token.type === 'space') {
           Stack()
             .height(this.config.lineSpace)
         } else if (token.type === 'code') {
-          Code({ token: token as Tokens.Code, markConfig: this.config })
+          Code({ token: token as Tokens.Code  })
         } else if (token.type === 'blockquote') {
           BlockQuote({
-            token: token as Tokens.Blockquote,
-            markConfig: this.config
+            token: token as Tokens.Blockquote
           })
         } else if (token.type === 'paragraph') {
           Paragraph({
-            token: token as Tokens.Paragraph, markConfig: this.config
+            token: token as Tokens.Paragraph
           })
         } else if (token.type === 'list') {
           MList({
-            tokens: token as Tokens.List, markConfig: this.config
+            tokens: token as Tokens.List
           })
         } else if (token.type === 'table') {
           Table({
-            token: token as Tokens.Table, markConfig: this.config
+            token: token as Tokens.Table
           })
         }
         // else if (item.type === 'html') {

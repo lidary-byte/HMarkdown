@@ -10,20 +10,21 @@ import { Inline } from './Inline'
 @Component
 export struct MList {
   tokens?: Tokens.List
-  @Link markConfig: IMarkConfig
+
+  @Consume config: IMarkConfig
 
   build() {
 
-    Column({ space: this.markConfig.lineSpace }) {
+    Column({ space: this.config.lineSpace }) {
       ForEach(this.tokens?.items, (item: Tokens.ListItem) => {
         ForEach(item.tokens, (itemChild: Token) => {
           if (itemChild.type === 'list') {
-            MList({ tokens: itemChild as Tokens.List, markConfig: this.markConfig })
+            MList({ tokens: itemChild as Tokens.List })
               .margin({ left: 32 })
           } else {
             Row({ space: 8 }) {
               Circle({ width: 6, height: 6 })
-              Inline({ token: item.tokens[0]['tokens'] ,markConfig:this.markConfig})
+              Inline({ token: item.tokens[0]['tokens'] })
             }
           }
         })

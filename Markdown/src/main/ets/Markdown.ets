@@ -8,24 +8,23 @@ import { mergeTheme } from './config/DefaultTheme'
 
 @Component
 export struct Markdown {
-  @Prop @Watch('watchConfig') markConfig: IMarkConfig = markConfig.globalConfig
+  @Prop @Watch('watchConfig') markConfig?: IMarkConfig = undefined
   @Prop @Watch('watchContent') content: string = ''
-  @State config: IMarkConfig = this.markConfig
+  @Provide config?: IMarkConfig = undefined
   @State tokenList: Token[] = []
 
   aboutToAppear(): void {
-    this.watchConfig()
     this.watchContent()
+    this.watchConfig()
   }
 
   watchConfig() {
-    console.error('---------------config:')
     this.config = {
-      lineSpace: this.markConfig.lineSpace,
-      textLineSpace: this.markConfig.textLineSpace,
-      theme: mergeTheme(this.markConfig.theme)
+      lineSpace: this.markConfig?.lineSpace ?? markConfig.globalConfig.lineSpace,
+      textLineSpace: this.markConfig?.textLineSpace ?? markConfig.globalConfig.textLineSpace,
+      theme: mergeTheme(markConfig.globalConfig.theme!, this.markConfig?.theme)
     }
-    markConfig.initConfig(this.markConfig)
+    markConfig.initConfig(this.config)
   }
 
   watchContent() {
@@ -39,7 +38,7 @@ export struct Markdown {
   build() {
     Stack({ alignContent: Alignment.TopStart }) {
       if (this.tokenList.length !== 0) {
-        MarkdownComponent({ tokenList: this.tokenList, config: this.config })
+        MarkdownComponent({ tokenList: this.tokenList })
       }
     }
   }
