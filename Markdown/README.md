@@ -13,15 +13,16 @@
 
 ## 参数
 
-|    名称     | 是否必传 | 默认值                                                                       |      说明      |
-|:---------:|:----:|---------------------------------------------------------------------------|:------------:|
-|  content  |  是   |                                                                           | markdown文本内容 |
-|   theme   |  否   | defaultTheme(参考github的ui)                                                 |  主题，颜色等相关配置  | 
-| lineSpace |  否   | 0                                                                         |    每一行的间距    | 
-| fontStyle |  否   | {fontColor:   Color.Black,fontSize:   16,fontWeight:   FontWeight.Normal} |     字体样式     | 
-
+|      名称       | 是否必传 | 默认值                                                                       |      说明       |
+|:-------------:|:----:|---------------------------------------------------------------------------|:-------------:|
+|    content    |  是   |                                                                           | markdown文本内容  |
+|     theme     |  否   | defaultTheme(参考github的ui)                                                 |  主题，颜色等相关配置   | 
+|   fontStyle   |  否   | {fontColor:   Color.Black,fontSize:   16,fontWeight:   FontWeight.Normal} |     字体样式      | 
+|   lineSpace   |  否   | 0                                                                         |   item之间的间距   | 
+| textLineSpace |  否   | 0                                                                         | item中text的行间距 | 
 
 ---
+
 ## 下载安装
 
 ```
@@ -29,6 +30,7 @@ ohpm install @lidary/markdown
 ```
 
 ---
+
 ## 导包
 
 ```typescript
@@ -36,41 +38,45 @@ import { Markdown } from '@lidary/markdown';
 ```
 
 ---
+
 ## 使用方式
 
 ### 全局配置
+
 ```typescript
 // 设置全局theme 会覆盖掉内部自带的theme
 markConfig.setTheme({
-      themeColor: Color.Red,
-      link: {
-        fontColor: Color.Red
-      }
-    })
-  // 设置image的点击事件
-    markConfig.registerImageClick = (url?: string) => {
-      promptAction.showToast({
-        message: `图片被点击:${url}`,
-        duration: 1500,
-        bottom: "center",
-      })
-    }
+  themeColor: Color.Red,
+  link: {
+    fontColor: Color.Red
+  }
+})
+// 设置image的点击事件
+markConfig.registerImageClick = (url?: string) => {
+  promptAction.showToast({
+    message: `图片被点击:${url}`,
+    duration: 1500,
+    bottom: "center",
+  })
+}
 // 设置link的点击事件
-    markConfig.registerLinkClick = (url?: string) => {
-      promptAction.showToast({
-        message: `超链接被点击----url:${url}`,
-        duration: 1500,
-        bottom: "center",
-      })
-    }
+markConfig.registerLinkClick = (url?: string) => {
+  promptAction.showToast({
+    message: `超链接被点击----url:${url}`,
+    duration: 1500,
+    bottom: "center",
+  })
+}
 ```
+
 ### 组件中
+
 ```typescript
 Markdown({
   content: this.markdownContent,
   lineSpace: 6,
   // 覆盖掉通过markConfig.setTheme设置的全局theme(优先级最高)
-  theme:{
+  theme: {
     themeColor: Color.Orange,
     link: {
       fontColor: Color.Orange
@@ -91,6 +97,7 @@ Markdown({
 >  3.HMarkdown内自带的默认theme
 
 ---
+
 ### 插件相关
 
 1. 添加插件

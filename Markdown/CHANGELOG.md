@@ -1,5 +1,8 @@
 # 更新日志
 
+## v1.0.2
+1.新增textLineSpace属性以实现Text内行间距
+
 ## v1.0.1
 1. 修复theme,fontStyle等属性无法动态更新bug
 2. 修复Markdown的点击事件被内部子组件拦截bug
