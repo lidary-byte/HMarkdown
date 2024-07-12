@@ -1,7 +1,7 @@
 import { HeadingTheme, MarkdownFontStyle, MarkdownTheme } from '../config/MarkdownTheme'
 import { Tokens } from '../core'
 import { SpanText } from './span/SpanText'
-import { KEY_FONT_STYLE, KEY_LINE_SPACE, KEY_THEME } from '../config/Constant'
+import { KEY_FONT_STYLE, KEY_LINE_SPACE, KEY_TEXT_LINE_SPACE, KEY_THEME } from '../config/Constant'
 import { LengthMetrics } from '@ohos.arkui.node'
 
 @Component
@@ -12,7 +12,7 @@ export struct Heading {
   @Consume(KEY_FONT_STYLE) fontStyle: MarkdownFontStyle
   @Consume(KEY_THEME) theme: MarkdownTheme
   @Consume(KEY_LINE_SPACE) lineSpace: number
-
+  @Consume(KEY_TEXT_LINE_SPACE) textLineSpace: number
   aboutToAppear(): void {
     if (this.token?.depth == 1) {
       this.headingFontStyle = this.theme?.h1
@@ -36,6 +36,6 @@ export struct Heading {
     .fontColor(this.fontStyle?.fontColor)
     .fontWeight(this.headingFontStyle?.fontWeight)
     .fontSize(this.headingFontStyle?.fontSize)
-    .lineSpacing(new LengthMetrics(this.lineSpace))
+    .lineSpacing(new LengthMetrics(this.textLineSpace))
   }
 }

@@ -2,7 +2,7 @@ import { marked, Token } from './core'
 import { MarkdownComponent } from './MarkdownComponent'
 import { defaultTheme, mergeTheme } from './config/DefaultTheme'
 import { MarkdownFontStyle, MarkdownTheme } from './config/MarkdownTheme'
-import { KEY_FONT_STYLE, KEY_LINE_SPACE, KEY_THEME } from './config/Constant'
+import { KEY_FONT_STYLE, KEY_LINE_SPACE, KEY_TEXT_LINE_SPACE, KEY_THEME } from './config/Constant'
 import { markConfig } from './Index'
 
 
@@ -12,10 +12,12 @@ export struct Markdown {
   @State tokenList: Token[] = []
   @Prop @Watch('watchTheme') theme: MarkdownTheme
   @Prop @Watch('watchLineSpace') lineSpace: number
+  @Prop @Watch('watchTextLineSpace') textLineSpace: number
   @Prop @Watch('watchDefaultFont') fontStyle: MarkdownFontStyle
   // 外部不要传
   @Provide(KEY_THEME) _theme: MarkdownTheme = mergeTheme(markConfig.theme)
   @Provide(KEY_LINE_SPACE) _lineSpace: number = 0
+  @Provide(KEY_TEXT_LINE_SPACE) _textLineSpace: number = 0
   @Provide(KEY_FONT_STYLE) _fontStyle: MarkdownFontStyle = {
     fontColor: Color.Black,
     fontSize: 16,
@@ -25,12 +27,17 @@ export struct Markdown {
   aboutToAppear(): void {
     this.watchContent()
     this.watchTheme()
+    this.watchTextLineSpace()
     this.watchLineSpace()
     this.watchDefaultFont()
   }
 
   watchTheme() {
     this._theme = mergeTheme(this.theme)
+  }
+
+  watchTextLineSpace() {
+    this._textLineSpace = this.textLineSpace ?? 0
   }
 
   watchLineSpace() {
