@@ -3,7 +3,6 @@ import { hilog } from '@kit.PerformanceAnalysisKit';
 import { promptAction, window } from '@kit.ArkUI';
 import { markConfig, Token } from '@lidary/markdown';
 import { latexBlock, latexInline } from '../Plugin';
-import { LengthMetrics } from '@ohos.arkui.node';
 
 @Builder
 function BlockBuilder(type: string, token: Token) {
@@ -29,16 +28,12 @@ function InlineBuilder(type: string, token: Token) {
 
 export default class EntryAbility extends UIAbility {
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
-    markConfig.initConfig({
-      lineSpace: 4,
-      textLineSpace: new LengthMetrics(4),
-      theme: {
-        themeColor: Color.Red,
-        link: {
-          fontColor: Color.Red
-        }
+    markConfig.theme = {
+      themeColor: Color.Red,
+      link: {
+        fontColor: Color.Red
       }
-    })
+    }
     markConfig.addPlugin([latexBlock(), latexInline()])
     markConfig.registerImageClick = (url?: string) => {
       promptAction.showToast({

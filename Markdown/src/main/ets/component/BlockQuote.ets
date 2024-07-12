@@ -3,7 +3,8 @@
  * @CreateData : 2024/7/5
  * @Description:
  */
-import { IMarkConfig } from '../config/MarkConfig'
+import { KEY_LINE_SPACE, KEY_THEME } from '../config/Constant'
+import { MarkdownTheme } from '../config/MarkdownTheme'
 import { Tokens } from '../core/Tokens'
 import { MarkdownComponent } from '../MarkdownComponent'
 
@@ -11,24 +12,26 @@ import { MarkdownComponent } from '../MarkdownComponent'
 export struct BlockQuote {
   token?: Tokens.Blockquote
   @State blockHeight: Length = 0
-  @Consume config: IMarkConfig
+
+  @StorageLink(KEY_THEME) theme?: MarkdownTheme = undefined
+  @StorageLink(KEY_LINE_SPACE) lineSpace?: number = undefined
 
   build() {
     Row() {
       Divider()
         .vertical(true)
-        .strokeWidth( this.config.theme?.blockQuote?.driveWidth ?? 0)
+        .strokeWidth( this.theme?.blockQuote?.driveWidth ?? 0)
         .height(this.blockHeight)
-        .color( this.config.theme?.blockQuote?.driveColor ??  this.config.theme?.themeColor)
+        .color( this.theme?.blockQuote?.driveColor ??  this.theme?.themeColor)
       MarkdownComponent({ tokenList: this.token?.tokens })
         .margin({ left: 10, right: 20 })
         .layoutWeight(1)
-        .padding({ top:  this.config.lineSpace, bottom:  this.config.lineSpace })
+        .padding({ top:  this.lineSpace, bottom:  this.lineSpace })
     }
-    .backgroundColor( this.config.theme?.blockQuote?.backgroundColor)
+    .backgroundColor( this.theme?.blockQuote?.backgroundColor)
     .borderRadius({
-      topLeft:  this.config.theme?.blockQuote?.borderRadius,
-      bottomLeft:  this.config.theme?.blockQuote?.borderRadius
+      topLeft:  this.theme?.blockQuote?.borderRadius,
+      bottomLeft:  this.theme?.blockQuote?.borderRadius
     })
     .clip(true)
     .onSizeChange((_: SizeOptions, newValue: SizeOptions) => {

@@ -6,7 +6,6 @@
 
 export interface MarkdownTheme {
   themeColor?: ResourceColor
-  defaultFont?: MarkdownFontStyle
   blockQuote?: BlockQuoteTheme
   h1?: HeadingTheme
   h2?: HeadingTheme
@@ -49,7 +48,10 @@ export interface BlockQuoteTheme {
   driveWidth?: string | number
 }
 
-export interface HeadingTheme extends MarkdownFontStyle {}
+export interface HeadingTheme {
+  fontWeight?: FontWeight
+  fontSize?: Length
+}
 
 
 type CodeHighLight = 'string' | 'text' | 'keyword' | 'type' | 'symbol' | 'number' | 'boolean'

@@ -3,12 +3,13 @@
  * @CreateData : 2024/7/6
  * @Description:
  */
-import { IMarkConfig } from '../../config/MarkConfig'
+import { KEY_THEME } from '../../config/Constant'
+import { MarkdownTheme } from '../../config/MarkdownTheme'
 import { markConfig } from '../../Index'
 
 @Component
 export struct SpanImage {
-  @Consume config: IMarkConfig
+  @StorageLink(KEY_THEME) theme?: MarkdownTheme = undefined
   href: string = ''
 
   // @State imgHeight: Length  = 0
@@ -18,7 +19,7 @@ export struct SpanImage {
     ImageSpan(this.href)// .width(this.imgWidth)
       // .height(this.imgHeight)
       .width('100%')
-      .objectFit(this.config.theme?.image?.objectFit)
+      .objectFit(this.theme?.image?.objectFit)
       .onClick(() => {
         markConfig.registerImageClick(this.href)
       })

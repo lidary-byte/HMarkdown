@@ -6,7 +6,8 @@
 import { CodeToken, highlightCodeAnalyzer } from '../core/analyzer/HighlightAnalyzer'
 import { Tokens } from '../core'
 import { copyToPasteboard } from '../utils'
-import { IMarkConfig } from '../config/MarkConfig'
+import { KEY_DEFAULT_FONT, KEY_THEME } from '../config/Constant'
+import { MarkdownFontStyle, MarkdownTheme } from '../config/MarkdownTheme'
 
 
 @Component
@@ -14,7 +15,8 @@ export struct Code {
   token?: Tokens.Code
   private codes: string[] = []
   private codeLineHeight: number = 25
-  @Consume config: IMarkConfig
+  @StorageLink(KEY_DEFAULT_FONT) fontStyle?: MarkdownFontStyle = undefined
+  @StorageLink(KEY_THEME) theme?: MarkdownTheme = undefined
   aboutToAppear() {
     this.codes = this.token?.text.split("\n") ?? []
   }
@@ -24,8 +26,8 @@ export struct Code {
     Text() {
       ForEach(highlightCodeAnalyzer(code), (token: CodeToken) => {
         Span(token.text)
-          .fontColor(this.config.theme?.codeHighlight?.[token.type])
-          .fontSize(this.config.theme?.defaultFont?.fontSize)
+          .fontColor(this.theme?.codeHighlight?.[token.type])
+          .fontSize(this.fontStyle?.fontSize)
       })
     }
     .textAlign(TextAlign.Start)

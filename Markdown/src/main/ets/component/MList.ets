@@ -3,7 +3,7 @@
  * @CreateData : 2024/7/6
  * @Description:
  */
-import { IMarkConfig } from '../config/MarkConfig'
+import { KEY_LINE_SPACE } from '../config/Constant'
 import { Token, Tokens } from '../core'
 import { Inline } from './Inline'
 
@@ -11,11 +11,10 @@ import { Inline } from './Inline'
 export struct MList {
   tokens?: Tokens.List
 
-  @Consume config: IMarkConfig
-
+  @StorageLink(KEY_LINE_SPACE) lineSpace?: number = undefined
   build() {
 
-    Column({ space: this.config.lineSpace }) {
+    Column({ space: this.lineSpace }) {
       ForEach(this.tokens?.items, (item: Tokens.ListItem) => {
         ForEach(item.tokens, (itemChild: Token) => {
           if (itemChild.type === 'list') {

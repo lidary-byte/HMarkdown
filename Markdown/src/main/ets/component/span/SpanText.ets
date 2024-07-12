@@ -18,25 +18,25 @@ export function SpanText(tokens: Token[] = [], that: ESObject, isLink?: boolean,
     } else if (tokenItem.type === 'strong') {
       Span(tokenItem.text)
         .fontWeight(FontWeight.Bold)
-        .fontColor(isLink ? that.config.theme?.link?.fontColor : that.config.theme?.defaultFont?.fontColor)
+        .fontColor(isLink ? that.theme?.link?.fontColor : that.fontStyle?.fontColor)
         .onClick(onSpanClick)
     } else if (tokenItem.type === 'text') {
       Span(tokenItem.text)
-        .fontColor(isLink ? that.config.theme?.link?.fontColor : that.config.theme?.defaultFont?.fontColor)
+        .fontColor(isLink ? that.theme?.link?.fontColor : that.fontStyle?.fontColor)
         .onClick(onSpanClick)
     } else if (tokenItem.type === 'em') {
       Span(tokenItem.text)
-        .fontColor(isLink ? that.config.theme?.link?.fontColor : that.config.theme?.defaultFont?.fontColor)
+        .fontColor(isLink ? that.theme?.link?.fontColor : that.fontStyle?.fontColor)
         .fontStyle(FontStyle.Italic)
         .onClick(onSpanClick)
     } else if (tokenItem.type === 'codespan') {
       ContainerSpan() {
         Span(` ${tokenItem.text} `)
-          .fontColor(isLink ? that.config.theme?.link?.fontColor : that.config.theme?.defaultFont?.fontColor)
+          .fontColor(isLink ? that.theme?.link?.fontColor : that.fontStyle?.fontColor)
           .onClick(onSpanClick)
       }.textBackgroundStyle({
-        color: that.config.theme?.theme?.codeSpan?.backgroundColor,
-        radius: that.config.theme?.theme?.codeSpan?.borderRadius
+        color: that.theme?.codeSpan?.backgroundColor,
+        radius: that.theme?.codeSpan?.borderRadius
       })
     } else if (tokenItem.type === 'link') {
       SpanText(tokenItem.tokens, that, true,

@@ -5,17 +5,16 @@ import { Hr } from './component/Hr'
 import { MList } from './component/MList'
 import { Paragraph } from './component/Paragraph'
 import { Table } from './component/Table'
-import { IMarkConfig } from './config/MarkConfig'
+import { KEY_LINE_SPACE } from './config/Constant'
 import { Token, Tokens } from './core'
 import { markConfig } from './Index'
 
 @Component
 export struct MarkdownComponent {
   tokenList: Token[] = []
-  @Consume config: IMarkConfig
-
+  @StorageLink(KEY_LINE_SPACE) lineSpace?: number = undefined
   build() {
-    Column({ space: this.config.lineSpace }) {
+    Column({ space: this.lineSpace }) {
       ForEach(this.tokenList, (token: Token) => {
         if (token.type === 'hr') {
           Hr()
@@ -23,7 +22,6 @@ export struct MarkdownComponent {
           Heading({ token: token as Tokens.Heading })
         } else if (token.type === 'space') {
           Stack()
-            .height(this.config.lineSpace)
         } else if (token.type === 'code') {
           Code({ token: token as Tokens.Code })
         } else if (token.type === 'blockquote') {

@@ -5,7 +5,6 @@ export { MarkdownTheme, HeadingTheme, MarkdownFontStyle } from './src/main/ets/c
 
 export { markConfig } from './src/main/ets/Index'
 
-export { IMarkConfig } from './src/main/ets/config/MarkConfig'
 
 export { TokenizerExtension, TokenizerStartFunction } from './src/main/ets/core/MarkedOptions'
 

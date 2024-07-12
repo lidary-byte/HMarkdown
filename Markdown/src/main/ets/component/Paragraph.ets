@@ -3,7 +3,6 @@
  * @CreateData : 2024/7/4
  * @Description:
  */
-import { IMarkConfig } from '../config/MarkConfig'
 import { Tokens } from '../core'
 import { Inline } from './Inline'
 

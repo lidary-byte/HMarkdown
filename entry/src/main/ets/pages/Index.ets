@@ -1,4 +1,4 @@
-import { IMarkConfig, Markdown } from '@lidary/markdown';
+import { Markdown, MarkdownTheme } from '@lidary/markdown';
 import { common } from '@kit.AbilityKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { util } from '@kit.ArkTS';
@@ -7,60 +7,10 @@ import { util } from '@kit.ArkTS';
 @Component
 struct Index {
   @State text: string = ''
-  @State @Watch('changeTheme') isDark: boolean = false
-  @State markConfig?: IMarkConfig = undefined
+  @State isDark: boolean = false
 
   aboutToAppear(): void {
-    this.changeTheme()
     this.readFile(getContext(this) as common.UIAbilityContext)
-  }
-
-  changeTheme() {
-    this.markConfig = this.isDark ? {
-      theme: {
-        themeColor: Color.Orange,
-        defaultFont: {
-          fontColor: Color.White
-        },
-        link: {
-          fontColor: Color.Orange
-        },
-        h1: {
-          fontColor: Color.White
-        },
-        h2: {
-          fontColor: Color.White
-        },
-        h3: {
-          fontColor: Color.White
-        },
-        h4: {
-          fontColor: Color.White
-        }
-      }
-    } : {
-      theme: {
-        themeColor: Color.Green,
-        defaultFont: {
-          fontColor: Color.Black
-        },
-        link: {
-          fontColor: Color.Green
-        },
-        h1: {
-          fontColor: Color.Black
-        },
-        h2: {
-          fontColor: Color.Black
-        },
-        h3: {
-          fontColor: Color.Black
-        },
-        h4: {
-          fontColor: Color.Black
-        }
-      }
-    }
   }
 
   readFile(context: common.UIAbilityContext) {
@@ -89,7 +39,13 @@ struct Index {
       Scroll() {
         Markdown({
           content: this.text,
-          markConfig: this.markConfig
+          lineSpace: 6,
+          theme:{
+            themeColor: Color.Orange
+          },
+          fontStyle: {
+            fontColor: this.isDark ? Color.White : Color.Black
+          }
         }).onClick(() => {
           console.error('---------点击拦截')
         })

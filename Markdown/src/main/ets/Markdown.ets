@@ -1,29 +1,44 @@
 import { marked, Token } from './core'
 import { MarkdownComponent } from './MarkdownComponent'
-import { IMarkConfig } from './config/MarkConfig'
-import { markConfig } from './Index'
 import { mergeTheme } from './config/DefaultTheme'
+import { MarkdownFontStyle, MarkdownTheme } from './config/MarkdownTheme'
+import { KEY_DEFAULT_FONT, KEY_LINE_SPACE, KEY_THEME } from './config/Constant'
+import { markConfig } from './Index'
 
 
 @Component
 export struct Markdown {
-  @Prop @Watch('watchConfig') markConfig?: IMarkConfig = undefined
   @Prop @Watch('watchContent') content: string = ''
-  @Provide config?: IMarkConfig = undefined
   @State tokenList: Token[] = []
+  @Prop @Watch('watchTheme') theme: MarkdownTheme = mergeTheme(markConfig.theme)
+  @Prop @Watch('watchLineSpace') lineSpace: number = 0
+  @Prop @Watch('watchDefaultFont') fontStyle: MarkdownFontStyle = {
+    fontColor: Color.Black,
+    fontSize: 16,
+    fontWeight: FontWeight.Normal
+  }
 
   aboutToAppear(): void {
     this.watchContent()
-    this.watchConfig()
+    this.watchTheme()
+    this.watchLineSpace()
+    this.watchDefaultFont()
   }
 
-  watchConfig() {
-    this.config = {
-      lineSpace: this.markConfig?.lineSpace ?? markConfig.globalConfig.lineSpace,
-      textLineSpace: this.markConfig?.textLineSpace ?? markConfig.globalConfig.textLineSpace,
-      theme: mergeTheme(markConfig.globalConfig.theme!, this.markConfig?.theme)
-    }
-    markConfig.initConfig(this.config)
+  watchTheme() {
+    AppStorage.setOrCreate(KEY_THEME, mergeTheme(this.theme))
+  }
+
+  watchLineSpace() {
+    AppStorage.setOrCreate(KEY_LINE_SPACE, this.lineSpace)
+  }
+
+  watchDefaultFont() {
+    AppStorage.setOrCreate(KEY_DEFAULT_FONT, {
+      fontColor: this.fontStyle.fontColor ?? Color.Black,
+      fontSize: this.fontStyle.fontSize ?? 16,
+      fontWeight: this.fontStyle.fontWeight ?? FontWeight.Normal
+    } as MarkdownFontStyle)
   }
 
   watchContent() {
