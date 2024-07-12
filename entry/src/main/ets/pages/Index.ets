@@ -41,7 +41,10 @@ struct Index {
           content: this.text,
           lineSpace: 6,
           theme:{
-            themeColor: Color.Orange
+            themeColor: Color.Orange,
+            link: {
+              fontColor: Color.Orange
+            }
           },
           fontStyle: {
             fontColor: this.isDark ? Color.White : Color.Black

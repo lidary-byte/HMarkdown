@@ -6,7 +6,7 @@
 import { CodeToken, highlightCodeAnalyzer } from '../core/analyzer/HighlightAnalyzer'
 import { Tokens } from '../core'
 import { copyToPasteboard } from '../utils'
-import { KEY_DEFAULT_FONT, KEY_THEME } from '../config/Constant'
+import { KEY_FONT_STYLE, KEY_THEME } from '../config/Constant'
 import { MarkdownFontStyle, MarkdownTheme } from '../config/MarkdownTheme'
 
 
@@ -15,8 +15,8 @@ export struct Code {
   token?: Tokens.Code
   private codes: string[] = []
   private codeLineHeight: number = 25
-  @StorageLink(KEY_DEFAULT_FONT) fontStyle?: MarkdownFontStyle = undefined
-  @StorageLink(KEY_THEME) theme?: MarkdownTheme = undefined
+  @Consume(KEY_FONT_STYLE) fontStyle: MarkdownFontStyle
+  @Consume(KEY_THEME) theme: MarkdownTheme
   aboutToAppear() {
     this.codes = this.token?.text.split("\n") ?? []
   }

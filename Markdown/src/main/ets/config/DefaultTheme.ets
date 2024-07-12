@@ -3,6 +3,7 @@
  * @CreateData : 2024/7/5
  * @Description: 默认主题
  */
+import { markConfig } from '../Index'
 import { MarkdownTheme } from './MarkdownTheme'
 
 
@@ -12,61 +13,61 @@ import { MarkdownTheme } from './MarkdownTheme'
  */
 export function mergeTheme(theme?: MarkdownTheme): MarkdownTheme {
   if (!theme) {
-    return defaultTheme
+    return markConfig.theme
   }
   return {
-    themeColor: theme.themeColor ?? defaultTheme.themeColor,
+    themeColor: theme.themeColor ?? markConfig.theme.themeColor,
     blockQuote: {
-      borderRadius: theme.blockQuote?.borderRadius ?? defaultTheme.blockQuote?.borderRadius,
-      driveWidth: theme.blockQuote?.driveWidth ?? defaultTheme.blockQuote?.driveWidth,
-      backgroundColor: theme.blockQuote?.backgroundColor ?? defaultTheme.blockQuote?.backgroundColor
+      borderRadius: theme.blockQuote?.borderRadius ?? markConfig.theme.blockQuote?.borderRadius,
+      driveWidth: theme.blockQuote?.driveWidth ?? markConfig.theme.blockQuote?.driveWidth,
+      backgroundColor: theme.blockQuote?.backgroundColor ?? markConfig.theme.blockQuote?.backgroundColor
     },
     h1: {
-      fontWeight: theme.h1?.fontWeight ?? defaultTheme.h1?.fontWeight,
-      fontSize: theme.h1?.fontSize ?? defaultTheme.h1?.fontSize,
+      fontWeight: theme.h1?.fontWeight ?? markConfig.theme.h1?.fontWeight,
+      fontSize: theme.h1?.fontSize ?? markConfig.theme.h1?.fontSize,
     },
     h2: {
-      fontWeight: theme.h2?.fontWeight ?? defaultTheme.h2?.fontWeight,
-      fontSize: theme.h2?.fontSize ?? defaultTheme.h2?.fontSize,
+      fontWeight: theme.h2?.fontWeight ?? markConfig.theme.h2?.fontWeight,
+      fontSize: theme.h2?.fontSize ?? markConfig.theme.h2?.fontSize,
     },
     h3: {
-      fontWeight: theme.h3?.fontWeight ?? defaultTheme.h3?.fontWeight,
-      fontSize: theme.h3?.fontSize ?? defaultTheme.h3?.fontSize,
+      fontWeight: theme.h3?.fontWeight ?? markConfig.theme.h3?.fontWeight,
+      fontSize: theme.h3?.fontSize ?? markConfig.theme.h3?.fontSize,
 
     },
     h4: {
-      fontWeight: theme.h4?.fontWeight ?? defaultTheme.h4?.fontWeight,
-      fontSize: theme.h4?.fontSize ?? defaultTheme.h4?.fontSize,
+      fontWeight: theme.h4?.fontWeight ?? markConfig.theme.h4?.fontWeight,
+      fontSize: theme.h4?.fontSize ?? markConfig.theme.h4?.fontSize,
     },
     h5: {
 
-      fontWeight: theme.h5?.fontWeight ?? defaultTheme.h5?.fontWeight,
-      fontSize: theme.h5?.fontSize ?? defaultTheme.h5?.fontSize,
+      fontWeight: theme.h5?.fontWeight ?? markConfig.theme.h5?.fontWeight,
+      fontSize: theme.h5?.fontSize ?? markConfig.theme.h5?.fontSize,
     },
     h6: {
-      fontWeight: theme.h6?.fontWeight ?? defaultTheme.h6?.fontWeight,
-      fontSize: theme.h6?.fontSize ?? defaultTheme.h6?.fontSize,
+      fontWeight: theme.h6?.fontWeight ?? markConfig.theme.h6?.fontWeight,
+      fontSize: theme.h6?.fontSize ?? markConfig.theme.h6?.fontSize,
     },
     image: {
-      width: theme.image?.width ?? defaultTheme.image?.width,
-      height: theme.image?.height ?? defaultTheme.image?.height,
-      objectFit: theme.image?.objectFit ?? defaultTheme.image?.objectFit,
+      width: theme.image?.width ?? markConfig.theme.image?.width,
+      height: theme.image?.height ?? markConfig.theme.image?.height,
+      objectFit: theme.image?.objectFit ?? markConfig.theme.image?.objectFit,
     },
     link: {
-      fontColor: theme.link?.fontColor ?? defaultTheme.link?.fontColor,
+      fontColor: theme.link?.fontColor ?? markConfig.theme.link?.fontColor,
     },
     codeSpan: {
-      backgroundColor: theme.codeSpan?.backgroundColor ?? defaultTheme.codeSpan?.backgroundColor,
-      borderRadius: theme.codeSpan?.borderRadius ?? defaultTheme.codeSpan?.borderRadius,
+      backgroundColor: theme.codeSpan?.backgroundColor ?? markConfig.theme.codeSpan?.backgroundColor,
+      borderRadius: theme.codeSpan?.borderRadius ?? markConfig.theme.codeSpan?.borderRadius,
     },
     codeHighlight: {
-      'string': theme.codeHighlight?.string ?? defaultTheme.codeHighlight?.string,
-      'text': theme.codeHighlight?.text ?? defaultTheme.codeHighlight?.text,
-      'keyword': theme.codeHighlight?.keyword ?? defaultTheme.codeHighlight?.keyword,
-      'type': theme.codeHighlight?.type ?? defaultTheme.codeHighlight?.type,
-      'symbol': theme.codeHighlight?.symbol ?? defaultTheme.codeHighlight?.symbol,
-      'number': theme.codeHighlight?.number ?? defaultTheme.codeHighlight?.number,
-      'boolean': theme.codeHighlight?.boolean ?? defaultTheme.codeHighlight?.boolean,
+      'string': theme.codeHighlight?.string ?? markConfig.theme.codeHighlight?.string,
+      'text': theme.codeHighlight?.text ?? markConfig.theme.codeHighlight?.text,
+      'keyword': theme.codeHighlight?.keyword ?? markConfig.theme.codeHighlight?.keyword,
+      'type': theme.codeHighlight?.type ?? markConfig.theme.codeHighlight?.type,
+      'symbol': theme.codeHighlight?.symbol ?? markConfig.theme.codeHighlight?.symbol,
+      'number': theme.codeHighlight?.number ?? markConfig.theme.codeHighlight?.number,
+      'boolean': theme.codeHighlight?.boolean ?? markConfig.theme.codeHighlight?.boolean,
     }
   }
 }

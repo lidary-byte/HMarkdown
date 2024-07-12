@@ -9,7 +9,7 @@ import { markConfig } from '../../Index'
 
 @Component
 export struct SpanImage {
-  @StorageLink(KEY_THEME) theme?: MarkdownTheme = undefined
+  @Consume(KEY_THEME) theme: MarkdownTheme
   href: string = ''
 
   // @State imgHeight: Length  = 0

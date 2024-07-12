@@ -29,12 +29,12 @@ function InlineBuilder(type: string, token: Tokens.Generic, that: ESObject) {
 
 export default class EntryAbility extends UIAbility {
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
-    markConfig.theme = {
+    markConfig.setTheme({
       themeColor: Color.Red,
       link: {
         fontColor: Color.Red
       }
-    }
+    })
     markConfig.addPlugin([latexBlock(), latexInline()])
     markConfig.registerImageClick = (url?: string) => {
       promptAction.showToast({

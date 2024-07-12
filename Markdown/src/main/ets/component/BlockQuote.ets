@@ -13,8 +13,8 @@ export struct BlockQuote {
   token?: Tokens.Blockquote
   @State blockHeight: Length = 0
 
-  @StorageLink(KEY_THEME) theme?: MarkdownTheme = undefined
-  @StorageLink(KEY_LINE_SPACE) lineSpace?: number = undefined
+  @Consume(KEY_THEME) theme: MarkdownTheme
+  @Consume(KEY_LINE_SPACE) lineSpace: number
 
   build() {
     Row() {

@@ -3,7 +3,7 @@
  * @CreateData : 2024/7/4
  * @Description:
  */
-import { KEY_DEFAULT_FONT, KEY_THEME } from '../config/Constant'
+import { KEY_FONT_STYLE, KEY_THEME } from '../config/Constant'
 import { MarkdownFontStyle, MarkdownTheme } from '../config/MarkdownTheme'
 import { Tokens } from '../core'
 import { SpanText } from './span/SpanText'
@@ -28,7 +28,7 @@ export struct Table {
   token?: Tokens.Table
   // 每一列最大宽度
   @State itemMaxWidth: Map<number, number> = new Map()
-  @StorageLink(KEY_THEME) theme?: MarkdownTheme = undefined
+  @Consume(KEY_THEME) theme: MarkdownTheme
 
   build() {
     Column() {
@@ -46,8 +46,8 @@ export struct Table {
 export struct TableHeader {
   tokens: Tokens.TableCell[] = []
   @Link itemMaxWidth: Map<number, number>
-  @StorageLink(KEY_DEFAULT_FONT) fontStyle?: MarkdownFontStyle = undefined
-  @StorageLink(KEY_THEME) theme?: MarkdownTheme = undefined
+  @Consume(KEY_FONT_STYLE) fontStyle: MarkdownFontStyle
+  @Consume(KEY_THEME) theme: MarkdownTheme
   build() {
 
     Scroll() {
@@ -89,8 +89,8 @@ export struct TableHeader {
 struct TableBody {
   tokens: Tokens.TableCell[][] = []
   @Link itemMaxWidth: Map<number, number>
-  @StorageLink(KEY_THEME) theme?: MarkdownTheme = undefined
-  @StorageLink(KEY_DEFAULT_FONT) fontStyle?: MarkdownFontStyle = undefined
+  @Consume(KEY_THEME) theme?: MarkdownTheme
+  @Consume(KEY_FONT_STYLE) fontStyle?: MarkdownFontStyle
   build() {
     Column() {
       ForEach(this.tokens, (row: Tokens.TableCell[], index: number) => {

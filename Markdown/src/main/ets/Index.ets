@@ -3,7 +3,7 @@
  * @CreateData : 2024/7/5
  * @Description:
  */
-import { defaultTheme } from './config/DefaultTheme'
+import { defaultTheme, mergeTheme } from './config/DefaultTheme'
 import { MarkdownTheme } from './config/MarkdownTheme'
 import { marked, TokenizerExtension, Tokens } from './core'
 
@@ -18,6 +18,10 @@ export namespace markConfig {
   // 自定义的inline渲染
   export let customInlineBuilder: WrappedBuilder<[string, Tokens.Generic, ESObject]>
 
+
+  export function setTheme(markTheme: MarkdownTheme) {
+    theme = mergeTheme(markTheme)
+  }
 
   export function addPlugin(plugins: TokenizerExtension[]) {
     marked.use({ extensions: plugins })

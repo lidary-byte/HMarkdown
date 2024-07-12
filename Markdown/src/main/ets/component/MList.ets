@@ -11,7 +11,7 @@ import { Inline } from './Inline'
 export struct MList {
   tokens?: Tokens.List
 
-  @StorageLink(KEY_LINE_SPACE) lineSpace?: number = undefined
+  @Consume(KEY_LINE_SPACE) lineSpace: number
   build() {
 
     Column({ space: this.lineSpace }) {

@@ -5,7 +5,7 @@ import { Hr } from './component/Hr'
 import { MList } from './component/MList'
 import { Paragraph } from './component/Paragraph'
 import { Table } from './component/Table'
-import { KEY_DEFAULT_FONT, KEY_LINE_SPACE, KEY_THEME } from './config/Constant'
+import { KEY_FONT_STYLE, KEY_LINE_SPACE, KEY_THEME } from './config/Constant'
 import { MarkdownFontStyle, MarkdownTheme } from './config/MarkdownTheme'
 import { Token, Tokens } from './core'
 import { markConfig } from './Index'
@@ -13,9 +13,9 @@ import { markConfig } from './Index'
 @Component
 export struct MarkdownComponent {
   tokenList: Token[] = []
-  @StorageLink(KEY_THEME) theme?: MarkdownTheme = undefined
-  @StorageLink(KEY_LINE_SPACE) lineSpace?: number = undefined
-  @StorageLink(KEY_DEFAULT_FONT) fontStyle?: MarkdownFontStyle = undefined
+  @Consume(KEY_THEME) theme: MarkdownTheme
+  @Consume(KEY_LINE_SPACE) lineSpace: number
+  @Consume(KEY_FONT_STYLE) fontStyle: MarkdownFontStyle
 
   build() {
     Column({ space: this.lineSpace }) {
