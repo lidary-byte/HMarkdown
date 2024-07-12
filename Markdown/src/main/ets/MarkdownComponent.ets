@@ -60,7 +60,7 @@ export struct MarkdownComponent {
         //   }
       }
       )
-    }.width('100%')
+    }
     .alignItems(HorizontalAlign.Start)
   }
 }
