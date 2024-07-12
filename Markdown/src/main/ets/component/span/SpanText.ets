@@ -9,7 +9,7 @@ import { SpanImage } from './SpanImage'
 
 @Builder
 export function SpanText(tokens: Token[] = [], that: ESObject, isLink?: boolean,
-  onSpanClick?: (text: string) => void) {
+  onSpanClick?: () => void) {
   ForEach(tokens, (tokenItem: Token) => {
     if (tokenItem.type === 'image') {
       SpanImage({ href: tokenItem.href })
@@ -19,37 +19,29 @@ export function SpanText(tokens: Token[] = [], that: ESObject, isLink?: boolean,
       Span(tokenItem.text)
         .fontWeight(FontWeight.Bold)
         .fontColor(isLink ? that.config.theme?.link?.fontColor : that.config.theme?.defaultFont?.fontColor)
-        .onClick(() => {
-          onSpanClick?.(tokenItem.text)
-        })
+        .onClick(onSpanClick)
     } else if (tokenItem.type === 'text') {
       Span(tokenItem.text)
         .fontColor(isLink ? that.config.theme?.link?.fontColor : that.config.theme?.defaultFont?.fontColor)
-        .onClick(() => {
-          onSpanClick?.(tokenItem.text)
-        })
+        .onClick(onSpanClick)
     } else if (tokenItem.type === 'em') {
       Span(tokenItem.text)
         .fontColor(isLink ? that.config.theme?.link?.fontColor : that.config.theme?.defaultFont?.fontColor)
         .fontStyle(FontStyle.Italic)
-        .onClick(() => {
-          onSpanClick?.(tokenItem.text)
-        })
+        .onClick(onSpanClick)
     } else if (tokenItem.type === 'codespan') {
       ContainerSpan() {
         Span(` ${tokenItem.text} `)
           .fontColor(isLink ? that.config.theme?.link?.fontColor : that.config.theme?.defaultFont?.fontColor)
-          .onClick(() => {
-            onSpanClick?.(tokenItem.text)
-          })
+          .onClick(onSpanClick)
       }.textBackgroundStyle({
         color: that.config.theme?.theme?.codeSpan?.backgroundColor,
         radius: that.config.theme?.theme?.codeSpan?.borderRadius
       })
     } else if (tokenItem.type === 'link') {
       SpanText(tokenItem.tokens, that, true,
-        (text: string) => {
-          markConfig.registerLinkClick(tokenItem.href, text)
+        () => {
+          markConfig.registerLinkClick(tokenItem.href)
         }
       )
     } else {

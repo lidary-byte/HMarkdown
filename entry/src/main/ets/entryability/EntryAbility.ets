@@ -40,7 +40,7 @@ export default class EntryAbility extends UIAbility {
       }
     })
     markConfig.addPlugin([latexBlock(), latexInline()])
-    markConfig.registerImageClick = (url: string) => {
+    markConfig.registerImageClick = (url?: string) => {
       promptAction.showToast({
         message: `图片被点击:${url}`,
         duration: 1500,
@@ -48,9 +48,9 @@ export default class EntryAbility extends UIAbility {
       })
     }
 
-    markConfig.registerLinkClick = (url: string, text: string) => {
+    markConfig.registerLinkClick = (url?: string) => {
       promptAction.showToast({
-        message: `[${text}]的超链接被点击----url:${url}`,
+        message: `超链接被点击----url:${url}`,
         duration: 1500,
         bottom: "center",
       })

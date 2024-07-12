@@ -20,6 +20,7 @@ export namespace markConfig {
 
   // 自定义的block渲染
   export let customBlockBuilder: WrappedBuilder<[string, Token]>
+
   // 自定义的inline渲染
   export let customInlineBuilder: WrappedBuilder<[string, Token]>
 
@@ -38,13 +39,12 @@ export namespace markConfig {
   }
 
 
-
   export let registerImageClick: ImageClick
 
   export let registerLinkClick: LinkClick
 }
 
 
-type ImageClick = (imageUrl: string) => void
+type ImageClick = (url?: string) => void
 
-type LinkClick = (url: string, text: string) => void
+type LinkClick = (url?: string) => void

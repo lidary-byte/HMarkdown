@@ -90,6 +90,8 @@ struct Index {
         Markdown({
           content: this.text,
           markConfig: this.markConfig
+        }).onClick(() => {
+          console.error('---------点击拦截')
         })
           .padding(16)
       }
