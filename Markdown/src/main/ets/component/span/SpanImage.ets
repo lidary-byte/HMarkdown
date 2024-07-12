@@ -19,7 +19,6 @@ export struct SpanImage {
       // .height(this.imgHeight)
       .width('100%')
       .objectFit(this.config.theme?.image?.objectFit)
-      .backgroundColor(Color.Orange)
       .onClick(() => {
         markConfig.registerImageClick(this.href)
       })
