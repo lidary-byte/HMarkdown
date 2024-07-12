@@ -4,8 +4,8 @@
  * @Description:
  */
 
-export const KEY_THEME = 'theme'
+export const KEY_THEME = 'mark_theme'
 
-export const KEY_LINE_SPACE = 'line_space'
+export const KEY_LINE_SPACE = 'mark_line_space'
 
-export const KEY_DEFAULT_FONT = 'default_font'
+export const KEY_DEFAULT_FONT = 'mark_font_style'

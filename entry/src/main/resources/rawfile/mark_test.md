@@ -44,7 +44,7 @@ $$
 + **2011**年7月19日，因被控从MIT和JSTOR下载480万篇学术论文并以免费形式上传于网络被捕。
 + **2013**年1月自杀身亡。
 
-![Aaron Swartz](https://github.com/younghz/Markdown/raw/master/resource/Aaron_Swartz.jpg)
+![Aaron Swartz](https://img1.baidu.com/it/u=687905698,132062380&fm=253&app=120&size=w931&n=0&f=JPEG&fmt=auto?sec=1720890000&t=6b1c14b6a1896a3570ce4ac007d9ce17)
 
 天才都有早逝的归途。
 

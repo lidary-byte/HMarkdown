@@ -5,24 +5,18 @@
  */
 import { defaultTheme } from './config/DefaultTheme'
 import { MarkdownTheme } from './config/MarkdownTheme'
-import { marked, Token, TokenizerExtension } from './core'
+import { marked, TokenizerExtension, Tokens } from './core'
 
 
 export namespace markConfig {
 
-
-  // export let globalConfig: IMarkConfig = {
-  //   lineSpace: 4,
-  //   textLineSpace: new LengthMetrics(4),
-  //   theme: defaultTheme
-  // }
   export let theme: MarkdownTheme = defaultTheme
 
   // 自定义的block渲染
-  export let customBlockBuilder: WrappedBuilder<[string, Token]>
+  export let customBlockBuilder: WrappedBuilder<[string, Tokens.Generic, ESObject]>
 
   // 自定义的inline渲染
-  export let customInlineBuilder: WrappedBuilder<[string, Token]>
+  export let customInlineBuilder: WrappedBuilder<[string, Tokens.Generic, ESObject]>
 
 
   export function addPlugin(plugins: TokenizerExtension[]) {

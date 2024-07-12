@@ -5,14 +5,18 @@ import { Hr } from './component/Hr'
 import { MList } from './component/MList'
 import { Paragraph } from './component/Paragraph'
 import { Table } from './component/Table'
-import { KEY_LINE_SPACE } from './config/Constant'
+import { KEY_DEFAULT_FONT, KEY_LINE_SPACE, KEY_THEME } from './config/Constant'
+import { MarkdownFontStyle, MarkdownTheme } from './config/MarkdownTheme'
 import { Token, Tokens } from './core'
 import { markConfig } from './Index'
 
 @Component
 export struct MarkdownComponent {
   tokenList: Token[] = []
+  @StorageLink(KEY_THEME) theme?: MarkdownTheme = undefined
   @StorageLink(KEY_LINE_SPACE) lineSpace?: number = undefined
+  @StorageLink(KEY_DEFAULT_FONT) fontStyle?: MarkdownFontStyle = undefined
+
   build() {
     Column({ space: this.lineSpace }) {
       ForEach(this.tokenList, (token: Token) => {
@@ -41,7 +45,7 @@ export struct MarkdownComponent {
             token: token as Tokens.Table
           })
         } else {
-          markConfig.customBlockBuilder.builder(token.type, token)
+          markConfig.customBlockBuilder.builder(token.type, token, this)
         }
         // else if (item.type === 'html') {
         //     //   RichText((item as Tokens.HTML).text)

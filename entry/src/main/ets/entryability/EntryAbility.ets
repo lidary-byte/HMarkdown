@@ -1,15 +1,16 @@
 import { AbilityConstant, UIAbility, Want } from '@kit.AbilityKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { promptAction, window } from '@kit.ArkUI';
-import { markConfig, Token } from '@lidary/markdown';
+import { markConfig, Tokens } from '@lidary/markdown';
 import { latexBlock, latexInline } from '../Plugin';
 
 @Builder
-function BlockBuilder(type: string, token: Token) {
+function BlockBuilder(type: string, token: Tokens.Generic, that: ESObject) {
   if (type === 'blockKatex') {
     // 可以将token.text交给后台生成svg处理
     Row() {
       Image($r('app.media.latex_test'))
+        .fillColor(that.fontStyle?.fontColor)
         .height(40)
     }.width('100%')
     .justifyContent(FlexAlign.Center)
@@ -17,7 +18,7 @@ function BlockBuilder(type: string, token: Token) {
 }
 
 @Builder
-function InlineBuilder(type: string, token: Token) {
+function InlineBuilder(type: string, token: Tokens.Generic, that: ESObject) {
   if (type === 'inlineKatex') {
     // 可以将token.text交给后台生成svg处理
     ImageSpan($r('app.media.latex_test'))
