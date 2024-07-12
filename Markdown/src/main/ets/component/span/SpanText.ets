@@ -31,6 +31,7 @@ export function SpanText(tokens: Token[] = [], that: ESObject, isLink?: boolean,
     } else if (tokenItem.type === 'em') {
       Span(tokenItem.text)
         .fontColor(isLink ? that.config.theme?.link?.fontColor : that.config.theme?.defaultFont?.fontColor)
+        .fontStyle(FontStyle.Italic)
         .onClick(() => {
           onSpanClick?.(tokenItem.text)
         })
