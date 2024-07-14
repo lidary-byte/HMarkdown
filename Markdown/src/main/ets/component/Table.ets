@@ -31,13 +31,18 @@ export struct Table {
   @Consume(KEY_THEME) theme: MarkdownTheme
 
   build() {
-    Column() {
-      TableHeader({ tokens: this.token?.header, itemMaxWidth: this.itemMaxWidth })
-      TableDivider(false, true, this.theme?.blockQuote?.backgroundColor)
-      TableBody({ tokens: this.token?.rows, itemMaxWidth: this.itemMaxWidth })
-    }.alignItems(HorizontalAlign.Start)
+
+    Scroll() {
+      Column() {
+        TableHeader({ tokens: this.token?.header, itemMaxWidth: this.itemMaxWidth })
+        TableBody({ tokens: this.token?.rows, itemMaxWidth: this.itemMaxWidth })
+      }.alignItems(HorizontalAlign.Start)
+    }
+    .scrollable(ScrollDirection.Horizontal)
+    .scrollBar(BarState.Off)
     .borderWidth(1.5)
     .borderColor(this.theme?.blockQuote?.backgroundColor)
+
   }
 }
 
@@ -48,19 +53,84 @@ export struct TableHeader {
   @Link itemMaxWidth: Map<number, number>
   @Consume(KEY_FONT_STYLE) fontStyle: MarkdownFontStyle
   @Consume(KEY_THEME) theme: MarkdownTheme
+
   build() {
 
-    Scroll() {
-      Row() {
-        ForEach(this.tokens, (item: Tokens.TableCell, index: number) => {
-          Text(item.text)
-            .fontWeight(FontWeight.Bold)
+    Row() {
+      ForEach(this.tokens, (item: Tokens.TableCell, index: number) => {
+
+
+        Text(item.text)
+          .fontWeight(FontWeight.Bold)
+          .textAlign(textAlign(item.align))
+          .padding({
+            top: 10,
+            bottom: 10,
+            left: 8,
+            right: 8
+          })
+          .maxLines(1)
+          .width(this.itemMaxWidth[index])
+          .fontColor(this.fontStyle?.fontColor)
+          .fontSize(this.fontStyle?.fontSize)
+          .onSizeChange((_: SizeOptions, newValue: SizeOptions) => {
+            const width: number = this.itemMaxWidth[index]
+            if (typeof newValue.width === 'number') {
+              if (!width) {
+                this.itemMaxWidth[index] = newValue.width + defaultHorPadding
+              } else {
+                if (newValue.width > width) {
+                  this.itemMaxWidth[index] = newValue.width + defaultHorPadding
+                }
+              }
+            }
+          })
+
+
+        if (index != this.tokens.length - 1) {
+          Divider().color(this.theme?.blockQuote?.backgroundColor)
+            .strokeWidth(1.5)
+            .vertical(true)
+        }
+      })
+    }.border({
+      width: {
+        bottom: 1.5
+      },
+      color: this.theme?.blockQuote?.backgroundColor
+    })
+    .height(itemLineHeight)
+  }
+}
+
+
+@Component
+struct TableBody {
+  tokens: Tokens.TableCell[][] = []
+  @Link itemMaxWidth: Map<number, number>
+  @Consume(KEY_THEME) theme?: MarkdownTheme
+  @Consume(KEY_FONT_STYLE) fontStyle?: MarkdownFontStyle
+
+  build() {
+    Column() {
+      ForEach(this.tokens, (row: Tokens.TableCell[], index: number) => {
+
+        Row() {
+          ForEach(row, (item: Tokens.TableCell, index: number) => {
+            Text() {
+              SpanText(item.tokens, this)
+            }
             .textAlign(textAlign(item.align))
-            .padding({ top: 10, bottom: 10 })
-            .maxLines(1)
-            .width(this.itemMaxWidth[index])
             .fontColor(this.fontStyle?.fontColor)
+            .padding({
+              top: 10,
+              bottom: 10,
+              left: 8,
+              right: 8
+            })
+            .maxLines(1)
             .fontSize(this.fontStyle?.fontSize)
+            .width(this.itemMaxWidth[index])
             .onSizeChange((_: SizeOptions, newValue: SizeOptions) => {
               const width: number = this.itemMaxWidth[index]
               if (typeof newValue.width === 'number') {
@@ -74,69 +144,23 @@ export struct TableHeader {
               }
             })
 
-          TableDivider(true, index != this.tokens.length - 1, this.theme?.blockQuote?.backgroundColor)
-        })
-      }
-    }.scrollable(ScrollDirection.Horizontal)
-    .height(itemLineHeight)
-    .scrollBar(BarState.Off)
+            if (index != row.length - 1) {
+              Divider().color(this.theme?.blockQuote?.backgroundColor)
+                .strokeWidth(1.5)
+                .vertical(true)
+            }
 
-  }
-}
+          })
+        }
 
-
-@Component
-struct TableBody {
-  tokens: Tokens.TableCell[][] = []
-  @Link itemMaxWidth: Map<number, number>
-  @Consume(KEY_THEME) theme?: MarkdownTheme
-  @Consume(KEY_FONT_STYLE) fontStyle?: MarkdownFontStyle
-  build() {
-    Column() {
-      ForEach(this.tokens, (row: Tokens.TableCell[], index: number) => {
-        Scroll() {
-          Row() {
-            ForEach(row, (item: Tokens.TableCell, index: number) => {
-              Text() {
-                SpanText(item.tokens, this)
-              }
-              .textAlign(textAlign(item.align))
-              .fontColor(this.fontStyle?.fontColor)
-              .padding({ top: 10, bottom: 10 })
-              .maxLines(1)
-              .fontSize(this.fontStyle?.fontSize)
-              .width(this.itemMaxWidth[index])
-              .onSizeChange((_: SizeOptions, newValue: SizeOptions) => {
-                const width: number = this.itemMaxWidth[index]
-                if (typeof newValue.width === 'number') {
-                  if (!width) {
-                    this.itemMaxWidth[index] = newValue.width + defaultHorPadding
-                  } else {
-                    if (newValue.width > width) {
-                      this.itemMaxWidth[index] = newValue.width + defaultHorPadding
-                    }
-                  }
-                }
-              })
-
-              TableDivider(true, index != row.length - 1, this.theme?.blockQuote?.backgroundColor)
-            })
-          }
-        }.scrollBar(BarState.Off)
-        .scrollable(ScrollDirection.Horizontal)
         .height(itemLineHeight)
-
-        TableDivider(false, index != this.tokens.length - 1, this.theme?.blockQuote?.backgroundColor)
+        .border({
+          width: {
+            bottom: 1.5
+          },
+          color: this.theme?.blockQuote?.backgroundColor
+        })
       })
     }
-  }
-}
-
-@Builder
-function TableDivider(vertical: boolean, isShow: boolean, color?: ResourceColor) {
-  if (isShow) {
-    Divider().color(color)
-      .strokeWidth(1.5)
-      .vertical(vertical)
   }
 }
