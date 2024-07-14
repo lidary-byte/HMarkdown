@@ -1,7 +1,7 @@
 # 更新日志
 
 ## v1.0.2
-1.新增textLineSpace属性以实现Text内行间距
+1.Tab滚动优化(现在可以整体横向滚动了)
 
 ## v1.0.1
 1. 修复theme,fontStyle等属性无法动态更新bug
