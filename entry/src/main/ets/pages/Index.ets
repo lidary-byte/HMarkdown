@@ -1,4 +1,4 @@
-import { Markdown, MarkdownTheme } from '@lidary/markdown';
+import { Markdown } from '@lidary/markdown';
 import { common } from '@kit.AbilityKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { util } from '@kit.ArkTS';

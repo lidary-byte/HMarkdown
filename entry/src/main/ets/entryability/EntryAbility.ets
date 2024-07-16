@@ -21,7 +21,7 @@ function BlockBuilder(type: string, token: Tokens.Generic, that: ESObject) {
 function InlineBuilder(type: string, token: Tokens.Generic, that: ESObject) {
   if (type === 'inlineKatex') {
     // 可以将token.text交给后台生成svg处理
-    ImageSpan($r('app.media.latex_test'))
+    ImageSpan($r('app.media.latex_test1'))
       .height(40)
       .verticalAlign(ImageSpanAlignment.CENTER)
   }
