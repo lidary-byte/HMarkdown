@@ -13,10 +13,12 @@ import { LengthMetrics } from '@ohos.arkui.node'
 @Component
 export struct Inline {
   token?: Token[]
+  maxLine?: number
   @Consume(KEY_FONT_STYLE) fontStyle: MarkdownFontStyle
   @Consume(KEY_LINE_SPACE) lineSpace: number
   @Consume(KEY_THEME) theme: MarkdownTheme
   @Consume(KEY_TEXT_LINE_SPACE) textLineSpace: number
+
   build() {
     Row() {
       Text() {
@@ -25,6 +27,8 @@ export struct Inline {
       .fontColor(this.fontStyle?.fontColor)
       .fontSize(this.fontStyle?.fontSize)
       .fontWeight(this.fontStyle?.fontWeight)
+      .maxLines(this.maxLine)
+      .textOverflow({ overflow: TextOverflow.Ellipsis })
       .lineSpacing(new LengthMetrics(this.textLineSpace))
     }
   }
