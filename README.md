@@ -8,7 +8,7 @@
 
 1. 支持主题的动态修改
 2. 支持通过插件自定义解析及渲染(**demo内实现了数学公式的插件逻辑**)
-
+3. 依赖[**HmdConv**](https://ohpm.openharmony.cn/#/cn/detail/@rv%2Fhmd-conv)以支持html解析
 ---
 
 ## 参数
