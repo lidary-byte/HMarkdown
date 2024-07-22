@@ -1,6 +1,6 @@
 import { marked, Token } from './core'
 import { MarkdownComponent } from './MarkdownComponent'
-import { defaultTheme, mergeTheme } from './config/DefaultTheme'
+import { mergeTheme } from './config/DefaultTheme'
 import { MarkdownFontStyle, MarkdownTheme } from './config/MarkdownTheme'
 import { KEY_FONT_STYLE, KEY_LINE_SPACE, KEY_TEXT_LINE_SPACE, KEY_THEME } from './config/Constant'
 import { markConfig } from './Index'
