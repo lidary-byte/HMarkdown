@@ -5,13 +5,20 @@
   "main": "Index.ets",
   "author": "lidary",
   "keywords": [
-    'Markdown',
-    '富文本',
-    '解析',
-    'Latex'
+    "Markdown",
+    "富文本",
+    "解析",
+    "Latex"
   ],
   "license": "MIT",
   "homepage": "https://github.com/lidary-byte/HMarkdown",
   "repository": "https://github.com/lidary-byte/HMarkdown",
-  "dependencies": {}
+  "dependencies": {
+    "@ohos/htmlparser2": "^1.0.0",
+    "domhandler": "^5.0.3",
+    "dom-serializer": "^2.0.0",
+    "@rv/hmd-conv": "^1.0.1"
+  },
+  "devDependencies": {},
+  "dynamicDependencies": {}
 }
