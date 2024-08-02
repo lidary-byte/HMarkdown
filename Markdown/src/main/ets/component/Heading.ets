@@ -6,13 +6,13 @@ import { LengthMetrics } from '@ohos.arkui.node'
 
 @Component
 export struct Heading {
-  token?: Tokens.Heading
+  @Prop token: Tokens.Heading
   @State headingFontStyle?: HeadingTheme = undefined
-
   @Consume(KEY_FONT_STYLE) fontStyle: MarkdownFontStyle
   @Consume(KEY_THEME) theme: MarkdownTheme
   @Consume(KEY_LINE_SPACE) lineSpace: number
   @Consume(KEY_TEXT_LINE_SPACE) textLineSpace: number
+
   aboutToAppear(): void {
     if (this.token?.depth == 1) {
       this.headingFontStyle = this.theme?.h1

@@ -58,9 +58,9 @@ export struct Markdown {
 
   build() {
     Stack({ alignContent: Alignment.TopStart }) {
-      if (this.tokenList.length !== 0) {
+      // if (this.tokenList.length !== 0) {
         MarkdownComponent({ tokenList: this.tokenList })
-      }
+      // }
     }
   }
 }

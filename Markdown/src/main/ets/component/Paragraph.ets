@@ -8,7 +8,7 @@ import { Inline } from './Inline'
 
 @Component
 export struct Paragraph {
-  token?: Tokens.Paragraph
+  @Prop token: Tokens.Paragraph
 
   build() {
     Inline({ token: this.token?.tokens })

@@ -25,7 +25,7 @@ function textAlign(align?: 'center' | 'left' | 'right' | null) {
 
 @Component
 export struct Table {
-  token?: Tokens.Table
+  @Prop token: Tokens.Table
   // 每一列最大宽度
   @State itemMaxWidth: Map<number, number> = new Map()
   @Consume(KEY_THEME) theme: MarkdownTheme

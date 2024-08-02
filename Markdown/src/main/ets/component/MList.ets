@@ -9,7 +9,7 @@ import { Inline } from './Inline'
 
 @Component
 export struct MList {
-  tokens?: Tokens.List
+  @Prop tokens: Tokens.List
 
   @Consume(KEY_LINE_SPACE) lineSpace: number
   build() {

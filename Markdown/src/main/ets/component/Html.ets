@@ -9,7 +9,7 @@ import { MarkdownComponent } from '../MarkdownComponent'
 
 @Component
 export struct Html {
-  html: string = ''
+  @Prop html: string
   @State tokenList: Token[] = []
 
   aboutToAppear(): void {
