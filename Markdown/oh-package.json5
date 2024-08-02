@@ -1,6 +1,6 @@
 {
   "name": "@lidary/markdown",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "基于鸿蒙的Markdown解析库",
   "main": "Index.ets",
   "author": "lidary",
@@ -11,7 +11,7 @@
     "Latex"
   ],
   "license": "MIT",
-  "homepage": "https://github.com/lidary-byte/HMarkdown",
+  "homepage": "https://github.com/lidary-byte",
   "repository": "https://github.com/lidary-byte/HMarkdown",
   "dependencies": {
     "@ohos/htmlparser2": "^1.0.0",
