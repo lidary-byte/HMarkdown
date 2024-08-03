@@ -1,5 +1,10 @@
 # 更新日志
 
+## v1.0.6
+1. 更改无序列表对其方式 [#2](https://github.com/lidary-byte/HMarkdown/issues/2)
+2. 对实体字符进行清理 [#3](https://github.com/lidary-byte/HMarkdown/issues/3)
+
+
 ## v1.0.5
 1. 修复纯文本不显示bug
 2. 修复内容无法动态更新bug [#1](https://github.com/lidary-byte/HMarkdown/issues/1)
