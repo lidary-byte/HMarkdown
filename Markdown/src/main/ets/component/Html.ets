@@ -4,8 +4,9 @@
  * @Description:
  */
 import { HmdConv } from '@rv/hmd-conv'
-import { marked, Token } from '../core'
+import { Token } from '../core'
 import { MarkdownComponent } from '../MarkdownComponent'
+import { parseMarkdown } from '../utils'
 
 @Component
 export struct Html {
@@ -14,7 +15,7 @@ export struct Html {
 
   aboutToAppear(): void {
     const md = new HmdConv().html2md(this.html)
-    this.tokenList = marked.lexer(md)
+    this.tokenList = parseMarkdown(md)
   }
 
   build() {

@@ -5,6 +5,7 @@
  */
 import { Token } from '../../core'
 import { markConfig } from '../../Index'
+import { clearMarkdown } from '../../utils'
 import { SpanImage } from './SpanImage'
 
 @Builder
@@ -16,22 +17,22 @@ export function SpanText(tokens: Token[] = [], that: ESObject, isLink?: boolean,
     } else if (tokenItem.type === 'br') {
       Span('\n')
     } else if (tokenItem.type === 'strong') {
-      Span(tokenItem.text)
+      Span(clearMarkdown(tokenItem.text))
         .fontWeight(FontWeight.Bold)
         .fontColor(isLink ? that.theme?.link?.fontColor : that.fontStyle?.fontColor)
         .onClick(onSpanClick)
     } else if (tokenItem.type === 'text') {
-      Span(tokenItem.text)
+      Span(clearMarkdown(tokenItem.text))
         .fontColor(isLink ? that.theme?.link?.fontColor : that.fontStyle?.fontColor)
         .onClick(onSpanClick)
     } else if (tokenItem.type === 'em') {
-      Span(tokenItem.text)
+      Span(clearMarkdown(tokenItem.text))
         .fontColor(isLink ? that.theme?.link?.fontColor : that.fontStyle?.fontColor)
         .fontStyle(FontStyle.Italic)
         .onClick(onSpanClick)
     } else if (tokenItem.type === 'codespan') {
       ContainerSpan() {
-        Span(` ${tokenItem.text} `)
+        Span(` ${clearMarkdown(tokenItem.text)} `)
           .fontColor(isLink ? that.theme?.link?.fontColor : that.fontStyle?.fontColor)
           .onClick(onSpanClick)
       }.textBackgroundStyle({
