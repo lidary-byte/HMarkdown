@@ -10,9 +10,8 @@ import { MarkdownComponent } from '../MarkdownComponent'
 
 @Component
 export struct BlockQuote {
-  token?: Tokens.Blockquote
+  @Prop token: Tokens.Blockquote
   @State blockHeight: Length = 0
-
   @Consume(KEY_THEME) theme: MarkdownTheme
   @Consume(KEY_LINE_SPACE) lineSpace: number
 
@@ -20,18 +19,18 @@ export struct BlockQuote {
     Row() {
       Divider()
         .vertical(true)
-        .strokeWidth( this.theme?.blockQuote?.driveWidth ?? 0)
+        .strokeWidth(this.theme?.blockQuote?.driveWidth ?? 0)
         .height(this.blockHeight)
-        .color( this.theme?.blockQuote?.driveColor ??  this.theme?.themeColor)
+        .color(this.theme?.blockQuote?.driveColor ?? this.theme?.themeColor)
       MarkdownComponent({ tokenList: this.token?.tokens })
         .margin({ left: 10, right: 20 })
         .layoutWeight(1)
-        .padding({ top:  this.lineSpace, bottom:  this.lineSpace })
+        .padding({ top: this.lineSpace, bottom: this.lineSpace })
     }
-    .backgroundColor( this.theme?.blockQuote?.backgroundColor)
+    .backgroundColor(this.theme?.blockQuote?.backgroundColor)
     .borderRadius({
-      topLeft:  this.theme?.blockQuote?.borderRadius,
-      bottomLeft:  this.theme?.blockQuote?.borderRadius
+      topLeft: this.theme?.blockQuote?.borderRadius,
+      bottomLeft: this.theme?.blockQuote?.borderRadius
     })
     .clip(true)
     .onSizeChange((_: SizeOptions, newValue: SizeOptions) => {

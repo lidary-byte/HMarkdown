@@ -12,8 +12,8 @@ import { LengthMetrics } from '@ohos.arkui.node'
 
 @Component
 export struct Inline {
-  token?: Token[]
   maxLine?: number
+  @Prop token: Token[]
   @Consume(KEY_FONT_STYLE) fontStyle: MarkdownFontStyle
   @Consume(KEY_LINE_SPACE) lineSpace: number
   @Consume(KEY_THEME) theme: MarkdownTheme

@@ -2,6 +2,8 @@ import { BlockQuote } from './component/BlockQuote'
 import { Code } from './component/Code'
 import { Heading } from './component/Heading'
 import { Hr } from './component/Hr'
+import { Html } from './component/Html'
+import { Inline } from './component/Inline'
 import { MList } from './component/MList'
 import { Paragraph } from './component/Paragraph'
 import { Table } from './component/Table'
@@ -12,7 +14,7 @@ import { markConfig } from './Index'
 
 @Component
 export struct MarkdownComponent {
-  tokenList: Token[] = []
+  @Prop tokenList: Token[]
   @Consume(KEY_THEME) theme: MarkdownTheme
   @Consume(KEY_LINE_SPACE) lineSpace: number
   @Consume(KEY_FONT_STYLE) fontStyle: MarkdownFontStyle
@@ -40,24 +42,19 @@ export struct MarkdownComponent {
           MList({
             tokens: token as Tokens.List
           })
+        } else if (token.type === 'text') {
+          Inline({
+            token: (this.tokenList[0] as Tokens.Text).tokens
+          })
         } else if (token.type === 'table') {
           Table({
             token: token as Tokens.Table
           })
+        } else if (token.type === 'html') {
+          Html({ html: token.text })
         } else {
           markConfig.customBlockBuilder.builder(token.type, token, this)
         }
-        // else if (item.type === 'html') {
-        //     //   RichText((item as Tokens.HTML).text)
-        //     //     .margin({
-        //     //       top: style.base.space,
-        //     //       bottom: style.base.space
-        //     //     })
-        //   } else if (token.type === 'text') {
-        //     // Inline({
-        //     //   token: token
-        //     // })
-        //   }
       }
       )
     }

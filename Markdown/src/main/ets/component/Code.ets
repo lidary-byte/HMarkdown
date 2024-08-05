@@ -12,7 +12,7 @@ import { MarkdownFontStyle, MarkdownTheme } from '../config/MarkdownTheme'
 
 @Component
 export struct Code {
-  token?: Tokens.Code
+  @Prop token: Tokens.Code
   private codes: string[] = []
   private codeLineHeight: number = 25
   @Consume(KEY_FONT_STYLE) fontStyle: MarkdownFontStyle

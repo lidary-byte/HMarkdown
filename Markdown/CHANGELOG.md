@@ -1,10 +1,23 @@
 # 更新日志
 
+## v1.0.6
+1. 更改无序列表对其方式 [#2](https://github.com/lidary-byte/HMarkdown/issues/2)
+2. 对实体字符进行清理 [#3](https://github.com/lidary-byte/HMarkdown/issues/3)
+
+
+## v1.0.5
+1. 修复纯文本不显示bug
+2. 修复内容无法动态更新bug [#1](https://github.com/lidary-byte/HMarkdown/issues/1)
+
+## v1.0.4
+1. 支持html解析
+2. 文档优化
+
 ## v1.0.3
 Image渲染宽高改为图片宽高
 
 ## v1.0.2
-1.Tab滚动优化(现在可以整体横向滚动了)
+1.Table滚动优化(现在可以整体横向滚动了)
 
 ## v1.0.1
 1. 修复theme,fontStyle等属性无法动态更新bug
@@ -17,3 +30,4 @@ Image渲染宽高改为图片宽高
 ## v1.0.0
 
 基本解析，渲染功能实现
+

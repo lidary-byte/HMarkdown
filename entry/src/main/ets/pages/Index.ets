@@ -33,9 +33,19 @@ struct Index {
 
   build() {
     Column() {
-      Button(this.isDark ? '亮色主题' : '暗色主题').onClick(() => {
-        this.isDark = !this.isDark
-      })
+      Row() {
+        Button(this.isDark ? '亮色主题' : '暗色主题').onClick(() => {
+          this.isDark = !this.isDark
+        })
+        Button('文本内容切换').onClick(() => {
+          if (this.text === '切换后的文本') {
+            this.readFile(getContext(this) as common.UIAbilityContext)
+          } else {
+            this.text = '切换后的文本'
+          }
+        })
+      }
+
       Scroll() {
         MarkdownLite({
           content: this.text,

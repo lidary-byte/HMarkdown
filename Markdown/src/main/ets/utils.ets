@@ -5,6 +5,31 @@
  */
 import { promptAction } from '@kit.ArkUI';
 import { BusinessError, pasteboard } from '@kit.BasicServicesKit';
+import { marked, Token } from './core';
+
+
+/**
+ * 清理实体字符
+ * @param content
+ * @returns
+ */
+export function clearMarkdown(content: string) {
+  return content.replaceAll('&amp;', '&')
+    .replaceAll('&lt;', '<')
+    .replaceAll('&gt;', '>')
+    .replaceAll('&quot;', '"')
+    .replaceAll('&#39;', '""')
+}
+
+export function parseMarkdown(content: string): Token[] {
+  if (content) {
+    return marked.lexer(content, {
+      async: true,
+      gfm: true,
+    })
+  }
+  return []
+}
 
 export async function copyToPasteboard(text?: string) {
   if (!text) {

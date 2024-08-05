@@ -2,6 +2,9 @@
 
 基于鸿蒙的markdown渲染库
 
+
+&quot;flask实体字符测试&quot;
+
 # 公式测试
 
 这是行间公式:
@@ -156,17 +159,17 @@ function main(): number {
 **注意**：标记后面最少有一个_空格_或_制表符_。若不在引用区块中，必须和前方段落之间存在空行。
 
 效果：
-> + 第一项
+> + 第一项第一项第一项第一项第一项第一项第一项第一项第一项
 > + 第二项
 > + 第三项
 
 有序列表的标记方式是将上述的符号换成数字,并辅以`.`，如：
-> 1 . 第一项   
+> 1 . 第一项第一项第一项第一项第一项第一项第一项第一项第一项第一项第一项第一项第一项第一项第一项第一项      
 > 2 . 第二项    
 > 3 . 第三项
 
 效果：
-> 1. 第一项
+> 1. 第一项第一项第一项第一项第一项第一项第一项第一项第一项第一项第一项第一项第一项第一项第一项第一项第一项第一项
 > 2. 第二项
 > 3. 第三项
 
@@ -255,3 +258,107 @@ Markdown的使用者：
 | MarkDownCopy | [https://github.com/younghz/Markdown](https://github.com/younghz/Markdown "Markdown") |           google.com 
 
 关于其它扩展语法可参见具体工具的使用说明。
+
+## HTML内容
+<blockquote><p>微信公众号排版工具。问题或建议，请公众号留言。<strong><a href='#jump_8'>程序员翻身</a></strong></p>
+</blockquote>
+<p>建议使用 <strong>Chrome</strong> 浏览器，体验最佳效果。</p>
+<p>使用微信公众号编辑器有一个十分头疼的问题：粘贴出来的代码，格式错乱，空间小还带行号，而且特别丑。Markdown.com.cn编辑器能够解决这个问题。</p>
+<p>Markdown是一种轻量级的「标记语言」。</p>
+<p>请阅读下方文本熟悉工具使用方法，本文可直接拷贝到微信中预览。</p>
+<h2 id='1-markdowncomcn-简介'>1 Markdown.com.cn 简介</h2>
+<ul>
+<li>支持自定义样式的 Markdown 编辑器</li>
+<li>支持微信公众号、知乎和稀土掘金</li>
+<li>点击右上方对应图标，一键复制到各平台</li>
+
+</ul>
+<h2 id='2-markdown语法教程'>2 Markdown语法教程</h2>
+<h3 id='21-标题'>2.1 标题</h3>
+<p>不同数量的<code>#</code>可以完成不同的标题，如下：</p>
+<h1 id='一级标题'>一级标题</h1>
+<h2 id='二级标题'>二级标题</h2>
+<h3 id='三级标题'>三级标题</h3>
+<h3 id='22-字体'>2.2 字体</h3>
+<p>粗体、斜体、粗体和斜体，删除线，需要在文字前后加不同的标记符号。如下：</p>
+<p><strong>这个是粗体</strong></p>
+<p><em>这个是斜体</em></p>
+<p><em><strong>这个是粗体加斜体</strong></em></p>
+<p>~这里想用删除线~~</p>
+<p>注：如果想给字体换颜色、字体或者居中显示，需要使用内嵌HTML来实现。</p>
+<h3 id='23-无序列表'>2.3 无序列表</h3>
+<p>无序列表的使用，在符号<code>-</code>后加空格使用。如下：</p>
+<ul>
+<li>无序列表 1</li>
+<li>无序列表 2</li>
+<li>无序列表 3</li>
+
+</ul>
+<p>如果要控制列表的层级，则需要在符号<code>-</code>前使用空格。如下：</p>
+<ul>
+<li><p>无序列表 1</p>
+</li>
+<li><p>无序列表 2</p>
+<ul>
+<li>无序列表 2.1</li>
+<li>无序列表 2.2</li>
+
+</ul>
+</li>
+
+</ul>
+<p><strong>由于微信原因，最多支持到二级列表</strong>。</p>
+<h3 id='24-有序列表'>2.4 有序列表</h3>
+<p>有序列表的使用，在数字及符号<code>.</code>后加空格后输入内容，如下：</p>
+<ol start='' >
+<li>有序列表 1</li>
+<li>有序列表 2</li>
+<li>有序列表 3</li>
+
+</ol>
+<h3 id='25-引用'>2.5 引用</h3>
+<p>引用的格式是在符号<code>&gt;</code>后面书写文字。如下：</p>
+<blockquote><p>读一本好书，就是在和高尚的人谈话。 ——歌德</p>
+</blockquote>
+<blockquote><p>雇用制度对工人不利，但工人根本无力摆脱这个制度。 ——阮一峰</p>
+</blockquote>
+<h3 id='27-链接'>2.7 链接</h3>
+<p>微信公众号仅支持公众号文章链接，即域名为<code>https://mp.weixin.qq.com/</code>的合法链接。使用方法如下所示：</p>
+<p>对于该论述，欢迎读者查阅之前发过的文章，<a href='https://mp.weixin.qq.com/s/s5IhxV2ooX3JN_X416nidA'>你是《未来世界的幸存者》么？</a>
+<a id="jump_8"></a></p>
+<h3 id='28-图片'>2.8 图片</h3>
+<p>插入图片，格式如下：</p>
+<p><img src="https://www.nginx.cn/wp-content/uploads/2020/03/qrcode_for_gh_82cf87d482f0_258.jpg" referrerpolicy="no-referrer" alt="这里写图片描述"></p>
+<p>支持 jpg、png、gif、svg 等图片格式，<strong>其中 svg 文件仅可在微信公众平台中使用</strong>，svg 文件示例如下：</p>
+<p><img src="https://markdown.com.cn/images/i-am-svg.svg" referrerpolicy="no-referrer"></p>
+<p>支持图片<strong>拖拽和截图粘贴</strong>到编辑器中。</p>
+<p>注：支持图片 <em><strong>拖拽和截图粘贴</strong></em> 到编辑器中，仅支持 https 的图片，图片粘贴到微信时会自动上传微信服务器。</p>
+<h3 id='29-分割线'>2.9 分割线</h3>
+<p>可以在一行中用三个以上的减号来建立一个分隔线，同时需要在分隔线的上面空一行。如下：</p>
+<hr />
+<h3 id='210-表格'>2.10 表格</h3>
+<p>可以使用冒号来定义表格的对齐方式，如下：</p>
+<figure class='table-figure'><table>
+<thead>
+<tr><th style='text-align:left;' >姓名</th><th style='text-align:center;' >年龄</th><th style='text-align:right;' >工作</th></tr></thead>
+<tbody><tr><td style='text-align:left;' >小可爱</td><td style='text-align:center;' >18</td><td style='text-align:right;' >吃可爱多</td></tr><tr><td style='text-align:left;' >小小勇敢</td><td style='text-align:center;' >20</td><td style='text-align:right;' >爬棵勇敢树</td></tr><tr><td style='text-align:left;' >小小小机智</td><td style='text-align:center;' >22</td><td style='text-align:right;' >看一本机智书</td></tr></tbody>
+</table></figure>
+<p>&nbsp;</p>
+<h2 id='3-特殊语法'>3. 特殊语法</h2>
+<h3 id='31-脚注'>3.1 脚注</h3>
+<blockquote><p>支持平台：微信公众号、知乎。</p>
+</blockquote>
+<p>脚注与链接的区别如下所示：</p>
+<pre><code class='language-markdown' lang='markdown'>链接：[文字](链接)
+脚注：[文字](脚注解释 &quot;脚注名字&quot;)
+</code></pre>
+<p>有人认为在<a href='https://en.wikipedia.org/wiki/Front-end_web_development' title='Front-end web development'>大前端时代</a>的背景下，移动端开发（Android、IOS）将逐步退出历史舞台。</p>
+<p><a href='是指掌握多种技能，并能利用多种技能独立完成产品的人。' title='什么是全栈工程师'>全栈工程师</a>在业务开发流程中起到了至关重要的作用。</p>
+<p>脚注内容请拉到最下面观看。</p>
+<h3 id='32-代码块'>3.2 代码块</h3>
+<blockquote><p>支持平台：微信代码主题仅支持微信公众号！其他主题无限制。</p>
+</blockquote>
+<p>如果在一个行内需要引用代码，只要用反引号引起来就好，如下：</p>
+<p>Use the <code>printf()</code> function.</p>
+<p>在需要高亮的代码块的前一行及后一行使用三个反引号，同时<strong>第一行反引号后面表示代码块所使用的语言</strong>，如下：</p>
+<pre><code class='language-java' lang='java'>// FileName: HelloWorld.java

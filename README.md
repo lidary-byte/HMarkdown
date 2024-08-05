@@ -2,24 +2,33 @@
 
 基于[**marked**](https://github.com/markedjs/marked)的鸿蒙端markdown渲染库
 
-![截图](https://github.com/lidary-byte/HMarkdown/blob/main/screen/img.png)
+![截图](https://github.com/lidary-byte/HMarkdown/blob/main/screen/image2.gif)
 
 部分特性:
 
 1. 支持主题的动态修改
 2. 支持通过插件自定义解析及渲染(**demo内实现了数学公式的插件逻辑**)
-
+3. 依赖[**HmdConv**](https://ohpm.openharmony.cn/#/cn/detail/@rv%2Fhmd-conv)以支持html解析
 ---
 
 ## 参数
 
-|      名称       | 是否必传 | 默认值                                                                       |      说明       |
-|:-------------:|:----:|---------------------------------------------------------------------------|:-------------:|
-|    content    |  是   |                                                                           | markdown文本内容  |
-|     theme     |  否   | defaultTheme(参考github的ui)                                                 |  主题，颜色等相关配置   | 
-|   fontStyle   |  否   | {fontColor:   Color.Black,fontSize:   16,fontWeight:   FontWeight.Normal} |     字体样式      | 
-|   lineSpace   |  否   | 0                                                                         |   item之间的间距   | 
-| textLineSpace |  否   | 0                                                                         | item中text的行间距 | 
+|      名称       | 是否必传 | 默认值                     |      说明       |
+|:-------------:|:----:|-------------------------|:-------------:|
+|    content    |  是   |                         | markdown文本内容  |
+|     theme     |  否   | defaultTheme(参考github的ui) |  主题，颜色等相关配置   | 
+|   fontStyle   |  否   | MarkdownFontStyle       |     字体样式      | 
+|   lineSpace   |  否   | 0                       |   item之间的间距   | 
+| textLineSpace |  否   | 0                       | item中text的行间距 | 
+
+### MarkdownFontStyle参数
+
+|      名称       | 是否必传 | 默认值        |      说明       |
+|:-------------:|:----:|------------|:-------------:|
+|   fontColor   |  否   | Color.Black |     字体颜色      |
+|   fontSize    |  否   | 16         |     字体大小      | 
+|   fontWeight   |  否   |    FontWeight.Normal        |     fontWeight      | 
+
 
 ---
 

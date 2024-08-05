@@ -1,9 +1,10 @@
-import { marked, Token } from './core'
+import { Token } from './core'
 import { MarkdownComponent } from './MarkdownComponent'
-import { defaultTheme, mergeTheme } from './config/DefaultTheme'
+import { mergeTheme } from './config/DefaultTheme'
 import { MarkdownFontStyle, MarkdownTheme } from './config/MarkdownTheme'
 import { KEY_FONT_STYLE, KEY_LINE_SPACE, KEY_TEXT_LINE_SPACE, KEY_THEME } from './config/Constant'
 import { markConfig } from './Index'
+import { parseMarkdown } from './utils'
 
 
 @Component
@@ -53,14 +54,14 @@ export struct Markdown {
   }
 
   watchContent() {
-    this.tokenList = marked.lexer(this.content)
+    this.tokenList = parseMarkdown(this.content)
   }
 
   build() {
     Stack({ alignContent: Alignment.TopStart }) {
-      if (this.tokenList.length !== 0) {
-        MarkdownComponent({ tokenList: this.tokenList })
-      }
+      // if (this.tokenList.length !== 0) {
+      MarkdownComponent({ tokenList: this.tokenList })
+      // }
     }
   }
 }
