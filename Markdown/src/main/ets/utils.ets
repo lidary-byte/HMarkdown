@@ -23,10 +23,7 @@ export function clearMarkdown(content: string) {
 
 export function parseMarkdown(content: string): Token[] {
   if (content) {
-    return marked.lexer(content, {
-      async: true,
-      gfm: true,
-    })
+    return marked.lexer(content)
   }
   return []
 }

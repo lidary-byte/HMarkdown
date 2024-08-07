@@ -24,6 +24,10 @@ export namespace markConfig {
   }
 
   export function addPlugin(plugins: TokenizerExtension[]) {
+    marked.setOptions({
+      async: true,
+      gfm: true,
+    })
     marked.use({ extensions: plugins })
   }
 
