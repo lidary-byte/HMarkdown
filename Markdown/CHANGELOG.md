@@ -1,5 +1,9 @@
 # 更新日志
 
+## v1.0.7  [#4](https://github.com/lidary-byte/HMarkdown/issues/4)
+1. 修复有序列表被渲染成无序列表bug 
+2. 修复列表中文字溢出bug
+
 ## v1.0.6
 1. 更改无序列表对其方式 [#2](https://github.com/lidary-byte/HMarkdown/issues/2)
 2. 对实体字符进行清理 [#3](https://github.com/lidary-byte/HMarkdown/issues/3)

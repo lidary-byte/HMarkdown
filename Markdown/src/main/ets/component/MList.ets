@@ -7,7 +7,7 @@ import { KEY_FONT_STYLE, KEY_LINE_SPACE, KEY_TEXT_LINE_SPACE, KEY_THEME } from '
 import { Token, Tokens } from '../core'
 import { Inline } from './Inline'
 import { MarkdownFontStyle, MarkdownTheme } from '../config/MarkdownTheme'
-import { MeasureText } from '@kit.ArkUI'
+import { LengthMetrics, MeasureText } from '@kit.ArkUI'
 
 @Component
 export struct MList {
@@ -17,13 +17,13 @@ export struct MList {
   build() {
 
     Column({ space: this.lineSpace }) {
-      ForEach(this.tokens?.items, (item: Tokens.ListItem) => {
+      ForEach(this.tokens?.items, (item: Tokens.ListItem, index: number) => {
         ForEach(item.tokens, (itemChild: Token) => {
           if (itemChild.type === 'list') {
-            MList({ tokens: itemChild as Tokens.List })
-              .margin({ left: 32 })
+            MList({ tokens: itemChild as Tokens.List  })
+              .padding({ left: 32 })
           } else {
-            UnorderedList({ token: item.tokens[0]['tokens'] })
+            UnorderedList({ token: item.tokens[0]['tokens'], index: typeof this.tokens?.start  === 'number' ? index : undefined })
           }
         })
       })
@@ -42,6 +42,7 @@ struct UnorderedList {
   @Consume(KEY_THEME) theme: MarkdownTheme
   @Consume(KEY_TEXT_LINE_SPACE) textLineSpace: number
   @State marginTop: number = 0
+  @Prop index: number
 
   aboutToAppear(): void {
     this.calcMargin()
@@ -66,11 +67,21 @@ struct UnorderedList {
 
   build() {
     Row({ space: 8 }) {
-      Circle({ width: 6, height: 6 })
-        .margin({ top: this.marginTop })
-        .foregroundColor(this.fontStyle.fontColor)
+      if (this.index !== undefined) {
+        Text(`${this.index + 1}.`)
+          .fontColor(this.fontStyle?.fontColor)
+          .fontSize(this.fontStyle?.fontSize)
+          .fontWeight(this.fontStyle?.fontWeight)
+          .lineSpacing(new LengthMetrics(this.textLineSpace))
+      } else {
+        Circle({ width: 6, height: 6 })
+          .margin({ top: this.marginTop })
+          .foregroundColor(this.fontStyle.fontColor)
+      }
 
       Inline({ token: this.token })
+        .layoutWeight(1)
     }.alignItems(VerticalAlign.Top)
+    .width('100%')
   }
 }
