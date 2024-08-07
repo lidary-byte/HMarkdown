@@ -1,5 +1,8 @@
 # 更新日志
 
+## v1.0.7.1
+修复插件可能加载失败的bug
+
 ## v1.0.7  [#4](https://github.com/lidary-byte/HMarkdown/issues/4)
 1. 修复有序列表被渲染成无序列表bug 
 2. 修复列表中文字溢出bug
