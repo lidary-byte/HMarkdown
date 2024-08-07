@@ -1,4 +1,4 @@
-import { Markdown } from '@lidary/markdown';
+import { Markdown, MarkdownLite } from '@lidary/markdown';
 import { common } from '@kit.AbilityKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { util } from '@kit.ArkTS';
@@ -47,8 +47,9 @@ struct Index {
       }
 
       Scroll() {
-        Markdown({
+        MarkdownLite({
           content: this.text,
+          maxLine: 4,
           lineSpace: 6,
           theme: {
             themeColor: Color.Orange,
