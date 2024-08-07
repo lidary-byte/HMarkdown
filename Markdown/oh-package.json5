@@ -1,6 +1,6 @@
 {
   "name": "@lidary/markdown",
-  "version": "1.0.7.1",
+  "version": "1.0.8",
   "description": "基于鸿蒙的Markdown解析库",
   "main": "Index.ets",
   "author": "lidary",

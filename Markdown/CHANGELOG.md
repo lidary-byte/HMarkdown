@@ -1,6 +1,6 @@
 # 更新日志
 
-## v1.0.7.1
+## v1.0.8
 修复插件可能加载失败的bug
 
 ## v1.0.7  [#4](https://github.com/lidary-byte/HMarkdown/issues/4)
