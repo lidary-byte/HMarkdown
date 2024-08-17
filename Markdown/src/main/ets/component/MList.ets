@@ -8,6 +8,7 @@ import { Token, Tokens } from '../core'
 import { Inline } from './Inline'
 import { MarkdownFontStyle, MarkdownTheme } from '../config/MarkdownTheme'
 import { LengthMetrics, MeasureText } from '@kit.ArkUI'
+import { isFirstCharDigit } from '../utils'
 
 @Component
 export struct MList {
@@ -20,14 +21,19 @@ export struct MList {
       ForEach(this.tokens?.items, (item: Tokens.ListItem, index: number) => {
         ForEach(item.tokens, (itemChild: Token) => {
           if (itemChild.type === 'list') {
-            MList({ tokens: itemChild as Tokens.List  })
+            MList({ tokens: itemChild as Tokens.List })
               .padding({ left: 32 })
           } else {
-            UnorderedList({ token: item.tokens[0]['tokens'], index: typeof this.tokens?.start  === 'number' ? index : undefined })
+            UnorderedList({
+              token: item.tokens[0]['tokens'],
+              index: isFirstCharDigit(item.raw.trimStart()) ? Number(item.raw.trimStart().charAt(0)) :
+                undefined
+            })
           }
         })
-      })
+      }, (item: Tokens.ListItem) => item.raw)
     }.alignItems(HorizontalAlign.Start)
+
   }
 }
 
@@ -60,19 +66,18 @@ struct UnorderedList {
     }).height
 
     if (textHeight && typeof textHeight === 'number') {
-      this.marginTop = px2vp(textHeight / 2 - vp2px(6) / 2)
+      this.marginTop = px2vp(textHeight / 2)
     }
-    // console.error('-------行高:' + firstLineSize.height)
   }
 
   build() {
     Row({ space: 8 }) {
       if (this.index !== undefined) {
-        Text(`${this.index + 1}.`)
+        Text(`${this.index}.`)
           .fontColor(this.fontStyle?.fontColor)
           .fontSize(this.fontStyle?.fontSize)
           .fontWeight(this.fontStyle?.fontWeight)
-          .lineSpacing(new LengthMetrics(this.textLineSpace))
+          .lineSpacing(LengthMetrics.vp(this.textLineSpace))
       } else {
         Circle({ width: 6, height: 6 })
           .margin({ top: this.marginTop })

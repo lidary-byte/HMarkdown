@@ -21,6 +21,18 @@ export function clearMarkdown(content: string) {
     .replaceAll('&#39;', '""')
 }
 
+/**
+ * 判断字符串的第一个字符是否为数字
+ * @param str 要检查的字符串
+ * @returns 如果第一个字符是数字，则返回 true；否则返回 false
+ */
+export function isFirstCharDigit(str: string): boolean {
+  if (str.length === 0) {
+    return false;
+  }
+  return /^\d/.test(str.charAt(0));
+}
+
 export function parseMarkdown(content: string): Token[] {
   if (content) {
     return marked.lexer(content)
