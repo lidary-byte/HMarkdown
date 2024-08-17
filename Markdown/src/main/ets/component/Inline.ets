@@ -29,7 +29,7 @@ export struct Inline {
       .fontWeight(this.fontStyle?.fontWeight)
       .maxLines(this.maxLine)
       .textOverflow({ overflow: TextOverflow.Ellipsis })
-      .lineSpacing(new LengthMetrics(this.textLineSpace))
+      .lineSpacing(LengthMetrics.vp(this.textLineSpace))
     }
   }
 }

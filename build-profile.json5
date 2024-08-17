@@ -5,15 +5,30 @@
         "name": "default",
         "signingConfig": "default",
         "compatibleSdkVersion": "5.0.0(12)",
-        "runtimeOS": "HarmonyOS",
+        "runtimeOS": "HarmonyOS"
       }
     ],
     "buildModeSet": [
       {
-        "name": "debug",
+        "name": "debug"
       },
       {
         "name": "release"
+      }
+    ],
+    "signingConfigs": [
+      {
+        "name": "default",
+        "type": "HarmonyOS",
+        "material": {
+          "certpath": "/Users/lidary/.ohos/config/default_HMarkdown_PmNqaQ6hU--P9Ct2v_YqYJkmELtFk9llulK7-lfNQ24=.cer",
+          "storePassword": "0000001B31A3E4D07DB38259D4250262F048CA455C2A52EA3FC3110BABECEF981FB7E98BBA34330FD975D7",
+          "keyAlias": "debugKey",
+          "keyPassword": "0000001B63B75FCA9AE3A426EEC276A20C21065646C09F180CD2DBFA72A75B96ED5E713A1F744B1A46C532",
+          "profile": "/Users/lidary/.ohos/config/default_HMarkdown_PmNqaQ6hU--P9Ct2v_YqYJkmELtFk9llulK7-lfNQ24=.p7b",
+          "signAlg": "SHA256withECDSA",
+          "storeFile": "/Users/lidary/.ohos/config/default_HMarkdown_PmNqaQ6hU--P9Ct2v_YqYJkmELtFk9llulK7-lfNQ24=.p12"
+        }
       }
     ]
   },
