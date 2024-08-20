@@ -1,5 +1,8 @@
 # 更新日志
 
+## v1.0.10 [#5](https://github.com/lidary-byte/HMarkdown/issues/5)
+1. 无序列表，有序列表优化
+
 ## v1.0.9
 1. 修复图片可能超过最大宽度bug
 2. 图片渲染优化
