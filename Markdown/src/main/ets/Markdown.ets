@@ -10,7 +10,7 @@ import { parseMarkdown } from './utils'
 @Component
 export struct Markdown {
   @Prop @Watch('watchContent') content: string = ''
-  @State tokenList: Token[] = []
+  @Prop tokenList: Token[] = []
   @Prop @Watch('watchTheme') theme: MarkdownTheme
   @Prop @Watch('watchLineSpace') lineSpace: number
   @Prop @Watch('watchTextLineSpace') textLineSpace: number
@@ -54,7 +54,9 @@ export struct Markdown {
   }
 
   watchContent() {
-    this.tokenList = parseMarkdown(this.content)
+    if (this.content && this.content.trim().length !== 0) {
+      this.tokenList = parseMarkdown(this.content)
+    }
   }
 
   build() {

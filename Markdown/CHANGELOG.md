@@ -1,5 +1,8 @@
 # 更新日志
 
+## v1.0.11 
+1. tokenList支持外部传递  [#6](https://github.com/lidary-byte/HMarkdown/issues/6)
+
 ## v1.0.10 [#5](https://github.com/lidary-byte/HMarkdown/issues/5)
 1. 无序列表，有序列表优化
 
