@@ -21,6 +21,15 @@ export function SpanText(tokens: Token[] = [], that: ESObject, isLink?: boolean,
         .fontWeight(FontWeight.Bold)
         .fontColor(isLink ? that.theme?.link?.fontColor : that.fontStyle?.fontColor)
         .onClick(onSpanClick)
+    } else if (tokenItem.type === 'del') {
+      Span(clearMarkdown(tokenItem.text))
+        .fontColor(isLink ? that.theme?.link?.fontColor : that.fontStyle?.fontColor)
+        .decoration({
+          type: TextDecorationType.LineThrough,
+          color: Color.Black,
+          style: TextDecorationStyle.SOLID
+        })
+        .onClick(onSpanClick)
     } else if (tokenItem.type === 'text') {
       Span(clearMarkdown(tokenItem.text))
         .fontColor(isLink ? that.theme?.link?.fontColor : that.fontStyle?.fontColor)
