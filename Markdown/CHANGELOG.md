@@ -1,5 +1,8 @@
 # 更新日志
 
+## v1.0.12
+fix: 修复```~~```装饰的文字删除效果未解析bug
+
 ## v1.0.11 
 1. tokenList支持外部传递  [#6](https://github.com/lidary-byte/HMarkdown/issues/6)
 
