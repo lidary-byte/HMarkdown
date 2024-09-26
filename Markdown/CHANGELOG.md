@@ -1,5 +1,9 @@
 # 更新日志
 
+## v1.0.13
+1. enable useNormalizedOHMUrl
+2. 移除对html的解析
+
 ## v1.0.12
 fix: 修复```~~```装饰的文字删除效果未解析bug
 

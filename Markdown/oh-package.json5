@@ -1,6 +1,6 @@
 {
   "name": "@lidary/markdown",
-  "version": "1.0.12",
+  "version": "1.0.13",
   "description": "基于鸿蒙的Markdown解析库",
   "main": "Index.ets",
   "author": "lidary",
@@ -14,10 +14,6 @@
   "homepage": "https://github.com/lidary-byte",
   "repository": "https://github.com/lidary-byte/HMarkdown",
   "dependencies": {
-    "@ohos/htmlparser2": "^1.0.0",
-    "domhandler": "^5.0.3",
-    "dom-serializer": "^2.0.0",
-    "@rv/hmd-conv": "^1.0.1"
   },
   "devDependencies": {},
   "dynamicDependencies": {}

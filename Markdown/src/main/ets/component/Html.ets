@@ -3,22 +3,26 @@
  * @CreateData : 2024/7/22
  * @Description:
  */
-import { HmdConv } from '@rv/hmd-conv'
-import { Token } from '../core'
-import { MarkdownComponent } from '../MarkdownComponent'
-import { parseMarkdown } from '../utils'
+import { KEY_FONT_STYLE, KEY_LINE_SPACE, KEY_TEXT_LINE_SPACE, KEY_THEME } from '../config/Constant'
+import { MarkdownFontStyle, MarkdownTheme } from '../config/MarkdownTheme'
+import { LengthMetrics } from '@kit.ArkUI'
 
 @Component
 export struct Html {
   @Prop html: string
-  @State tokenList: Token[] = []
-
-  aboutToAppear(): void {
-    const md = new HmdConv().html2md(this.html)
-    this.tokenList = parseMarkdown(md)
-  }
+  @Consume(KEY_FONT_STYLE) fontStyle: MarkdownFontStyle
+  @Consume(KEY_LINE_SPACE) lineSpace: number
+  @Consume(KEY_THEME) theme: MarkdownTheme
+  @Consume(KEY_TEXT_LINE_SPACE) textLineSpace: number
 
   build() {
-    MarkdownComponent({ tokenList: this.tokenList })
+    Row() {
+      Text(this.html)
+      .fontColor(this.fontStyle?.fontColor)
+      .fontSize(this.fontStyle?.fontSize)
+      .fontWeight(this.fontStyle?.fontWeight)
+      .textOverflow({ overflow: TextOverflow.Ellipsis })
+      .lineSpacing(LengthMetrics.vp(this.textLineSpace))
+    }
   }
 }
