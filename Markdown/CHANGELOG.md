@@ -1,5 +1,9 @@
 # 更新日志
 
+## v1.0.14
+1. 修复列表解析可能会崩溃的bug
+2. 修复未定义customBuilder时崩溃的bug
+
 ## v1.0.13
 1. enable useNormalizedOHMUrl
 2. 移除对html的解析
