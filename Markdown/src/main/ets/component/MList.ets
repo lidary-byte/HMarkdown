@@ -55,18 +55,20 @@ struct UnorderedList {
   }
 
   calcMargin() {
-    const tokenText: string = this.token.map((item) => {
-      return item['text'] as string
-    }).join()
-    let textHeight: Length | undefined = MeasureText.measureTextSize({
-      textContent: tokenText,
-      constraintWidth: '100%',
-      fontSize: this.fontStyle?.fontSize,
-      maxLines: 1
-    }).height
+    if (undefined !== this.token) {
+      const tokenText = this.token?.map((item) => {
+        return item['text'] as string
+      })?.join()
+      let textHeight: Length | undefined = MeasureText.measureTextSize({
+        textContent: tokenText,
+        constraintWidth: '100%',
+        fontSize: this.fontStyle?.fontSize,
+        maxLines: 1
+      }).height
 
-    if (textHeight && typeof textHeight === 'number') {
-      this.marginTop = px2vp(textHeight / 2)
+      if (textHeight && typeof textHeight === 'number') {
+        this.marginTop = px2vp(textHeight / 2)
+      }
     }
   }
 
