@@ -53,7 +53,7 @@ export struct MarkdownComponent {
         } else if (token.type === 'html') {
           Html({ html: token.text })
         } else {
-          markConfig.customBlockBuilder.builder(token.type, token, this)
+          markConfig.customBlockBuilder?.builder(token.type, token, this)
         }
       }
       )

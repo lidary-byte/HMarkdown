@@ -55,7 +55,7 @@ export function SpanText(tokens: Token[] = [], that: ESObject, isLink?: boolean,
         }
       )
     } else {
-      markConfig.customInlineBuilder.builder(tokenItem.type, tokenItem, that)
+      markConfig.customInlineBuilder?.builder(tokenItem.type, tokenItem, that)
     }
   })
 }
