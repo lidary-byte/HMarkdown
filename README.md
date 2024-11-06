@@ -8,7 +8,7 @@
 
 1. 支持主题的动态修改
 2. 支持通过插件自定义解析及渲染(**demo内实现了数学公式的插件逻辑**)
-3. 依赖[**HmdConv**](https://ohpm.openharmony.cn/#/cn/detail/@rv%2Fhmd-conv)以支持html解析
+3. ~~依赖[**HmdConv**](https://ohpm.openharmony.cn/#/cn/detail/@rv%2Fhmd-conv)以支持html解析~~
 ---
 
 ## 参数
@@ -23,11 +23,11 @@
 
 ### MarkdownFontStyle参数
 
-|      名称       | 是否必传 | 默认值        |      说明       |
-|:-------------:|:----:|------------|:-------------:|
-|   fontColor   |  否   | Color.Black |     字体颜色      |
-|   fontSize    |  否   | 16         |     字体大小      | 
-|   fontWeight   |  否   |    FontWeight.Normal        |     fontWeight      | 
+|      名称       | 是否必传 | 默认值        |  说明  |
+|:-------------:|:----:|------------|:----:|
+|   fontColor   |  否   | Color.Black | 字体颜色 |
+|   fontSize    |  否   | 16         | 字体大小 | 
+|   fontWeight   |  否   |    FontWeight.Normal        |  字重  | 
 
 
 ---
