@@ -1,5 +1,8 @@
 # 更新日志
 
+## v1.0.16
+fix: 修复MarkdownLite崩溃bug
+
 ## v1.0.15
 对外暴露Inline的AttributeModifier(```mdInlineModifier```)属性来实现自定义样式
 
