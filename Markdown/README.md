@@ -13,21 +13,22 @@
 
 ## 参数
 
-|      名称       | 是否必传 | 默认值                     |      说明       |
-|:-------------:|:----:|-------------------------|:-------------:|
-|    content    |  是   |                         | markdown文本内容  |
-|     theme     |  否   | defaultTheme(参考github的ui) |  主题，颜色等相关配置   | 
-|   fontStyle   |  否   | MarkdownFontStyle       |     字体样式      | 
-|   lineSpace   |  否   | 0                       |   item之间的间距   | 
-| textLineSpace |  否   | 0                       | item中text的行间距 | 
+|      名称       | 是否必传 | 默认值                       |           说明            |
+|:-------------:|:----:|---------------------------|:-----------------------:|
+|    content    |  是   |                           |      markdown文本内容       |
+|     theme     |  否   | defaultTheme(参考github的ui) |       主题，颜色等相关配置        | 
+|   fontStyle   |  否   | MarkdownFontStyle         |          字体样式           | 
+|   lineSpace   |  否   | 0                         |        item之间的间距        | 
+| textLineSpace |  否   | 0                         |      item中text的行间距      |
+| mdInlineModifier     |  否   | undefined                       | Inline的样式(比如可以自定义长按事件等) |
 
 ### MarkdownFontStyle参数
 
-|      名称       | 是否必传 | 默认值        |      说明       |
-|:-------------:|:----:|------------|:-------------:|
-|   fontColor   |  否   | Color.Black |     字体颜色      |
-|   fontSize    |  否   | 16         |     字体大小      | 
-|   fontWeight   |  否   |    FontWeight.Normal        |     fontWeight      | 
+|      名称       | 是否必传 | 默认值        |  说明  |
+|:-------------:|:----:|------------|:----:|
+|   fontColor   |  否   | Color.Black | 字体颜色 |
+|   fontSize    |  否   | 16         | 字体大小 | 
+|   fontWeight   |  否   |    FontWeight.Normal        |  字重  | 
 
 
 ---

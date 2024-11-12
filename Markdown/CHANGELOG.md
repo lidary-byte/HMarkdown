@@ -1,5 +1,8 @@
 # 更新日志
 
+## v1.0.15
+对外暴露Inline的AttributeModifier(```mdInlineModifier```)属性来实现自定义样式
+
 ## v1.0.14
 1. 修复列表解析可能会崩溃的bug
 2. 修复未定义customBuilder时崩溃的bug

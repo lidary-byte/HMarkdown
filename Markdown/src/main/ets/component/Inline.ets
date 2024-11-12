@@ -18,6 +18,7 @@ export struct Inline {
   @Consume(KEY_LINE_SPACE) lineSpace: number
   @Consume(KEY_THEME) theme: MarkdownTheme
   @Consume(KEY_TEXT_LINE_SPACE) textLineSpace: number
+  @Consume mdInlineModifier: AttributeModifier<TextAttribute>
 
   build() {
     Row() {
@@ -30,6 +31,7 @@ export struct Inline {
       .maxLines(this.maxLine)
       .textOverflow({ overflow: TextOverflow.Ellipsis })
       .lineSpacing(LengthMetrics.vp(this.textLineSpace))
+      .attributeModifier(this.mdInlineModifier)
     }
   }
 }

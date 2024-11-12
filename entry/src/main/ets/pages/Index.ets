@@ -59,7 +59,8 @@ struct Index {
           },
           fontStyle: {
             fontColor: this.isDark ? Color.White : Color.Black
-          }
+          },
+          mdInlineModifier: new TextAttr()
         }).onClick(() => {
           console.error('---------点击拦截')
         })
@@ -68,5 +69,11 @@ struct Index {
       .layoutWeight(1)
       .width('100%')
     }.backgroundColor(this.isDark ? Color.Black : Color.White)
+  }
+}
+
+class TextAttr implements AttributeModifier<TextAttribute> {
+  applyNormalAttribute(instance: TextAttribute): void {
+    instance.copyOption(CopyOptions.InApp)
   }
 }

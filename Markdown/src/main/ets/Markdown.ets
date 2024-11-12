@@ -15,6 +15,7 @@ export struct Markdown {
   @Prop @Watch('watchLineSpace') lineSpace: number
   @Prop @Watch('watchTextLineSpace') textLineSpace: number
   @Prop @Watch('watchDefaultFont') fontStyle: MarkdownFontStyle
+  @Provide mdInlineModifier?: AttributeModifier<TextAttribute> = undefined
   // 外部不要传
   @Provide(KEY_THEME) _theme: MarkdownTheme = mergeTheme(markConfig.theme)
   @Provide(KEY_LINE_SPACE) _lineSpace: number = 0
