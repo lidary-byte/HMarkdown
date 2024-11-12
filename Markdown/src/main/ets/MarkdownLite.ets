@@ -1,6 +1,5 @@
-import { marked, Token, Tokens } from './core'
-import { MarkdownComponent } from './MarkdownComponent'
-import { defaultTheme, mergeTheme } from './config/DefaultTheme'
+import { marked, Token } from './core'
+import { mergeTheme } from './config/DefaultTheme'
 import { MarkdownFontStyle, MarkdownTheme } from './config/MarkdownTheme'
 import { KEY_FONT_STYLE, KEY_LINE_SPACE, KEY_TEXT_LINE_SPACE, KEY_THEME } from './config/Constant'
 import { markConfig } from './Index'
@@ -15,6 +14,7 @@ export struct MarkdownLite {
   @Prop @Watch('watchLineSpace') lineSpace: number
   @Prop @Watch('watchTextLineSpace') textLineSpace: number
   @Prop @Watch('watchDefaultFont') fontStyle: MarkdownFontStyle
+  @Provide mdInlineModifier?: AttributeModifier<TextAttribute> = undefined
   maxLine?: number = undefined
   // 外部不要传
   @Provide(KEY_THEME) _theme: MarkdownTheme = mergeTheme(markConfig.theme)
