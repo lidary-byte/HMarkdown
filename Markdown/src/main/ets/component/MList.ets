@@ -16,7 +16,6 @@ export struct MList {
   @Consume(KEY_LINE_SPACE) lineSpace: number
 
   build() {
-
     Column({ space: this.lineSpace }) {
       ForEach(this.tokens?.items, (item: Tokens.ListItem, index: number) => {
         ForEach(item.tokens, (itemChild: Token) => {
@@ -33,7 +32,7 @@ export struct MList {
         })
       }, (item: Tokens.ListItem) => item.raw)
     }.alignItems(HorizontalAlign.Start)
-
+    .padding({left: 18})
   }
 }
 
