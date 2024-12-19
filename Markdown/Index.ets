@@ -12,4 +12,6 @@ export { MarkedToken, Token, Tokens, Links, TokensList } from './src/main/ets/co
 
 export { MarkdownLite } from './src/main/ets/MarkdownLite'
 
+export { MarkdownV2 } from './src/main/ets/v2/MarkdownV2'
+
 

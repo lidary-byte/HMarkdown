@@ -1,4 +1,4 @@
-import { Markdown } from '@lidary/markdown';
+import { Markdown, MarkdownV2 } from '@lidary/markdown';
 import { common } from '@kit.AbilityKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { util } from '@kit.ArkTS';
@@ -47,7 +47,8 @@ struct Index {
       }
 
       Scroll() {
-        Markdown({
+
+        MarkdownV2({
           content: this.text,
           lineSpace: 6,
           textLineSpace: 6,

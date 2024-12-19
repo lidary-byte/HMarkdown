@@ -27,9 +27,9 @@
         "type": "HarmonyOS",
         "material": {
           "certpath": "/Users/lidary/.ohos/config/default_HMarkdown_PmNqaQ6hU--P9Ct2v_YqYJkmELtFk9llulK7-lfNQ24=.cer",
-          "storePassword": "0000001B31A3E4D07DB38259D4250262F048CA455C2A52EA3FC3110BABECEF981FB7E98BBA34330FD975D7",
+          "storePassword": "0000001A8D8AA497B0B32908A0F79645032FF7E8460E52AA251651EC56787A6BD183D9C6CE5828B80C9B",
           "keyAlias": "debugKey",
-          "keyPassword": "0000001B63B75FCA9AE3A426EEC276A20C21065646C09F180CD2DBFA72A75B96ED5E713A1F744B1A46C532",
+          "keyPassword": "0000001AF01A57DE9E03DA3E9B66BB260844CF79DD177F255750D69EF5F6B4DF5871874EF1B4687282B8",
           "profile": "/Users/lidary/.ohos/config/default_HMarkdown_PmNqaQ6hU--P9Ct2v_YqYJkmELtFk9llulK7-lfNQ24=.p7b",
           "signAlg": "SHA256withECDSA",
           "storeFile": "/Users/lidary/.ohos/config/default_HMarkdown_PmNqaQ6hU--P9Ct2v_YqYJkmELtFk9llulK7-lfNQ24=.p12"
