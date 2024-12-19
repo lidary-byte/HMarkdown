@@ -1,6 +1,6 @@
 # HMarkdown
 [![Downloads](https://img.shields.io/github/downloads/lidary-byte/HMarkdown/total?style=for-the-badge&logo=github)](https://github.com/lidary-byte/HMarkdown)
-[![Last Version](https://img.shields.io/github/v/release/lidary-byte/HMarkdown?style=for-the-badge)](https://github.com/lidary-byte/HMarkdown)
+[![Last Version](https://img.shields.io/github/v/release/lidary-byte/HMarkdown?style=for-the-badge)](https://github.com/lidary-byte/HMarkdown/releases)
 [![License](https://img.shields.io/github/license/lidary-byte/HMarkdown?style=for-the-badge)](LICENSE)
 [![OpenHarmony](https://img.shields.io/github/v/release/lidary-byte/HMarkdown?style=for-the-badge&logo=harmonyos&color=76CE65
 )](https://ohpm.openharmony.cn/#/cn/detail/@lidary%2Fmarkdown)

@@ -1,5 +1,8 @@
 # 更新日志
 
+## v2.0.0
+适配v2状态管理
+
 ## v1.0.16
 fix: 修复MarkdownLite崩溃bug
 

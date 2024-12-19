@@ -1,4 +1,11 @@
 # HMarkdown
+[![Downloads](https://img.shields.io/github/downloads/lidary-byte/HMarkdown/total?style=for-the-badge&logo=github)](https://github.com/lidary-byte/HMarkdown)
+[![Last Version](https://img.shields.io/github/v/release/lidary-byte/HMarkdown?style=for-the-badge)](https://github.com/lidary-byte/HMarkdown/releases)
+[![License](https://img.shields.io/github/license/lidary-byte/HMarkdown?style=for-the-badge)](LICENSE)
+[![OpenHarmony](https://img.shields.io/github/v/release/lidary-byte/HMarkdown?style=for-the-badge&logo=harmonyos&color=76CE65
+)](https://ohpm.openharmony.cn/#/cn/detail/@lidary%2Fmarkdown)
+[![CHANGELOG](https://img.shields.io/badge/CHANGELOG-E87436?style=for-the-badge&logo=googledocs&logoColor=ffffff)](https://github.com/lidary-byte/HMarkdown/blob/main/Markdown/CHANGELOG.md)
+
 
 基于[**marked**](https://github.com/markedjs/marked)的鸿蒙端markdown渲染库
 
@@ -45,6 +52,8 @@ ohpm install @lidary/markdown
 
 ```typescript
 import { Markdown } from '@lidary/markdown';
+// 支持V2状态管理
+import { MarkdownV2 } from '@lidary/markdown';
 ```
 
 ---
@@ -83,6 +92,24 @@ markConfig.registerLinkClick = (url?: string) => {
 
 ```typescript
 Markdown({
+  content: this.markdownContent,
+  lineSpace: 6,
+  // 覆盖掉通过markConfig.setTheme设置的全局theme(优先级最高)
+  theme: {
+    themeColor: Color.Orange,
+    link: {
+      fontColor: Color.Orange
+    }
+  },
+  fontStyle: {
+    fontColor: this.isDark ? Color.White : Color.Black
+  }
+}).backgroundColor(this.isDark ? Color.Black : Color.White)
+```
+### v2
+
+```typescript
+MarkdownV2({
   content: this.markdownContent,
   lineSpace: 6,
   // 覆盖掉通过markConfig.setTheme设置的全局theme(优先级最高)
@@ -150,6 +177,9 @@ function InlineBuilder(type: string, token: Tokens.Generic, that: ESObject) {
 markConfig.customBlockBuilder = wrapBuilder(BlockBuilder)
 markConfig.customInlineBuilder = wrapBuilder(InlineBuilder)
 ```
+
+## [更新日志](https://github.com/lidary-byte/HMarkdown/blob/main/Markdown/CHANGELOG.md)
+
 
 ## 开源协议
 
