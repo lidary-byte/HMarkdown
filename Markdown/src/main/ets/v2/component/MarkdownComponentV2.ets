@@ -1,16 +1,3 @@
-// import { BlockQuote } from './component/BlockQuote'
-// import { Code } from './component/Code'
-// import { Heading } from './component/Heading'
-// import { Hr } from './component/Hr'
-// import { Html } from './component/Html'
-// import { Inline } from './component/Inline'
-// import { MList } from './component/MList'
-// import { Paragraph } from './component/Paragraph'
-// import { Table } from './component/Table'
-// import { KEY_FONT_STYLE, KEY_LINE_SPACE, KEY_THEME } from './config/Constant'
-// import { MarkdownFontStyle, MarkdownTheme } from './config/MarkdownTheme'
-// import { Token, Tokens } from './core'
-// import { markConfig } from './Index'
 import { markConfig } from "../../../../../Index"
 import { KEY_FONT_STYLE, KEY_LINE_SPACE, KEY_THEME } from "../../config/Constant"
 import { MarkdownFontStyle, MarkdownTheme } from "../../config/MarkdownTheme"

@@ -19,7 +19,6 @@ export struct MarkdownV2 {
     fontSize: 16,
     fontWeight: FontWeight.Normal
   }
-  // @Provider() a: string = ''
 
   @Param mdInlineModifier?: AttributeModifier<TextAttribute> = undefined
   // 外部不要传
@@ -33,7 +32,7 @@ export struct MarkdownV2 {
   watchStyle(monitor: IMonitor) {
     monitor.dirty.forEach((path) => {
       if (path === 'theme') {
-        this._theme = monitor.value(path)?.now ?? this._theme
+        this._theme = mergeTheme(monitor.value(path)?.now ?? this._theme)
       }
       if (path === 'lineSpace') {
         this._lineSpace = monitor.value<number>(path)?.now ?? this._lineSpace
