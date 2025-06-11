@@ -19,7 +19,6 @@ export struct MarkdownV2 {
     fontSize: 16,
     fontWeight: FontWeight.Normal
   }
-
   @Param mdInlineModifier?: AttributeModifier<TextAttribute> = undefined
   // 外部不要传
   @Provider() _mdInlineModifier?: AttributeModifier<TextAttribute> = undefined
@@ -27,6 +26,10 @@ export struct MarkdownV2 {
   @Provider(KEY_LINE_SPACE) _lineSpace: number = this.lineSpace
   @Provider(KEY_TEXT_LINE_SPACE) _textLineSpace: number = this.textLineSpace
   @Provider(KEY_FONT_STYLE) _fontStyle: MarkdownFontStyle = this.fontStyle
+
+  aboutToAppear(): void {
+    this.watchContent()
+  }
 
   @Monitor('theme','lineSpace','textLineSpace','fontStyle','mdInlineModifier')
   watchStyle(monitor: IMonitor) {
