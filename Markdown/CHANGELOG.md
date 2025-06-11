@@ -1,5 +1,8 @@
 # 更新日志
 
+## v2.0.2
+fix: 修复v2版本内容可能无法正常显示bug [#16](https://github.com/lidary-byte/HMarkdown/issues/16)
+
 ## v2.0.1
 fix: 修复主题无法合并的bug
 
