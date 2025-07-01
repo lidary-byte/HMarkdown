@@ -8,8 +8,15 @@ import { markConfig } from '../../../Index'
 import { clearMarkdown } from '../../../utils'
 import { SpanImage } from './SpanImage'
 
+
+
+interface InlineStyle {
+  isLink?: boolean
+  isStrong?: boolean
+}
+
 @Builder
-export function SpanText(tokens: Token[] = [], that: ESObject, isLink?: boolean,
+export function SpanText(tokens: Token[] = [], that: ESObject, style?: InlineStyle,
   onSpanClick?: () => void) {
   ForEach(tokens, (tokenItem: Token) => {
     if (tokenItem.type === 'image') {
@@ -17,13 +24,17 @@ export function SpanText(tokens: Token[] = [], that: ESObject, isLink?: boolean,
     } else if (tokenItem.type === 'br') {
       Span('\n')
     } else if (tokenItem.type === 'strong') {
-      Span(clearMarkdown(tokenItem.text))
-        .fontWeight(FontWeight.Bold)
-        .fontColor(isLink ? that.theme?.link?.fontColor : that.fontStyle?.fontColor)
-        .onClick(onSpanClick)
+      if (tokenItem.tokens?.length != 0) {
+        SpanText(tokenItem.tokens, that, { isStrong: true, isLink: style?.isLink }, onSpanClick)
+      } else {
+        Span(clearMarkdown(tokenItem.text))
+          .fontWeight(FontWeight.Bold)
+          .fontColor(style?.isLink ? that.theme?.link?.fontColor : that.fontStyle?.fontColor)
+          .onClick(onSpanClick)
+      }
     } else if (tokenItem.type === 'del') {
       Span(clearMarkdown(tokenItem.text))
-        .fontColor(isLink ? that.theme?.link?.fontColor : that.fontStyle?.fontColor)
+        .fontColor(style?.isLink ? that.theme?.link?.fontColor : that.fontStyle?.fontColor)
         .decoration({
           type: TextDecorationType.LineThrough,
           color: Color.Black,
@@ -32,24 +43,28 @@ export function SpanText(tokens: Token[] = [], that: ESObject, isLink?: boolean,
         .onClick(onSpanClick)
     } else if (tokenItem.type === 'text') {
       Span(clearMarkdown(tokenItem.text))
-        .fontColor(isLink ? that.theme?.link?.fontColor : that.fontStyle?.fontColor)
+        .fontColor(style?.isLink ? that.theme?.link?.fontColor : that.fontStyle?.fontColor)
         .onClick(onSpanClick)
+        .fontWeight(style?.isStrong ? FontWeight.Bold : FontWeight.Normal)
     } else if (tokenItem.type === 'em') {
       Span(clearMarkdown(tokenItem.text))
-        .fontColor(isLink ? that.theme?.link?.fontColor : that.fontStyle?.fontColor)
+        .fontColor(style?.isLink ? that.theme?.link?.fontColor : that.fontStyle?.fontColor)
         .fontStyle(FontStyle.Italic)
         .onClick(onSpanClick)
     } else if (tokenItem.type === 'codespan') {
       ContainerSpan() {
         Span(` ${clearMarkdown(tokenItem.text)} `)
-          .fontColor(isLink ? that.theme?.link?.fontColor : that.fontStyle?.fontColor)
+          .fontColor(style?.isLink ? that.theme?.link?.fontColor : that.fontStyle?.fontColor)
           .onClick(onSpanClick)
       }.textBackgroundStyle({
         color: that.theme?.codeSpan?.backgroundColor,
         radius: that.theme?.codeSpan?.borderRadius
       })
     } else if (tokenItem.type === 'link') {
-      SpanText(tokenItem.tokens, that, true,
+      SpanText(tokenItem.tokens, that, {
+        isLink: true,
+        isStrong: style?.isStrong
+      },
         () => {
           markConfig.registerLinkClick(tokenItem.href)
         }
