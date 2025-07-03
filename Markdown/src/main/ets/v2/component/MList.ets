@@ -14,7 +14,6 @@ import { MarkdownFontStyle, MarkdownTheme } from '../../config/MarkdownTheme'
 export struct MList {
   @Param @Require tokens: Tokens.List
   @Consumer(KEY_LINE_SPACE) lineSpace?: number
-
   build() {
     Column({ space: this.lineSpace }) {
       ForEach(this.tokens?.items, (item: Tokens.ListItem, index: number) => {
@@ -25,7 +24,7 @@ export struct MList {
           } else {
             UnorderedList({
               token: item.tokens[0]['tokens'],
-              index: isFirstCharDigit(item.raw.trimStart()) ? Number(item.raw.trimStart().charAt(0)) :
+              index: isFirstCharDigit(item.raw.trimStart()) ? Number(this.parseStartNumber(item.raw.trimStart())) :
                 undefined
             })
           }
@@ -33,6 +32,12 @@ export struct MList {
       }, (item: Tokens.ListItem) => item.raw)
     }.alignItems(HorizontalAlign.Start)
     .padding({ left: 18 })
+  }
+
+  private parseStartNumber(str: string): string {
+    // 匹配字符串开头的0或正整数
+    const match = str.match(/^[0-9]+/);
+    return match ? match[0] : '';
   }
 }
 
