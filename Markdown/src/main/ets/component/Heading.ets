@@ -1,6 +1,6 @@
 import { HeadingTheme, MarkdownFontStyle, MarkdownTheme } from '../config/MarkdownTheme'
 import { Tokens } from '../core'
-import { SpanText } from './span/SpanText'
+import { SpanText } from '../v2/component/span/SpanText'
 import { KEY_FONT_STYLE, KEY_LINE_SPACE, KEY_TEXT_LINE_SPACE, KEY_THEME } from '../config/Constant'
 import { LengthMetrics } from '@ohos.arkui.node'
 

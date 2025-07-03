@@ -6,7 +6,7 @@
 import { KEY_FONT_STYLE, KEY_THEME } from '../config/Constant'
 import { MarkdownFontStyle, MarkdownTheme } from '../config/MarkdownTheme'
 import { Tokens } from '../core'
-import { SpanText } from './span/SpanText'
+import { SpanText } from '../v2/component/span/SpanText'
 
 const defaultHorPadding: number = 20
 
