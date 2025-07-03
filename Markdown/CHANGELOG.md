@@ -1,5 +1,9 @@
 # 更新日志
 
+## v2.0.4
+fix: 修复v1版本内容为超链接且样式为加粗时渲染异常bug [#19](https://github.com/lidary-byte/HMarkdown/issues/19)
+fix: 修复有序列表超过10个，序号显示异常bug [#20](https://github.com/lidary-byte/HMarkdown/issues/20)
+
 ## v2.0.3
 fix: 修复内容为超链接且样式为加粗时渲染异常bug [#19](https://github.com/lidary-byte/HMarkdown/issues/19)
 
