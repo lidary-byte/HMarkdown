@@ -5,10 +5,12 @@
  */
 import { defaultTheme, mergeTheme } from './config/DefaultTheme'
 import { MarkdownTheme } from './config/MarkdownTheme'
-import { marked, TokenizerExtension, Tokens } from './core'
+import { marked, MarkedOptions, TokenizerExtension, Tokens } from './core'
 
 
 export namespace markConfig {
+
+  let tokenPlugins: TokenizerExtension[] = [];
 
   export let theme: MarkdownTheme = defaultTheme
 
@@ -24,13 +26,17 @@ export namespace markConfig {
   }
 
   export function addPlugin(plugins: TokenizerExtension[]) {
-    marked.setOptions({
-      async: true,
-      gfm: true,
-    })
-    marked.use({ extensions: plugins })
+    tokenPlugins = plugins
+    apply()
   }
 
+  export function apply(options: MarkedOptions = {
+    async: true,
+    gfm: true,
+  }) {
+    marked.setOptions(options)
+    marked.use({ extensions: tokenPlugins })
+  }
 
   export let registerImageClick: ImageClick
 

@@ -1,4 +1,3 @@
-
 export { Markdown } from './src/main/ets/Markdown'
 
 export { MarkdownTheme, HeadingTheme, MarkdownFontStyle } from './src/main/ets/config/MarkdownTheme'
@@ -14,4 +13,22 @@ export { MarkdownLite } from './src/main/ets/MarkdownLite'
 
 export { MarkdownV2 } from './src/main/ets/v2/MarkdownV2'
 
+export { marked,
+  options,
+  setOptions,
+  use,
+  walkTokens,
+  parseInline,
+  parse,
+  parser,
+  lexer,
+  defaults,
+  getDefaults,
+  Lexer,
+  Parser,
+  Tokenizer,
+  Renderer,
+  TextRenderer,
+  Hooks,
+  Marked } from './src/main/ets/core/marked'
 

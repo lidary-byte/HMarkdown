@@ -36,6 +36,9 @@ export default class EntryAbility extends UIAbility {
       }
     })
     markConfig.addPlugin([latexBlock(), latexInline()])
+    markConfig.apply({
+      gfm: false
+    })
     markConfig.registerImageClick = (url?: string) => {
       promptAction.showToast({
         message: `图片被点击:${url}`,
