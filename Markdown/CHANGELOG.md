@@ -1,5 +1,8 @@
 # 更新日志
 
+## v2.0.6
+fix: 修复列表样式同一标题可能会出现多次的bug [#24](https://github.com/lidary-byte/HMarkdown/issues/24)
+
 ## v2.0.5
 1. 对外暴露```markConfig.apply(options: MarkedOptions)``` 方法自定义options
 2. 对外暴露```/core/marked.ts```文件以支持完全自定义
