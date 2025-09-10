@@ -14,6 +14,7 @@ import { MarkdownFontStyle, MarkdownTheme } from '../../config/MarkdownTheme'
 export struct MList {
   @Param @Require tokens: Tokens.List
   @Consumer(KEY_LINE_SPACE) lineSpace?: number
+
   build() {
     Column({ space: this.lineSpace }) {
       ForEach(this.tokens?.items, (item: Tokens.ListItem, index: number) => {
@@ -21,6 +22,8 @@ export struct MList {
           if (itemChild.type === 'list') {
             MList({ tokens: itemChild as Tokens.List })
               .padding({ left: 32 })
+          } else if (itemChild.type === 'space') {
+            Stack()
           } else {
             UnorderedList({
               token: item.tokens[0]['tokens'],
