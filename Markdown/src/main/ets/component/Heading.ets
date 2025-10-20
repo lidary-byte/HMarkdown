@@ -31,10 +31,11 @@ export struct Heading {
 
   build() {
     Text() {
-      SpanText(this.token?.tokens, this)
+      SpanText(this.token?.tokens, this, {
+        fontWeight: this.headingFontStyle?.fontWeight
+      })
     }
     .fontColor(this.fontStyle?.fontColor)
-    .fontWeight(this.headingFontStyle?.fontWeight)
     .fontSize(this.headingFontStyle?.fontSize)
     .lineSpacing(new LengthMetrics(this.textLineSpace))
   }

@@ -12,7 +12,7 @@ import { SpanImage } from './SpanImage'
 
 interface InlineStyle {
   isLink?: boolean
-  isStrong?: boolean
+  fontWeight?: FontWeight
 }
 
 @Builder
@@ -25,7 +25,7 @@ export function SpanText(tokens: Token[] = [], that: ESObject, style?: InlineSty
       Span('\n')
     } else if (tokenItem.type === 'strong') {
       if (tokenItem.tokens?.length != 0) {
-        SpanText(tokenItem.tokens, that, { isStrong: true, isLink: style?.isLink }, onSpanClick)
+        SpanText(tokenItem.tokens, that, { fontWeight: FontWeight.Bold, isLink: style?.isLink }, onSpanClick)
       } else {
         Span(clearMarkdown(tokenItem.text))
           .fontWeight(FontWeight.Bold)
@@ -45,7 +45,7 @@ export function SpanText(tokens: Token[] = [], that: ESObject, style?: InlineSty
       Span(clearMarkdown(tokenItem.text))
         .fontColor(style?.isLink ? that.theme?.link?.fontColor : that.fontStyle?.fontColor)
         .onClick(onSpanClick)
-        .fontWeight(style?.isStrong ? FontWeight.Bold : FontWeight.Normal)
+        .fontWeight(style?.fontWeight ? style.fontWeight : FontWeight.Normal)
     } else if (tokenItem.type === 'em') {
       Span(clearMarkdown(tokenItem.text))
         .fontColor(style?.isLink ? that.theme?.link?.fontColor : that.fontStyle?.fontColor)
@@ -63,7 +63,7 @@ export function SpanText(tokens: Token[] = [], that: ESObject, style?: InlineSty
     } else if (tokenItem.type === 'link') {
       SpanText(tokenItem.tokens, that, {
         isLink: true,
-        isStrong: style?.isStrong
+        fontWeight: style?.fontWeight
       },
         () => {
           markConfig.registerLinkClick(tokenItem.href)
