@@ -45,7 +45,7 @@ export function SpanText(tokens: Token[] = [], that: ESObject, style?: InlineSty
       Span(clearMarkdown(tokenItem.text))
         .fontColor(style?.isLink ? that.theme?.link?.fontColor : that.fontStyle?.fontColor)
         .onClick(onSpanClick)
-        .fontWeight(style?.fontWeight ? style.fontWeight : FontWeight.Normal)
+        .fontWeight(style?.fontWeight)
     } else if (tokenItem.type === 'em') {
       Span(clearMarkdown(tokenItem.text))
         .fontColor(style?.isLink ? that.theme?.link?.fontColor : that.fontStyle?.fontColor)

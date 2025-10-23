@@ -10,7 +10,8 @@
           "strictMode": {
             "useNormalizedOHMUrl": true
           }
-        }
+        },
+        "targetSdkVersion": "5.0.0(12)"
       }
     ],
     "buildModeSet": [
@@ -26,13 +27,13 @@
         "name": "default",
         "type": "HarmonyOS",
         "material": {
-          "certpath": "/Users/lidary/.ohos/config/default_HMarkdown_PmNqaQ6hU--P9Ct2v_YqYJkmELtFk9llulK7-lfNQ24=.cer",
-          "storePassword": "0000001A8D8AA497B0B32908A0F79645032FF7E8460E52AA251651EC56787A6BD183D9C6CE5828B80C9B",
+          "certpath": "/Users/lidary/.ohos/config/default_HMarkdown_d1RdGfglH1yNW6sR9gse-32NsW7JlsN3uCH4ScfPmdk=.cer",
           "keyAlias": "debugKey",
-          "keyPassword": "0000001AF01A57DE9E03DA3E9B66BB260844CF79DD177F255750D69EF5F6B4DF5871874EF1B4687282B8",
-          "profile": "/Users/lidary/.ohos/config/default_HMarkdown_PmNqaQ6hU--P9Ct2v_YqYJkmELtFk9llulK7-lfNQ24=.p7b",
+          "keyPassword": "0000001B6C28C7D47973ADFB5049627A7469BCD843F5305B1743FBA4D61C825108590EAA2C8358DC67474A",
+          "profile": "/Users/lidary/.ohos/config/default_HMarkdown_d1RdGfglH1yNW6sR9gse-32NsW7JlsN3uCH4ScfPmdk=.p7b",
           "signAlg": "SHA256withECDSA",
-          "storeFile": "/Users/lidary/.ohos/config/default_HMarkdown_PmNqaQ6hU--P9Ct2v_YqYJkmELtFk9llulK7-lfNQ24=.p12"
+          "storeFile": "/Users/lidary/.ohos/config/default_HMarkdown_d1RdGfglH1yNW6sR9gse-32NsW7JlsN3uCH4ScfPmdk=.p12",
+          "storePassword": "0000001B840D86C95400A216E34457B80FFCE9EA135F0F4CC812C9AA50FB59518D06D0B30AE57C495FE25A"
         }
       }
     ]

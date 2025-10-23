@@ -1,5 +1,8 @@
 # 更新日志
 
+## v2.0.7
+fix: 修复 Heading 组件 fontWeight 属性无效问题 
+
 ## v2.0.6
 fix: 修复列表样式同一标题可能会出现多次的bug [#24](https://github.com/lidary-byte/HMarkdown/issues/24)
 
