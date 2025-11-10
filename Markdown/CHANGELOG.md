@@ -1,5 +1,10 @@
 # 更新日志
 
+## v2.0.8
+优化 [#31](https://github.com/lidary-byte/HMarkdown/issues/31):  
+1. 数据解析改为子线程实现
+2. UI渲染改为List + Repeat实现
+
 ## v2.0.7
 fix: 修复 Heading 组件 fontWeight 属性无效问题 
 

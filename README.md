@@ -1,11 +1,11 @@
 # HMarkdown
+
 [![Downloads](https://img.shields.io/github/downloads/lidary-byte/HMarkdown/total?style=for-the-badge&logo=github)](https://github.com/lidary-byte/HMarkdown)
 [![Last Version](https://img.shields.io/github/v/release/lidary-byte/HMarkdown?style=for-the-badge)](https://github.com/lidary-byte/HMarkdown/releases)
 [![License](https://img.shields.io/github/license/lidary-byte/HMarkdown?style=for-the-badge)](LICENSE)
 [![OpenHarmony](https://img.shields.io/github/v/release/lidary-byte/HMarkdown?style=for-the-badge&logo=harmonyos&color=76CE65
 )](https://ohpm.openharmony.cn/#/cn/detail/@lidary%2Fmarkdown)
 [![CHANGELOG](https://img.shields.io/badge/CHANGELOG-E87436?style=for-the-badge&logo=googledocs&logoColor=ffffff)](https://github.com/lidary-byte/HMarkdown/blob/main/Markdown/CHANGELOG.md)
-
 
 基于[**marked**](https://github.com/markedjs/marked)的鸿蒙端markdown渲染库
 
@@ -16,27 +16,27 @@
 1. 支持主题的动态修改
 2. 支持通过插件自定义解析及渲染(**demo内实现了数学公式的插件逻辑**)
 3. ~~依赖[**HmdConv**](https://ohpm.openharmony.cn/#/cn/detail/@rv%2Fhmd-conv)以支持html解析~~
+
 ---
 
 ## 参数
 
-|      名称       | 是否必传 | 默认值                       |           说明            |
-|:-------------:|:----:|---------------------------|:-----------------------:|
-|    content    |  是   |                           |      markdown文本内容       |
-|     theme     |  否   | defaultTheme(参考github的ui) |       主题，颜色等相关配置        | 
-|   fontStyle   |  否   | MarkdownFontStyle         |          字体样式           | 
-|   lineSpace   |  否   | 0                         |        item之间的间距        | 
-| textLineSpace |  否   | 0                         |      item中text的行间距      |
-| mdInlineModifier     |  否   | undefined                       | Inline的样式(比如可以自定义长按事件等) |
+|        名称        | 是否必传 | 默认值                       |           说明            |
+|:----------------:|:----:|---------------------------|:-----------------------:|
+|     content      |  是   |                           |      markdown文本内容       |
+|      theme       |  否   | defaultTheme(参考github的ui) |       主题，颜色等相关配置        | 
+|    fontStyle     |  否   | MarkdownFontStyle         |          字体样式           | 
+|    lineSpace     |  否   | 0                         |        item之间的间距        | 
+|  textLineSpace   |  否   | 0                         |      item中text的行间距      |
+| mdInlineModifier |  否   | undefined                 | Inline的样式(比如可以自定义长按事件等) |
 
 ### MarkdownFontStyle参数
 
-|      名称       | 是否必传 | 默认值        |  说明  |
-|:-------------:|:----:|------------|:----:|
-|   fontColor   |  否   | Color.Black | 字体颜色 |
-|   fontSize    |  否   | 16         | 字体大小 | 
-|   fontWeight   |  否   |    FontWeight.Normal        |  字重  | 
-
+|     名称     | 是否必传 | 默认值               |  说明  |
+|:----------:|:----:|-------------------|:----:|
+| fontColor  |  否   | Color.Black       | 字体颜色 |
+|  fontSize  |  否   | 16                | 字体大小 | 
+| fontWeight |  否   | FontWeight.Normal |  字重  | 
 
 ---
 
@@ -106,6 +106,7 @@ Markdown({
   }
 }).backgroundColor(this.isDark ? Color.Black : Color.White)
 ```
+
 ### v2
 
 ```typescript
@@ -180,6 +181,12 @@ markConfig.customInlineBuilder = wrapBuilder(InlineBuilder)
 
 ## [更新日志](https://github.com/lidary-byte/HMarkdown/blob/main/Markdown/CHANGELOG.md)
 
+## Tips:
+
+```
+v2.0.8版本之前数据解析在主线程执行且UI由Column实现，当数据过长就有性能问题,且当需要滚动时需自行嵌套Scroll组件。
+自v2.0.8数据解析由子线程实现以提升性能；UI渲染改为List + Repeat实现无需手动处理滚动且性能更好。
+```
 
 ## 开源协议
 
