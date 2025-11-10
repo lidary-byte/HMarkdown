@@ -63,10 +63,10 @@ export struct MarkdownV2 {
   }
 
   build() {
-    Stack({ alignContent: Alignment.TopStart }) {
+    // Stack({ alignContent: Alignment.TopStart }) {
       if (this.tokenList.length !== 0) {
         MarkdownComponentV2({ tokenList: this.tokenList })
       }
-    }
+    // }
   }
 }

@@ -32,22 +32,20 @@ struct Index {
   }
 
   build() {
-    Column() {
-      Row() {
-        Button(this.isDark ? '亮色主题' : '暗色主题').onClick(() => {
-          this.isDark = !this.isDark
-        })
-        Button('文本内容切换').onClick(() => {
-          if (this.text === '切换后的文本') {
-            this.readFile(getContext(this) as common.UIAbilityContext)
-          } else {
-            this.text = '切换后的文本'
-          }
-        })
-      }
-
-      Scroll() {
-
+    Stack() {
+      Column() {
+        Row() {
+          Button(this.isDark ? '亮色主题' : '暗色主题').onClick(() => {
+            this.isDark = !this.isDark
+          })
+          Button('文本内容切换').onClick(() => {
+            if (this.text === '切换后的文本') {
+              this.readFile(getContext(this) as common.UIAbilityContext)
+            } else {
+              this.text = '切换后的文本'
+            }
+          })
+        }
         MarkdownV2({
           content: this.text,
           lineSpace: 6,
@@ -64,12 +62,13 @@ struct Index {
           mdInlineModifier: new TextAttr()
         }).onClick(() => {
           console.error('---------点击拦截')
-        })
-          .padding(16)
-      }
-      .layoutWeight(1)
-      .width('100%')
-    }.backgroundColor(this.isDark ? Color.Black : Color.White)
+        }).padding(16)
+          .layoutWeight(1)
+      }.backgroundColor(this.isDark ? Color.Black : Color.White)
+
+      // LoadingProgress()
+      //   .size({ width: 40, height: 40 })
+    }.width('100%')
   }
 }
 
