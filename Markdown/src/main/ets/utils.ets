@@ -32,7 +32,7 @@ export function isFirstCharDigit(str: string): boolean {
   }
   return /^\d/.test(str.charAt(0));
 }
-
+@Concurrent
 export function parseMarkdown(content: string): Token[] {
   if (content) {
     return marked.lexer(content)

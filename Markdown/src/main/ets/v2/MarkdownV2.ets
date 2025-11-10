@@ -5,6 +5,7 @@ import { markConfig } from '../Index'
 import { MarkdownComponentV2 } from './component/MarkdownComponentV2'
 import { KEY_FONT_STYLE, KEY_LINE_SPACE, KEY_TEXT_LINE_SPACE, KEY_THEME } from '../config/Constant'
 import { parseMarkdown } from '../utils'
+import { taskpool } from '@kit.ArkTS'
 
 
 @ComponentV2
@@ -55,7 +56,9 @@ export struct MarkdownV2 {
   @Monitor('content')
   watchContent() {
     if (this.content && this.content.trim().length !== 0) {
-      this.tokenList = parseMarkdown(this.content)
+      taskpool.execute(parseMarkdown, this.content).then((data) => {
+        this.tokenList = data as Token[]
+      })
     }
   }
 
