@@ -3,71 +3,59 @@
  * @CreateData : 2024/7/6
  * @Description:
  */
-import { Inline } from './Inline'
-import { LengthMetrics, MeasureText } from '@kit.ArkUI'
+import { LengthMetrics } from '@kit.ArkUI'
 import { Token, Tokens } from '../../core'
-import { KEY_FONT_STYLE, KEY_LINE_SPACE, KEY_TEXT_LINE_SPACE, KEY_THEME } from '../../config/Constant'
-import { isFirstCharDigit } from '../../utils'
-import { MarkdownFontStyle, MarkdownTheme } from '../../config/MarkdownTheme'
+import { KEY_FONT_STYLE, KEY_LINE_SPACE, KEY_TEXT_LINE_SPACE } from '../../config/Constant'
+import { MarkdownFontStyle } from '../../config/MarkdownTheme'
+import { Inline } from './Inline'
 
 @ComponentV2
 export struct MList {
   @Param @Require tokens: Tokens.List
   @Consumer(KEY_LINE_SPACE) lineSpace?: number
+  @Consumer(KEY_FONT_STYLE) fontStyle?: MarkdownFontStyle
+  @Consumer(KEY_TEXT_LINE_SPACE) textLineSpace?: number
 
   build() {
     Column({ space: this.lineSpace }) {
       ForEach(this.tokens?.items, (item: Tokens.ListItem, index: number) => {
-        ForEach(item.tokens, (itemChild: Token) => {
-          if (itemChild.type === 'list') {
-            MList({ tokens: itemChild as Tokens.List })
-              .padding({ left: 32 })
-          } else if (itemChild.type === 'space') {
-            Stack()
+        Row({ space: 8 }) {
+          if (this.tokens.ordered) {
+            Text(typeof this.tokens.start === 'number' ? `${this.tokens.start + index}.` : '')
+              .fontColor(this.fontStyle?.fontColor)
+              .fontSize(this.fontStyle?.fontSize)
+              .fontWeight(this.fontStyle?.fontWeight)
+              .lineSpacing(LengthMetrics.vp(this.textLineSpace))
           } else {
-            UnorderedList({
-              token: item.tokens[0]['tokens'],
-              index: isFirstCharDigit(item.raw.trimStart()) ? Number(this.parseStartNumber(item.raw.trimStart())) :
-                undefined
-            })
+            Circle({ width: 6, height: 6 })
+              .margin({ top: this.calcMarginTop(item.text) })
+              .foregroundColor(this.fontStyle?.fontColor)
           }
-        })
+          Column({ space: this.lineSpace }) {
+            ForEach(item.tokens, (itemChild: Token, _: number) => {
+              if (itemChild.type === 'list') {
+                MList({ tokens: itemChild as Tokens.List })
+                  .padding({ left: 32 })
+              } else if (itemChild.type === 'space') {
+                Stack()
+              } else {
+                Inline({ token: itemChild['tokens'] })
+              }
+            }, (item: Token) => item.raw)
+          }.layoutWeight(1)
+          .alignItems(HorizontalAlign.Start)
+        }.width('100%')
+        .alignItems(VerticalAlign.Top)
       }, (item: Tokens.ListItem) => item.raw)
-    }.alignItems(HorizontalAlign.Start)
+    }.layoutWeight(1)
+    .width('100%')
+    .alignItems(HorizontalAlign.Start)
     .padding({ left: 18 })
   }
 
-  private parseStartNumber(str: string): string {
-    // 匹配字符串开头的0或正整数
-    const match = str.match(/^[0-9]+/);
-    return match ? match[0] : '';
-  }
-}
-
-/**
- * 无序列表
- */
-@ComponentV2
-struct UnorderedList {
-  @Param @Require token: Token[]
-  @Consumer(KEY_FONT_STYLE) fontStyle?: MarkdownFontStyle
-  @Consumer(KEY_LINE_SPACE) lineSpace?: number
-  @Consumer(KEY_THEME) theme?: MarkdownTheme
-  @Consumer(KEY_TEXT_LINE_SPACE) textLineSpace?: number
-  @Local marginTop: number = 0
-  @Param index: number = 0
-
-  aboutToAppear(): void {
-    this.calcMargin()
-  }
-
-  @Monitor('token')
-  calcMargin() {
-    if (undefined !== this.token) {
-      const tokenText = this.token?.map((item) => {
-        return item['text'] as string
-      })?.join()
-      let textHeight: Length | undefined = MeasureText.measureTextSize({
+  private calcMarginTop(tokenText?: string): number {
+    if (tokenText) {
+      let textHeight: Length | undefined = this.getUIContext().getMeasureUtils().measureTextSize({
         textContent: tokenText,
         constraintWidth: '100%',
         fontSize: this.fontStyle?.fontSize,
@@ -75,28 +63,10 @@ struct UnorderedList {
       }).height
 
       if (textHeight && typeof textHeight === 'number') {
-        this.marginTop = px2vp(textHeight / 2)
+        return this.getUIContext().px2vp(textHeight / 2)
       }
     }
-  }
-
-  build() {
-    Row({ space: 8 }) {
-      if (this.index !== undefined) {
-        Text(`${this.index}.`)
-          .fontColor(this.fontStyle?.fontColor)
-          .fontSize(this.fontStyle?.fontSize)
-          .fontWeight(this.fontStyle?.fontWeight)
-          .lineSpacing(LengthMetrics.vp(this.textLineSpace))
-      } else {
-        Circle({ width: 6, height: 6 })
-          .margin({ top: this.marginTop })
-          .foregroundColor(this.fontStyle?.fontColor)
-      }
-
-      Inline({ token: this.token })
-        .layoutWeight(1)
-    }.alignItems(VerticalAlign.Top)
-    .width('100%')
+    return 0
   }
 }
+
