@@ -13,6 +13,7 @@
   "homepage": "https://github.com/lidary-byte",
   "repository": "https://github.com/lidary-byte/HMarkdown",
   "dependencies": {
+    "@cangjie-tpc/formula_hybrid": "^1.2.5"
   },
   "devDependencies": {},
   "dynamicDependencies": {}
