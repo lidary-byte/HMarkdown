@@ -3,35 +3,31 @@
  * @CreateData : 2024/7/5
  * @Description:
  */
-import { KEY_LINE_SPACE, KEY_THEME } from '../config/Constant'
 import { MarkdownTheme } from '../config/MarkdownTheme'
-import { Tokens } from '../core/Tokens'
-import { MarkdownComponent } from '../MarkdownComponent'
+import { Tokens } from '../core'
+import { MarkdownComponent } from './MarkdownComponent'
 
-@Component
+
+@ComponentV2
 export struct BlockQuote {
-  @Prop token: Tokens.Blockquote
-  @State blockHeight: Length = 0
-  @Consume(KEY_THEME) theme: MarkdownTheme
-  @Consume(KEY_LINE_SPACE) lineSpace: number
+  @Param @Require token: Tokens.Blockquote
+  @Param @Require theme: MarkdownTheme
+  @Local blockHeight: Length = 0
 
   build() {
     Row() {
       Divider()
         .vertical(true)
-        .strokeWidth(this.theme?.blockQuote?.driveWidth ?? 0)
+        .strokeWidth(this.theme.blockQuote?.driveWidth ?? 0)
         .height(this.blockHeight)
-        .color(this.theme?.blockQuote?.driveColor ?? this.theme?.themeColor)
-      MarkdownComponent({ tokenList: this.token?.tokens })
+        .color(this.theme.blockQuote?.driveColor)
+      MarkdownComponent({ tokenList: this.token?.tokens, theme: this.theme })
         .margin({ left: 10, right: 20 })
         .layoutWeight(1)
-        .padding({ top: this.lineSpace, bottom: this.lineSpace })
+        .padding({ top: this.theme.blockQuote?.lineSpacing, bottom: this.theme.blockQuote?.lineSpacing })
     }
-    .backgroundColor(this.theme?.blockQuote?.backgroundColor)
-    .borderRadius({
-      topLeft: this.theme?.blockQuote?.borderRadius,
-      bottomLeft: this.theme?.blockQuote?.borderRadius
-    })
+    .backgroundColor(this.theme.blockQuote?.backgroundColor)
+    .borderRadius(this.theme.blockQuote?.borderRadius)
     .clip(true)
     .onSizeChange((_: SizeOptions, newValue: SizeOptions) => {
       if (newValue.height) {

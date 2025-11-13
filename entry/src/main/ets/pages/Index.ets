@@ -1,4 +1,4 @@
-import { Markdown, MarkdownV2 } from '@lidary/markdown';
+import { Markdown } from '@lidary/markdown';
 import { common } from '@kit.AbilityKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { util } from '@kit.ArkTS';
@@ -39,31 +39,40 @@ struct Index {
             this.isDark = !this.isDark
           })
           Button('文本内容切换').onClick(() => {
-            if (this.text === '切换后的文本') {
+            if (this.text === '> 1. 第一项\n' +
+              '> 2. 第二项\n' +
+              '> 3. 第三项') {
               this.readFile(getContext(this) as common.UIAbilityContext)
             } else {
-              this.text = '切换后的文本'
+              this.text =
+                '> 1. 第一项\n' +
+                  '> 2. 第二项\n' +
+                  '> 3. 第三项'
             }
           })
         }
-        MarkdownV2({
+
+        Markdown({
           content: this.text,
-          lineSpace: 6,
-          textLineSpace: 6,
-          theme: {
-            themeColor: Color.Orange,
-            link: {
-              fontColor: Color.Orange
-            }
-          },
-          fontStyle: {
-            fontColor: this.isDark ? Color.White : Color.Black
-          },
-          mdInlineModifier: new TextAttr()
+          darkMode: this.isDark
+          // lineSpace: 6,
+          // textLineSpace: 6,
+          // theme: {
+          //   themeColor: Color.Orange,
+          //   link: {
+          //     fontColor: Color.Orange
+          //   }
+          // },
+          // fontStyle: {
+          //   fontColor: this.isDark ? Color.White : Color.Black
+          // },
+          // mdInlineModifier: new TextAttr()
         }).onClick(() => {
           console.error('---------点击拦截')
-        }).padding(16)
+        })
+        // .padding(16)
           .layoutWeight(1)
+
       }.backgroundColor(this.isDark ? Color.Black : Color.White)
 
       // LoadingProgress()

@@ -3,128 +3,181 @@
  * @CreateData : 2024/7/5
  * @Description: 默认主题
  */
-import { markConfig } from '../Index'
-import { MarkdownTheme } from './MarkdownTheme'
+import { MarkdownFontStyle, MarkdownTheme } from './MarkdownTheme'
+import { LengthMetrics } from '@kit.ArkUI'
 
-
-/**
- * 合并theme 将外部传入的theme内的空字段用defaultTheme()的值覆盖
- * @returns
- */
-export function mergeTheme(theme?: MarkdownTheme): MarkdownTheme {
-  if (!theme) {
-    return markConfig.theme
-  }
-  return {
-    themeColor: theme.themeColor ?? markConfig.theme.themeColor,
-    blockQuote: {
-      borderRadius: theme.blockQuote?.borderRadius ?? markConfig.theme.blockQuote?.borderRadius,
-      driveWidth: theme.blockQuote?.driveWidth ?? markConfig.theme.blockQuote?.driveWidth,
-      backgroundColor: theme.blockQuote?.backgroundColor ?? markConfig.theme.blockQuote?.backgroundColor
-    },
-    h1: {
-      fontWeight: theme.h1?.fontWeight ?? markConfig.theme.h1?.fontWeight,
-      fontSize: theme.h1?.fontSize ?? markConfig.theme.h1?.fontSize,
-    },
-    h2: {
-      fontWeight: theme.h2?.fontWeight ?? markConfig.theme.h2?.fontWeight,
-      fontSize: theme.h2?.fontSize ?? markConfig.theme.h2?.fontSize,
-    },
-    h3: {
-      fontWeight: theme.h3?.fontWeight ?? markConfig.theme.h3?.fontWeight,
-      fontSize: theme.h3?.fontSize ?? markConfig.theme.h3?.fontSize,
-
-    },
-    h4: {
-      fontWeight: theme.h4?.fontWeight ?? markConfig.theme.h4?.fontWeight,
-      fontSize: theme.h4?.fontSize ?? markConfig.theme.h4?.fontSize,
-    },
-    h5: {
-
-      fontWeight: theme.h5?.fontWeight ?? markConfig.theme.h5?.fontWeight,
-      fontSize: theme.h5?.fontSize ?? markConfig.theme.h5?.fontSize,
-    },
-    h6: {
-      fontWeight: theme.h6?.fontWeight ?? markConfig.theme.h6?.fontWeight,
-      fontSize: theme.h6?.fontSize ?? markConfig.theme.h6?.fontSize,
-    },
-    image: {
-      width: theme.image?.width ?? markConfig.theme.image?.width,
-      height: theme.image?.height ?? markConfig.theme.image?.height,
-      objectFit: theme.image?.objectFit ?? markConfig.theme.image?.objectFit,
-    },
-    link: {
-      fontColor: theme.link?.fontColor ?? markConfig.theme.link?.fontColor,
-    },
-    codeSpan: {
-      backgroundColor: theme.codeSpan?.backgroundColor ?? markConfig.theme.codeSpan?.backgroundColor,
-      borderRadius: theme.codeSpan?.borderRadius ?? markConfig.theme.codeSpan?.borderRadius,
-    },
-    codeHighlight: {
-      'string': theme.codeHighlight?.string ?? markConfig.theme.codeHighlight?.string,
-      'text': theme.codeHighlight?.text ?? markConfig.theme.codeHighlight?.text,
-      'keyword': theme.codeHighlight?.keyword ?? markConfig.theme.codeHighlight?.keyword,
-      'type': theme.codeHighlight?.type ?? markConfig.theme.codeHighlight?.type,
-      'symbol': theme.codeHighlight?.symbol ?? markConfig.theme.codeHighlight?.symbol,
-      'number': theme.codeHighlight?.number ?? markConfig.theme.codeHighlight?.number,
-      'boolean': theme.codeHighlight?.boolean ?? markConfig.theme.codeHighlight?.boolean,
-    }
-  }
+const defaultFontStyle: MarkdownFontStyle = {
+  fontWeight: FontWeight.Normal,
+  fontColor: Color.Black,
+  fontSize: 16
+}
+const defaultDarkFontStyle: MarkdownFontStyle = {
+  fontWeight: FontWeight.Normal,
+  fontColor: Color.White,
+  fontSize: 16
 }
 
-
-export const defaultTheme: MarkdownTheme = {
-  themeColor: '#0A69DA',
+export const defaultDarkTheme: MarkdownTheme = {
+  lineSpacing: 8,
+  themeColor: Color.Blue,
+  inlineLineSpacing: LengthMetrics.vp(8),
   blockQuote: {
     borderRadius: 4,
     driveWidth: 4,
-    backgroundColor: '#10808080'
+    backgroundColor: '#1020cb58'
   },
-  h1: {
-    fontWeight: FontWeight.Bolder,
-    fontSize: 30
-  },
-  h2: {
-    fontWeight: FontWeight.Bold,
-    fontSize: 28
-  },
-  h3: {
-    fontWeight: FontWeight.Medium,
-    fontSize: 26
-  },
-  h4: {
-    fontWeight: FontWeight.Regular,
-    fontSize: 24
-  },
-  h5: {
-    fontWeight: FontWeight.Normal,
-    fontSize: 22
-  },
-  h6: {
-    fontWeight: FontWeight.Lighter,
-    fontSize: 20
-  },
+  heading:
+  [
+    {
+      fontWeight: FontWeight.Bolder,
+      fontColor: Color.White,
+      fontSize: 30,
+    },
+    {
+      fontWeight: FontWeight.Bold,
+      fontColor: Color.White,
+      fontSize: 28
+    },
+    {
+      fontWeight: FontWeight.Medium,
+      fontColor: Color.White,
+      fontSize: 26
+    },
+    {
+      fontWeight: FontWeight.Regular,
+      fontColor: Color.White,
+      fontSize: 24
+    },
+    {
+      fontWeight: FontWeight.Normal,
+      fontColor: Color.White,
+      fontSize: 22
+    },
+    {
+      fontWeight: FontWeight.Lighter,
+      fontColor: Color.White,
+      fontSize: 20
+    },
+  ],
+
   image: {
     width: 'auto',
     height: 'auto',
     objectFit: ImageFit.Contain
   },
   link: {
-    fontColor: '#0A69DA'
+    fontColor: Color.Blue,
+  },
+  codeSpan: {
+    backgroundColor: '#ff1e6b91',
+    borderRadius: 4
+  },
+  code: {
+    fontColor: {
+      'string': '#653170',
+      'text': Color.White,
+      'keyword': '#0A69DA',
+      'type': '#0A69DA',
+      'symbol': Color.White,
+      'number': '#ffecd9ac',
+      'boolean': '#ff3c1dc3',
+    },
+    fontSize: 16,
+    backgroundColor: '#ff041b30',
+    borderRadius: 10,
+    codeSpanBorderRadius: 10,
+    codeSpanBackgroundColor: '#F6F8FA'
+  },
+  list: {
+    fontStyle: defaultDarkFontStyle,
+    marginLeft: 12
+  },
+  paragraph: defaultDarkFontStyle,
+  latex: {
+    fontSize: 20,
+    fontColor: 0xffffffff,
+    backgroundColor: 0x00000000
+  },
+  html: defaultDarkFontStyle
+}
+
+
+export const defaultTheme: MarkdownTheme = {
+  lineSpacing: 8,
+  inlineLineSpacing: LengthMetrics.vp(8),
+  themeColor: Color.Blue,
+  blockQuote: {
+    borderRadius: 4,
+    driveWidth: 4,
+    backgroundColor: '#10808080'
+  },
+  heading: [
+    {
+      fontWeight: FontWeight.Bolder,
+      fontColor: Color.Black,
+      fontSize: 30,
+    }, {
+    fontWeight: FontWeight.Bold,
+    fontColor: Color.Black,
+    fontSize: 28
+  }, {
+    fontWeight: FontWeight.Medium,
+    fontColor: Color.Black,
+    fontSize: 26
+  }, {
+    fontWeight: FontWeight.Regular,
+    fontColor: Color.Black,
+    fontSize: 24
+  }, {
+    fontWeight: FontWeight.Normal,
+    fontColor: Color.Black,
+    fontSize: 22
+  }, {
+    fontWeight: FontWeight.Lighter,
+    fontColor: Color.Black,
+    fontSize: 20
+  },
+  ],
+  image: {
+    width: 'auto',
+    height: 'auto',
+    objectFit: ImageFit.Contain
+  },
+  link: {
+    fontColor: Color.Blue,
   },
   codeSpan: {
     backgroundColor: '#EFF1F2',
     borderRadius: 4
   },
-  codeHighlight: {
-    'string': '#653170',
-    'text': Color.Black,
-    'keyword': '#0A69DA',
-    'type': '#0A69DA',
-    'symbol': Color.Black,
-    'number': '#ffecd9ac',
-    'boolean': '#ff3c1dc3',
-  }
+  code: {
+    fontColor: {
+      'string': '#653170',
+      'text': Color.Black,
+      'keyword': '#0A69DA',
+      'type': '#0A69DA',
+      'symbol': Color.Black,
+      'number': '#ffecd9ac',
+      'boolean': '#ff3c1dc3',
+    },
+    fontSize: 16,
+    backgroundColor: '#F6F8FA',
+    borderRadius: 10,
+    codeSpanFontSize: LengthMetrics.fp(16),
+    codeSpanBorderRadius: 10,
+    codeSpanBackgroundColor: '#F6F8FA'
+  },
+  list: {
+    fontStyle: defaultFontStyle,
+    marginLeft: 12
+  },
+  paragraph: defaultFontStyle,
+  latex: {
+    fontSize: 20,
+    fontColor: 0xff000000,
+    backgroundColor: 0x00000000
+  },
+  html: defaultFontStyle
 }
 
 

@@ -3,9 +3,11 @@
  * @CreateData : 2024/7/7
  * @Description:
  */
+import { LatexMathColorFormat, latexStringToImage } from '@cangjie-tpc/formula_hybrid';
 import { promptAction } from '@kit.ArkUI';
 import { BusinessError, pasteboard } from '@kit.BasicServicesKit';
 import { marked, Token } from './core';
+import { image } from '@kit.ImageKit';
 
 
 /**
@@ -32,8 +34,9 @@ export function isFirstCharDigit(str: string): boolean {
   }
   return /^\d/.test(str.charAt(0));
 }
+
 @Concurrent
-export function parseMarkdown(content: string): Token[] {
+export function parseMarkdown(content: string,): Token[] {
   if (content) {
     return marked.lexer(content)
   }
@@ -55,4 +58,28 @@ export async function copyToPasteboard(text?: string) {
       message: '复制异常' + err.message
     });
   });
+}
+
+export async function latexToPixelMap(latexText: string, latexMathTextSize: number, latexMathTextColor: number,
+  latexMathBackGroupColor: number): Promise<LatexToPixelMap> {
+
+  // 通过接口解析数学公式获取数学公式图片数组数据
+  let buf: ArrayBuffer =
+    await latexStringToImage(latexText, latexMathTextSize, latexMathTextColor, latexMathBackGroupColor,
+      LatexMathColorFormat.COLOR_FORMAT_BGRA_8888)
+  let imageSource = image.createImageSource(buf)
+  // 图片pixelMap
+  let pixelMap = imageSource.createPixelMapSync()
+  let size: Size = pixelMap.getImageInfoSync().size
+  return {
+    pixelMap: pixelMap,
+    width: size.width,
+    height: size.height
+  }
+}
+
+export interface LatexToPixelMap {
+  pixelMap: image.PixelMap,
+  width: number
+  height: number
 }

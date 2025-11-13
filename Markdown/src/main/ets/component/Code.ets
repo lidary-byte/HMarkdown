@@ -3,20 +3,18 @@
  * @CreateData : 2024/7/4
  * @Description:
  */
-import { CodeToken, highlightCodeAnalyzer } from '../core/analyzer/HighlightAnalyzer'
+import { MarkdownTheme } from '../config/MarkdownTheme'
 import { Tokens } from '../core'
+import { CodeToken, highlightCodeAnalyzer } from '../core/analyzer/HighlightAnalyzer'
 import { copyToPasteboard } from '../utils'
-import { KEY_FONT_STYLE, KEY_THEME } from '../config/Constant'
-import { MarkdownFontStyle, MarkdownTheme } from '../config/MarkdownTheme'
 
 
-@Component
+@ComponentV2
 export struct Code {
-  @Prop token: Tokens.Code
+  @Param @Require token: Tokens.Code
+  @Param @Require theme: MarkdownTheme
   private codes: string[] = []
   private codeLineHeight: number = 25
-  @Consume(KEY_FONT_STYLE) fontStyle: MarkdownFontStyle
-  @Consume(KEY_THEME) theme: MarkdownTheme
   aboutToAppear() {
     this.codes = this.token?.text.split("\n") ?? []
   }
@@ -26,15 +24,14 @@ export struct Code {
     Text() {
       ForEach(highlightCodeAnalyzer(code), (token: CodeToken) => {
         Span(token.text)
-          .fontColor(this.theme?.codeHighlight?.[token.type])
-          .fontSize(this.fontStyle?.fontSize)
+          .fontColor(this.theme?.code?.fontColor?.[token.type])
+          .fontSize(this.theme.code?.fontSize)
       })
     }
     .textAlign(TextAlign.Start)
   }
 
   build() {
-    //代码体
     Row() {
       Column() {
         Scroll() {
@@ -54,7 +51,6 @@ export struct Code {
           })
         }
         .scrollable(ScrollDirection.Horizontal)
-        .scrollBarColor('#33000000')
       }.layoutWeight(1)
       .alignItems(HorizontalAlign.Start)
 
@@ -66,8 +62,8 @@ export struct Code {
         })
     }
     .width('100%')
-    .borderRadius(10)
+    .borderRadius(this.theme.code?.borderRadius)
     .alignItems(VerticalAlign.Top)
-    .backgroundColor('#F6F8FA')
+    .backgroundColor(this.theme.code?.backgroundColor)
   }
 }

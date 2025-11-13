@@ -1,11 +1,10 @@
+import { MarkdownTheme } from '../config/MarkdownTheme'
 
-
-@Component
+@ComponentV2
 export struct Hr {
+  @Param @Require theme: MarkdownTheme
   build() {
-    Row() {
-      Divider()
-        .strokeWidth(2)
-    }
+    Divider()
+      .strokeWidth(this.theme.hr?.strokeWidth)
   }
 }

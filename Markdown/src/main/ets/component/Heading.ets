@@ -1,42 +1,43 @@
-import { HeadingTheme, MarkdownFontStyle, MarkdownTheme } from '../config/MarkdownTheme'
+import { inlineToken } from './span/SpanText'
+import { MarkdownTheme } from '../config/MarkdownTheme'
 import { Tokens } from '../core'
-import { SpanText } from '../v2/component/span/SpanText'
-import { KEY_FONT_STYLE, KEY_LINE_SPACE, KEY_TEXT_LINE_SPACE, KEY_THEME } from '../config/Constant'
-import { LengthMetrics } from '@ohos.arkui.node'
 
-@Component
+@ComponentV2
 export struct Heading {
-  @Prop token: Tokens.Heading
-  @State headingFontStyle?: HeadingTheme = undefined
-  @Consume(KEY_FONT_STYLE) fontStyle: MarkdownFontStyle
-  @Consume(KEY_THEME) theme: MarkdownTheme
-  @Consume(KEY_LINE_SPACE) lineSpace: number
-  @Consume(KEY_TEXT_LINE_SPACE) textLineSpace: number
+  @Param @Require token: Tokens.Heading
+  @Param @Require theme: MarkdownTheme
+  inlineTextController = new TextController()
+  inlineTextStyle = new MutableStyledString('')
 
   aboutToAppear(): void {
-    if (this.token?.depth == 1) {
-      this.headingFontStyle = this.theme?.h1
-    } else if (this.token?.depth == 2) {
-      this.headingFontStyle = this.theme?.h2
-    } else if (this.token?.depth == 3) {
-      this.headingFontStyle = this.theme?.h3
-    } else if (this.token?.depth == 4) {
-      this.headingFontStyle = this.theme?.h4
-    } else if (this.token?.depth == 5) {
-      this.headingFontStyle = this.theme?.h5
-    } else if (this.token?.depth == 6) {
-      this.headingFontStyle = this.theme?.h6
+    this.watchToken()
+  }
+
+  @Monitor('theme')
+  watchTheme() {
+    this.watchToken()
+  }
+
+  @Monitor('token')
+  watchToken() {
+    if (this.token?.tokens) {
+      inlineToken({
+        token: this.token?.tokens ?? [],
+        uiContext: this.getUIContext(),
+        theme: this.theme,
+        fontStyle: this.theme.heading?.[this.token.depth]!
+      }).then((data) => {
+        this.inlineTextController.setStyledString(data)
+      })
+
     }
   }
 
   build() {
-    Text() {
-      SpanText(this.token?.tokens, this, {
-        fontWeight: this.headingFontStyle?.fontWeight
-      })
-    }
-    .fontColor(this.fontStyle?.fontColor)
-    .fontSize(this.headingFontStyle?.fontSize)
-    .lineSpacing(new LengthMetrics(this.textLineSpace))
+    Text(undefined, { controller: this.inlineTextController })
+      .fontColor(this.theme.heading?.[this.token?.depth]?.fontColor)
+      .fontSize(this.theme.heading?.[this.token?.depth]?.fontSize)
+      .fontWeight(this.theme.heading?.[this.token?.depth]?.fontWeight)
+      .lineSpacing(this.theme.heading?.[this.token?.depth]?.lineSpacing)
   }
 }

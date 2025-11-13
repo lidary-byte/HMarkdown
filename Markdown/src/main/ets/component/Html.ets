@@ -3,26 +3,19 @@
  * @CreateData : 2024/7/22
  * @Description:
  */
-import { KEY_FONT_STYLE, KEY_LINE_SPACE, KEY_TEXT_LINE_SPACE, KEY_THEME } from '../config/Constant'
-import { MarkdownFontStyle, MarkdownTheme } from '../config/MarkdownTheme'
-import { LengthMetrics } from '@kit.ArkUI'
+import { MarkdownTheme } from '../config/MarkdownTheme'
 
-@Component
+@ComponentV2
 export struct Html {
-  @Prop html: string
-  @Consume(KEY_FONT_STYLE) fontStyle: MarkdownFontStyle
-  @Consume(KEY_LINE_SPACE) lineSpace: number
-  @Consume(KEY_THEME) theme: MarkdownTheme
-  @Consume(KEY_TEXT_LINE_SPACE) textLineSpace: number
+  @Param @Require html: string
+  @Param @Require theme: MarkdownTheme
 
   build() {
     Row() {
       Text(this.html)
-      .fontColor(this.fontStyle?.fontColor)
-      .fontSize(this.fontStyle?.fontSize)
-      .fontWeight(this.fontStyle?.fontWeight)
-      .textOverflow({ overflow: TextOverflow.Ellipsis })
-      .lineSpacing(LengthMetrics.vp(this.textLineSpace))
+      .fontColor(this.theme.html?.fontColor)
+      .fontSize(this.theme.html?.fontSize)
+      .fontWeight(this.theme.html?.fontWeight)
     }
   }
 }
