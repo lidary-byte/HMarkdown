@@ -11,12 +11,12 @@
 
 ## v3.0.0特性
 
-1. 支持公式本地渲染
-2. 支持子线程渲染
+1. 支持**公式本地渲染**
+2. 支持**子线程渲染**
 3. 完全重构
 
 Tips:
-1. 本次更新支持Api变动较大,如需旧版本请查看[→](https://github.com/lidary-byte/HMarkdown/blob/feat-v2.0.8)
+1. **本次更新支持Api变动较大,如需旧版本请查看[→](https://github.com/lidary-byte/HMarkdown/blob/feat-v2.0.8)**
 2. v2.0.8因为没有考虑到子线程内存隔离问题会导致设置的插件不生效
 
 
