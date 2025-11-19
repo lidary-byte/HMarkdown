@@ -1,4 +1,5 @@
 # HMarkdown
+
 [![Downloads](https://img.shields.io/github/downloads/lidary-byte/HMarkdown/total?style=for-the-badge&logo=github)](https://github.com/lidary-byte/HMarkdown)
 [![Last Version](https://img.shields.io/github/v/release/lidary-byte/HMarkdown?style=for-the-badge)](https://github.com/lidary-byte/HMarkdown/releases)
 [![License](https://img.shields.io/github/license/lidary-byte/HMarkdown?style=for-the-badge)](LICENSE)
@@ -6,37 +7,48 @@
 )](https://ohpm.openharmony.cn/#/cn/detail/@lidary%2Fmarkdown)
 [![CHANGELOG](https://img.shields.io/badge/CHANGELOG-E87436?style=for-the-badge&logo=googledocs&logoColor=ffffff)](https://github.com/lidary-byte/HMarkdown/blob/main/Markdown/CHANGELOG.md)
 
-
 基于[**marked**](https://github.com/markedjs/marked)的鸿蒙端markdown渲染库
 
-![截图](https://github.com/lidary-byte/HMarkdown/blob/main/screen/image2.gif)
+## v3.0.0特性
 
-部分特性:
+1. 支持公式本地渲染
+2. 支持子线程渲染
+3. 完全重构
 
-1. 支持主题的动态修改
-2. 支持通过插件自定义解析及渲染(**demo内实现了数学公式的插件逻辑**)
-3. ~~依赖[**HmdConv**](https://ohpm.openharmony.cn/#/cn/detail/@rv%2Fhmd-conv)以支持html解析~~
+Tips:
+1. 本次更新支持Api变动较大,如需旧版本请查看[→]("https://github.com/lidary-byte/HMarkdown/blob/feat-v2.0.8/Markdown/src/main/ets/core/plugins/latex.ets")
+2. v2.0.8因为没有考虑到子线程内存隔离问题会导致设置的插件不生效
+
+![暗色](https://github.com/lidary-byte/HMarkdown/blob/main/screen/image1.mp4)
+![亮色](https://github.com/lidary-byte/HMarkdown/blob/main/screen/image2.mp4)
+
 ---
 
 ## 参数
 
-|      名称       | 是否必传 | 默认值                       |           说明            |
-|:-------------:|:----:|---------------------------|:-----------------------:|
-|    content    |  是   |                           |      markdown文本内容       |
-|     theme     |  否   | defaultTheme(参考github的ui) |       主题，颜色等相关配置        | 
-|   fontStyle   |  否   | MarkdownFontStyle         |          字体样式           | 
-|   lineSpace   |  否   | 0                         |        item之间的间距        | 
-| textLineSpace |  否   | 0                         |      item中text的行间距      |
-| mdInlineModifier     |  否   | undefined                       | Inline的样式(比如可以自定义长按事件等) |
+|               名称               | 是否必传 | 默认值       |          说明           |
+|:------------------------------:|:----:|-----------|:---------------------:|
+|            content             |  否   | ""        |     markdown文本内容      |
+|             token              |  否   | []        | markdown文本内容解析后Tokens |
+|            options             |  否   | undefined |      属性，主题等相关配置       |
+| onLoading,  onSuccess ,onError |  否   | undefined | 加载状态回调(方面设置Loading等)  |
 
-### MarkdownFontStyle参数
+### MarkdownOptions参数
 
-|      名称       | 是否必传 | 默认值        |  说明  |
-|:-------------:|:----:|------------|:----:|
-|   fontColor   |  否   | Color.Black | 字体颜色 |
-|   fontSize    |  否   | 16         | 字体大小 | 
-|   fontWeight   |  否   |    FontWeight.Normal        |  字重  | 
-
+|         名称          | 是否必传 | 默认值                              |                                                                                         说明                                                                                          |
+|:-------------------:|:----:|----------------------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
+|        theme        |  否   | defaultTheme(参考Jetbrains的ui)     |                                                                                      亮色主题相关配置                                                                                       | 
+|      darkTheme      |  否   | defaultDarkTheme(参考Jetbrains的ui) |                                                                                      暗色主题相关配置                                                                                       |
+|      darkMode       |  否   | false                            |                                                                                       是否亮色/暗色                                                                                       |
+|      lineSpace      |  否   | 12                               |                                                                                      item之间的间距                                                                                      | 
+|    textLineSpace    |  否   | LengthMetrics.vp(12)             |                                                                                    item中text的行间距                                                                                    |
+|       options       |  否   | undefined                        |                                                                [marked相关配置]("https://marked.js.org/using_advanced")                                                                 |
+|     extensions      |  否   | undefined                        | [marked插件]("https://marked.js.org/using_advanced#extensions"),可参考[数学公式解析]("https://github.com/lidary-byte/HMarkdown/blob/feat-v3.0.0/Markdown/src/main/ets/core/plugins/latex.ets") |
+|     imageClick      |  否   | undefined                        |                                                                                       图片点击事件                                                                                        |
+|      linkClick      |  否   | undefined                        |                                                                                       超链接点击事件                                                                                       |
+| customBlockBuilder  |  否   | undefined                        |                                                                                      自定义块元素渲染                                                                                       |
+| customInlineBuilder |  否   | undefined                        |                                                                                      自定义行内元素渲染                                                                                      |
+|      maxLines       |  否   | undefined                        |                                                                     如果是行内元素则显示最大行数(多为List列表内item都是Markdown时使用)                                                                      |
 
 ---
 
@@ -51,135 +63,79 @@ ohpm install @lidary/markdown
 ## 导包
 
 ```typescript
+// V2状态管理 不支持V1
 import { Markdown } from '@lidary/markdown';
-// 支持V2状态管理
-import { MarkdownV2 } from '@lidary/markdown';
-```
+``` 
 
 ---
 
 ## 使用方式
 
-### 全局配置
-
-```typescript
-// 设置全局theme 会覆盖掉内部自带的theme
-markConfig.setTheme({
-  themeColor: Color.Red,
-  link: {
-    fontColor: Color.Red
-  }
-})
-// 设置image的点击事件
-markConfig.registerImageClick = (url?: string) => {
-  promptAction.showToast({
-    message: `图片被点击:${url}`,
-    duration: 1500,
-    bottom: "center",
-  })
-}
-// 设置link的点击事件
-markConfig.registerLinkClick = (url?: string) => {
-  promptAction.showToast({
-    message: `超链接被点击----url:${url}`,
-    duration: 1500,
-    bottom: "center",
-  })
-}
-```
-
-### 组件中
-
 ```typescript
 Markdown({
-  content: this.markdownContent,
-  lineSpace: 6,
-  // 覆盖掉通过markConfig.setTheme设置的全局theme(优先级最高)
-  theme: {
-    themeColor: Color.Orange,
-    link: {
-      fontColor: Color.Orange
+  content: this.text,
+  options: {
+    darkMode: this.isDark,
+    options: {
+      gfm: true
+    },
+    darkTheme: {
+      themeColor: Color.Orange
+    },
+    imageClick: (url?: string) => {
+      promptAction.showToast({
+        message: `图片被点击:${url}`,
+        duration: 1500,
+        bottom: "center",
+      })
+    },
+    linkClick: (url?: string) => {
+      promptAction.showToast({
+        message: `超链接被点击----url:${url}`,
+        duration: 1500,
+        bottom: "center",
+      })
     }
   },
-  fontStyle: {
-    fontColor: this.isDark ? Color.White : Color.Black
-  }
-}).backgroundColor(this.isDark ? Color.Black : Color.White)
-```
-### v2
-
-```typescript
-MarkdownV2({
-  content: this.markdownContent,
-  lineSpace: 6,
-  // 覆盖掉通过markConfig.setTheme设置的全局theme(优先级最高)
-  theme: {
-    themeColor: Color.Orange,
-    link: {
-      fontColor: Color.Orange
-    }
+  onLoading: () => {
+    this.isLoading = true
   },
-  fontStyle: {
-    fontColor: this.isDark ? Color.White : Color.Black
+  onError: () => {
+    this.isLoading = false
+  },
+  onSuccess: () => {
+    this.isLoading = false
   }
-}).backgroundColor(this.isDark ? Color.Black : Color.White)
+})
 ```
 
-> #### 关于配置的优先级又高到低分别是:
->
-> 1.通过Markdown组件传入**theme**
->
->  2.调用markConfig.setTheme
->
->  3.HMarkdown内自带的默认theme
-
+ 
 ---
 
-### 插件相关
+## 特性
 
-1. 添加插件
-
-```typescript
-// 添加数学公式解析 (具体的可查看demo)
-markConfig.addPlugin([latexBlock(), latexInline()])
-```
-
-2. 添加自定义渲染(对自定义解析规则进行渲染)
-
-```typescript
-// 可通过that.fontStyle , that.theme ,that.lineSpace获取字体颜色,间距等属性
-@Builder
-function BlockBuilder(type: string, token: Tokens.Generic, that: ESObject) {
-  if (type === 'blockKatex') {
-    // 可以将token.text交给后台生成svg处理
-    Row()
-    {
-      Image($r('app.media.latex_test'))
-        .fillColor(that.fontStyle?.fontColor)
-        .height(40)
-    }
-    .
-    width('100%')
-      .justifyContent(FlexAlign.Center)
-  }
-}
-
-@Builder
-function InlineBuilder(type: string, token: Tokens.Generic, that: ESObject) {
-  if (type === 'inlineKatex') {
-    // 可以将token.text交给后台生成svg处理
-    ImageSpan($r('app.media.latex_test'))
-      .height(40)
-      .verticalAlign(ImageSpanAlignment.CENTER)
-  }
-}
-
-markConfig.customBlockBuilder = wrapBuilder(BlockBuilder)
-markConfig.customInlineBuilder = wrapBuilder(InlineBuilder)
-```
+-[x] 支持标题语法
+-[x] 支持段落语法
+-[x] 支持分割线语法
+-[x] 支持代码语法
+-[x] 支持加粗语法
+-[x] 支持斜体语法
+-[x] 支持删除线语法
+-[x] 支持链接语法
+-[x] 支持表格语法
+-[x] 支持有序列表语法
+-[x] 支持无序列表语法
+-[x] 支持块引用语法
+-[x] 支持数学公式语法
+-[x] 支持图片语法
+-[x] 支持单独代码块功能
+-[x] 支持列表嵌套功能
+-[x] 支持文本样式设置
+-[x] 支持深浅主题色设置
+-[ ] 支持部分html语法
+-[ ] 支持任务列表语法
 
 ## [更新日志](https://github.com/lidary-byte/HMarkdown/blob/main/Markdown/CHANGELOG.md)
-
 
 ## 开源协议
 

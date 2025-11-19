@@ -54,8 +54,8 @@ export struct Markdown {
     if (this.options) {
       this.optionsClass.theme = this.options.darkMode ? deepMerge(defaultDarkTheme, this.options.darkTheme) :
         deepMerge(defaultTheme, this.options.theme)
-      this.optionsClass.lineSpacing = this.options.lineSpacing ?? 12
-      this.optionsClass.inlineLineSpacing = this.options.inlineLineSpacing ?? LengthMetrics.vp(12)
+      this.optionsClass.lineSpacing = this.options.lineSpace ?? 12
+      this.optionsClass.inlineLineSpacing = this.options.inlineLineSpace ?? LengthMetrics.vp(12)
       this.optionsClass.maxLines = this.options.maxLines
       markdown.registerLinkClick = this.options.linkClick
       markdown.registerImageClick = this.options.imageClick

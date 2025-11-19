@@ -1,4 +1,7 @@
 # 更新日志
+## v3.0.0
+1. tokens解析放入子线程,性能更佳
+2. 支持公式本地解析
 
 ## v2.0.8
 优化 [#31](https://github.com/lidary-byte/HMarkdown/issues/31):  

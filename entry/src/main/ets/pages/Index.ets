@@ -75,26 +75,27 @@ struct Index {
               })
             }
           },
-          onLoading:()=>{
+          onLoading: () => {
             this.isLoading = true
           },
-          onError:()=>{
+          onError: () => {
             this.isLoading = false
           },
-          onSuccess:()=>{
+          onSuccess: () => {
             this.isLoading = false
           }
         })
-          .padding(16)
+          .padding({ left: 16, right: 16 })
           .layoutWeight(1)
 
       }.backgroundColor(this.isDark ? Color.Black : Color.White)
-
+      .expandSafeArea([SafeAreaType.SYSTEM], [SafeAreaEdge.TOP, SafeAreaEdge.BOTTOM])
       if (this.isLoading) {
         LoadingProgress()
           .size({ width: 40, height: 40 })
       }
     }.width('100%')
+    .expandSafeArea([SafeAreaType.SYSTEM], [SafeAreaEdge.TOP, SafeAreaEdge.BOTTOM])
   }
 }
 

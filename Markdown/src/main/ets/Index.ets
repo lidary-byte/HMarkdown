@@ -14,8 +14,8 @@ export type OnClick = (url?: string) => void
 export interface MarkdownOptions {
   theme?: MarkdownTheme
   darkTheme?: MarkdownTheme
-  lineSpacing?: number | string
-  inlineLineSpacing?: LengthMetrics
+  lineSpace?: number | string
+  inlineLineSpace?: LengthMetrics
   darkMode?: boolean,
   options?: MarkedOptions,
   extensions?: TokenizerExtension[]
