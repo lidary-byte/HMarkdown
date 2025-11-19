@@ -1,5 +1,5 @@
 import { Token, Tokens } from '../core'
-import { MarkdownOptionsClass } from '../Index'
+import { markdown, MarkdownOptionsClass } from '../Index'
 import { BlockQuote } from './BlockQuote'
 import { Code } from './Code'
 import { Heading } from './Heading'
@@ -53,7 +53,7 @@ export struct MarkdownComponent {
           } else if (repeatItem.item.type === 'blockLatex') {
             Latex({ token: repeatItem.item, options: this.options })
           } else {
-            // markConfig.customBlockBuilder?.builder(repeatItem.item.type, repeatItem.item, this)
+            markdown.customBlockBuilder?.builder(repeatItem.item, this.options)
           }
         })
 

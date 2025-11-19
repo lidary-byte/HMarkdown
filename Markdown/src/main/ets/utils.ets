@@ -6,8 +6,9 @@
 import { LatexMathColorFormat, latexStringToImage } from '@cangjie-tpc/formula_hybrid';
 import { promptAction } from '@kit.ArkUI';
 import { BusinessError, pasteboard } from '@kit.BasicServicesKit';
-import { marked, Token } from './core';
+import { Marked, MarkedOptions, Token, TokenizerExtension } from './core';
 import { image } from '@kit.ImageKit';
+import { latexBlock, latexInline } from './core/plugins/latex';
 
 
 /**
@@ -36,7 +37,13 @@ export function isFirstCharDigit(str: string): boolean {
 }
 
 @Concurrent
-export function parseMarkdown(content: string,): Token[] {
+export function parseMarkdown(content: string, markedOptions?: MarkedOptions, markedExtensions?: TokenizerExtension[]): Token[] {
+  const marked = new Marked()
+  let extensions = markedExtensions ?? []
+  extensions.push(latexBlock(), latexInline())
+  marked.setOptions(markedOptions)
+  marked.use({ extensions: extensions })
+
   if (content) {
     return marked.lexer(content)
   }

@@ -4,11 +4,12 @@
  * @Description:
  */
 import { MarkdownTheme } from '../config/MarkdownTheme'
+import { markdown } from '../Index'
 import { clearMarkdown, latexToPixelMap } from '../utils'
 import { Token } from './Tokens'
 
 
-interface InlineParams {
+export interface InlineParams {
   token: Token[],
   theme: MarkdownTheme,
   uiContext: UIContext,
@@ -40,7 +41,7 @@ export async function parseInlineToken(params: InlineParams): Promise<MutableSty
           styledKey: StyledStringKey.GESTURE,
           styledValue: new GestureStyle({
             onClick: () => {
-              // markdownConfig.imageClick?.(tokenItem['href'])
+              markdown.registerImageClick?.(tokenItem['href'])
             }
           })
         })
@@ -148,9 +149,7 @@ export async function parseInlineToken(params: InlineParams): Promise<MutableSty
           length: codeSpan.length,
           styledKey: StyledStringKey.FONT,
           styledValue: new TextStyle({
-            fontColor: params.theme?.fontStyle?.fontColor,
-
-            // fontSize: params.theme?.fontStyle?.fontSize
+            fontColor: params.theme?.fontStyle?.fontColor
           })
         }, {
           start: 0,
@@ -165,13 +164,12 @@ export async function parseInlineToken(params: InlineParams): Promise<MutableSty
       await parseInlineToken({
         token: tokenItem.tokens ?? [],
         theme: params.theme,
-        // fontStyle: params.fontStyle,
         inlineTextStyle: params.inlineTextStyle,
         fontWeight: params.fontWeight,
         uiContext: params.uiContext,
         isLink: true,
         onSpanClick: () => {
-          // markdownConfig.linkClick?.(tokenItem['href'])
+          markdown.registerLinkClick?.(tokenItem['href'])
         }
       })
     } else if (tokenItem.type === 'inlineLatex') {
@@ -184,7 +182,7 @@ export async function parseInlineToken(params: InlineParams): Promise<MutableSty
           width: params.uiContext.px2vp(imageInfo.width),
           height: params.uiContext.px2vp(imageInfo.height)
         },
-        objectFit: ImageFit.Contain
+        objectFit: ImageFit.Contain,
       })))
       // }  else if (tokenItem.type === 'html') {
       //   // 从当前i忘下找 找到最近的html
@@ -202,12 +200,8 @@ export async function parseInlineToken(params: InlineParams): Promise<MutableSty
       // let text = await StyledString.fromHtml(tokenItem.text)
       // this.inlineTextStyle.appendStyledString(text)
     } else {
-      // markConfig.customInlineBuilder?.builder(tokenItem.type, tokenItem, this)
+      markdown.customInlineBuilder?.(tokenItem, params)
     }
-
   }
-
-
   return params.inlineTextStyle
-  // this.inlineTextController.setStyledString(this.inlineTextStyle)
 }

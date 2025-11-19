@@ -10,7 +10,6 @@ import { MarkdownOptionsClass } from '../Index'
 
 @ComponentV2
 export struct Inline {
-  maxLine?: number
   @Param @Require options: MarkdownOptionsClass
   @Param @Require token: Token[]
   inlineTextController = new TextController()
@@ -41,7 +40,7 @@ export struct Inline {
       .fontColor(this.options.theme.fontStyle?.fontColor)
       .fontSize(this.options.theme.fontStyle?.fontSize)
       .fontWeight(this.options.theme.fontStyle?.fontWeight)
-      .maxLines(this.maxLine)
+      .maxLines(this.options.maxLines)
       .textOverflow({ overflow: TextOverflow.Ellipsis })
       .lineSpacing(this.options.inlineLineSpacing)
   }

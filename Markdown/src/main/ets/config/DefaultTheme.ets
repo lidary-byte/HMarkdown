@@ -145,7 +145,7 @@ export const defaultTheme: MarkdownTheme = {
 
   tableStyle: {
     driveWidth: 0.5,
-    driveColor: Color.White
+    driveColor: '#EBECF0'
   },
   listStyle: {
     marginLeft: 8
