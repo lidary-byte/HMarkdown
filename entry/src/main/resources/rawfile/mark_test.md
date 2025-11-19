@@ -92,7 +92,7 @@ $$ \alpha + \beta = \gamma,\quad \Delta = \delta \cdot \epsilon $$
 ## 7. 高级数学符号
 
 ### 集合运算
-$$ A \cup B,\quad A \cap B,\quad A \setminus B $$
+
 
 ### 导数与偏导
 $$ \frac{dy}{dx},\quad \frac{\partial f}{\partial t} $$
@@ -175,4 +175,3 @@ $$
 2.  **扩展语法兼容性**：请注意，标记有“部分编辑器支持”的语法属于扩展语法（如任务列表、表格、脚注、数学公式等）。在使用前，最好先在你目标平台（如 GitHub、博客园、CSDN 等）测试一下是否支持 。
 3.  **代码块语言指定**：在代码块开头的三个反引号后指定语言名称，可以帮助许多编辑器和平台进行准确的语法高亮，提升代码可读性 。
 
-H<sub>2</sub>O、注册商标<sup>&reg;</sup>、(x<sub>1</sub>+x<sub>2</sub>)<sup>2</sup> = x<sub>1</sub><sup>2</sup>+x<sub>2</sub><sup>2</sup>+2x<sub>1</sub>x<sub>2</sub>
