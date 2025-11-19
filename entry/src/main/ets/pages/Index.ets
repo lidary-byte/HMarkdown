@@ -9,6 +9,7 @@ import { promptAction } from '@kit.ArkUI';
 struct Index {
   @State text: string = ''
   @State isDark: boolean = false
+  @State isLoading: boolean = true
 
   aboutToAppear(): void {
     this.readFile(getContext(this) as common.UIAbilityContext)
@@ -20,15 +21,10 @@ struct Index {
         if (error != null) {
           console.error("error is " + error);
         } else {
-          let rawFile = value;
           this.text = util.TextDecoder.create().decodeWithStream(value)
-          console.info('result:' + this.text)
         }
       });
-    } catch (error) {
-      let code = (error as BusinessError).code;
-      let message = (error as BusinessError).message;
-      console.error(`callback getRawFileContent failed, error code: ${code}, message: ${message}.`);
+    } catch (_) {
     }
   }
 
@@ -40,6 +36,7 @@ struct Index {
             this.isDark = !this.isDark
           })
           Button('文本内容切换').onClick(() => {
+            this.isLoading = true
             if (this.text === '> 1. 第一项\n' +
               '> 2. 第二项\n' +
               '> 3. 第三项') {
@@ -77,18 +74,26 @@ struct Index {
                 bottom: "center",
               })
             }
+          },
+          onLoading:()=>{
+            this.isLoading = true
+          },
+          onError:()=>{
+            this.isLoading = false
+          },
+          onSuccess:()=>{
+            this.isLoading = false
           }
-
-        }).onClick(() => {
-          console.error('---------点击拦截')
         })
-        // .padding(16)
+          .padding(16)
           .layoutWeight(1)
 
       }.backgroundColor(this.isDark ? Color.Black : Color.White)
 
-      // LoadingProgress()
-      //   .size({ width: 40, height: 40 })
+      if (this.isLoading) {
+        LoadingProgress()
+          .size({ width: 40, height: 40 })
+      }
     }.width('100%')
   }
 }
