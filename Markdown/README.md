@@ -20,17 +20,19 @@ Tips:
 2. v2.0.8因为没有考虑到子线程内存隔离问题会导致设置的插件不生效
 
 
-![亮色1](https://github.com/lidary-byte/HMarkdown/blob/feat-v3.0.0/screen/image_1.png)
-![亮色2](https://github.com/lidary-byte/HMarkdown/blob/feat-v3.0.0/screen/image_2.png)
-![亮色3](https://github.com/lidary-byte/HMarkdown/blob/feat-v3.0.0/screen/image_3.png)
-![亮色4](https://github.com/lidary-byte/HMarkdown/blob/feat-v3.0.0/screen/image_4.png)
-![亮色5](https://github.com/lidary-byte/HMarkdown/blob/feat-v3.0.0/screen/image_5.png)
+<p align="center">
+  <img src="https://github.com/lidary-byte/HMarkdown/blob/feat-v3.0.0/screen/image_1.png" width="20%" alt="图1" />
+  <img src="https://github.com/lidary-byte/HMarkdown/blob/feat-v3.0.0/screen/image_2.png" width="20%" alt="图2" />
+  <img src="https://github.com/lidary-byte/HMarkdown/blob/feat-v3.0.0/screen/image_3.png" width="20%" alt="图3" />
+  <img src="https://github.com/lidary-byte/HMarkdown/blob/feat-v3.0.0/screen/image_4.png" width="20%" alt="图4" />
+  <img src="https://github.com/lidary-byte/HMarkdown/blob/feat-v3.0.0/screen/image_5.png" width="20%" alt="图5" />
+  <img src="https://github.com/lidary-byte/HMarkdown/blob/feat-v3.0.0/screen/dark_image_1.png" width="20%" alt="图6" />
+  <img src="https://github.com/lidary-byte/HMarkdown/blob/feat-v3.0.0/screen/dark_image_2.png" width="20%" alt="图7" />
+  <img src="https://github.com/lidary-byte/HMarkdown/blob/feat-v3.0.0/screen/dark_image_3.png" width="20%" alt="图8" />
+  <img src="https://github.com/lidary-byte/HMarkdown/blob/feat-v3.0.0/screen/dark_image_4.png" width="20%" alt="图9" />
+  <img src="https://github.com/lidary-byte/HMarkdown/blob/feat-v3.0.0/screen/dark_image_5.png" width="20%" alt="图10" />
+</p>
 
-![暗色1](https://github.com/lidary-byte/HMarkdown/blob/feat-v3.0.0/screen/dark_image_1.png)
-![暗色2](https://github.com/lidary-byte/HMarkdown/blob/feat-v3.0.0/screen/dark_image_2.png)
-![暗色3](https://github.com/lidary-byte/HMarkdown/blob/feat-v3.0.0/screen/dark_image_3.png)
-![暗色4](https://github.com/lidary-byte/HMarkdown/blob/feat-v3.0.0/screen/dark_image_4.png)
-![暗色5](https://github.com/lidary-byte/HMarkdown/blob/feat-v3.0.0/screen/dark_image_5.png)
 
 ---
 
@@ -52,8 +54,8 @@ Tips:
 |      darkMode       |  否   | false                            |                                                                                       是否亮色/暗色                                                                                       |
 |      lineSpace      |  否   | 12                               |                                                                                      item之间的间距                                                                                      | 
 |    textLineSpace    |  否   | LengthMetrics.vp(12)             |                                                                                    item中text的行间距                                                                                    |
-|       options       |  否   | undefined                        |                                                                [marked相关配置]("https://marked.js.org/using_advanced")                                                                 |
-|     extensions      |  否   | undefined                        | [marked插件]("https://marked.js.org/using_advanced#extensions"),可参考[数学公式解析]("https://github.com/lidary-byte/HMarkdown/blob/feat-v3.0.0/Markdown/src/main/ets/core/plugins/latex.ets") |
+|       options       |  否   | undefined                        |                                                                 <a href="https://marked.js.org/using_advanced">marked相关配置</a>                                                               |
+|     extensions      |  否   | undefined                        |   <a href="https://marked.js.org/using_advanced#extensions">marked插件</a>,可参考<a href="https://github.com/lidary-byte/HMarkdown/blob/feat-v3.0.0/Markdown/src/main/ets/core/plugins/latex.ets">数学公式</a>  |
 |     imageClick      |  否   | undefined                        |                                                                                       图片点击事件                                                                                        |
 |      linkClick      |  否   | undefined                        |                                                                                       超链接点击事件                                                                                       |
 | customBlockBuilder  |  否   | undefined                        |                                                                                      自定义块元素渲染                                                                                       |
@@ -124,26 +126,26 @@ Markdown({
 
 ## 特性
 
--[x] 支持标题语法
--[x] 支持段落语法
--[x] 支持分割线语法
--[x] 支持代码语法
--[x] 支持加粗语法
--[x] 支持斜体语法
--[x] 支持删除线语法
--[x] 支持链接语法
--[x] 支持表格语法
--[x] 支持有序列表语法
--[x] 支持无序列表语法
--[x] 支持块引用语法
--[x] 支持数学公式语法
--[x] 支持图片语法
--[x] 支持单独代码块功能
--[x] 支持列表嵌套功能
--[x] 支持文本样式设置
--[x] 支持深浅主题色设置
--[ ] 支持部分html语法
--[ ] 支持任务列表语法
+-  [x] 支持标题语法
+-  [x] 支持段落语法
+-  [x] 支持分割线语法
+-  [x] 支持代码语法
+-  [x] 支持加粗语法
+-  [x] 支持斜体语法
+-  [x] 支持删除线语法
+-  [x] 支持链接语法
+-  [x] 支持表格语法
+-  [x] 支持有序列表语法
+-  [x] 支持无序列表语法
+-  [x] 支持块引用语法
+-  [x] 支持数学公式语法
+-  [x] 支持图片语法
+-  [x] 支持单独代码块功能
+-  [x] 支持列表嵌套功能
+-  [x] 支持文本样式设置
+-  [x] 支持深浅主题色设置
+-  [ ] 支持部分html语法
+-  [ ] 支持任务列表语法
 
 ## [更新日志](https://github.com/lidary-byte/HMarkdown/blob/main/Markdown/CHANGELOG.md)
 
