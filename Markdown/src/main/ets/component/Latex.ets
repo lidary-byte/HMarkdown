@@ -5,36 +5,36 @@
  */
 import { image } from '@kit.ImageKit';
 import { MarkdownTheme, Tokens } from '../../../../Index';
+import { MarkdownOptionsClass } from '../Index';
 import { latexToPixelMap } from '../utils';
 
 @ComponentV2
 export struct Latex {
   @Param @Require token: Tokens.Generic
-  @Param @Require theme: MarkdownTheme
+  @Param @Require options: MarkdownOptionsClass
   @Local pixelMap: image.PixelMap = undefined!;
   @Local imageWidth: number = 0;
   @Local imageHeight: number = 0;
 
-  async aboutToAppear(): Promise<void> {
+  aboutToAppear() {
     this.watchToken()
   }
 
-  @Monitor('theme')
-  watchTheme(){
+  @Monitor('options.theme')
+  watchTheme() {
     this.watchToken()
   }
 
   @Monitor('token')
   watchToken() {
-    latexToPixelMap(this.token.text, this.getUIContext().fp2px(this.theme.latex?.fontSize),
-      this.theme.latex?.fontColor ?? 0xffffffff, this.theme.latex?.backgroundColor ?? 0xffffffff)
+    latexToPixelMap(this.token.text, this.getUIContext().fp2px(this.options.theme.latexStyle?.fontSize),
+      this.options.theme.latexStyle?.fontColor ?? 0xffffffff, this.options.theme.latexStyle?.backgroundColor ?? 0xffffffff)
       .then((data) => {
         if (data) {
           this.pixelMap = data.pixelMap
           this.imageWidth = this.getUIContext().px2vp(data.width)
           this.imageHeight = this.getUIContext().px2vp(data.height)
         }
-
       })
   }
 

@@ -1,39 +1,33 @@
-import { Token } from './core'
-import { MarkdownTheme } from './config/MarkdownTheme'
-import { markdownConfig } from './Index'
+import { marked, Token } from './core'
 import { MarkdownComponent } from './component/MarkdownComponent'
 import { parseMarkdown } from './utils'
+import { MarkdownOptions, MarkdownOptionsClass } from './Index'
+import { latexBlock, latexInline } from './core/plugins/latex'
+import { defaultDarkTheme, defaultTheme } from './config/DefaultTheme'
+import { LengthMetrics } from '@kit.ArkUI'
+import deepMerge from './merge'
 
 
 @ComponentV2
 export struct Markdown {
-  @Local tokenList: Token[] = []
   /**
    * 外层传入时仅需传递content或token
    */
   @Param token: Token[] = []
   @Param content: string = ''
-  @Param darkMode: boolean = false
-  theme: MarkdownTheme = markdownConfig.theme!
-  darkTheme: MarkdownTheme = markdownConfig.darkTheme!
-
-  //
-  // @Param lineSpace: number = 0
-  // @Param textLineSpace: number = 0
-  // @Param fontStyle: MarkdownFontStyle = {
-  //   fontColor: Color.Black,
-  //   fontSize: 16,
-  //   fontWeight: FontWeight.Normal
-  // }
-  // @Param mdInlineModifier?: AttributeModifier<TextAttribute> = undefined
-  // // 外部不要传
-  // @Provider() _mdInlineModifier?: AttributeModifier<TextAttribute> = undefined
-  // @Provider(KEY_THEME) _theme: MarkdownTheme = this.theme
-  // @Provider(KEY_LINE_SPACE) _lineSpace: number = this.lineSpace
-  // @Provider(KEY_TEXT_LINE_SPACE) _textLineSpace: number = this.textLineSpace
-  // @Provider(KEY_FONT_STYLE) _fontStyle: MarkdownFontStyle = this.fontStyle
+  @Param options?: MarkdownOptions = undefined
+  @Local tokenList: Token[] = []
+  @Local optionsClass: MarkdownOptionsClass = new MarkdownOptionsClass()
 
   aboutToAppear(): void {
+    marked.setOptions(this.options?.options)
+    let extensions = this.options?.extensions ?? []
+    // if (this.options?.enableLatex) {
+    extensions.push(latexBlock(), latexInline())
+    // }
+    marked.use({ extensions: extensions })
+
+    this.watchOptions()
     if (this.content && this.content.trim().length !== 0) {
       this.watchContent()
     } else if (this.token.length != 0) {
@@ -56,33 +50,22 @@ export struct Markdown {
     }
   }
 
-  // @Monitor('theme','lineSpace','textLineSpace','fontStyle','mdInlineModifier')
-  // watchStyle(monitor: IMonitor) {
-  //   monitor.dirty.forEach((path) => {
-  //     if (path === 'theme') {
-  //       this._theme = mergeTheme(monitor.value(path)?.now ?? this._theme)
-  //     }
-  //     if (path === 'lineSpace') {
-  //       this._lineSpace = monitor.value<number>(path)?.now ?? this._lineSpace
-  //     }
-  //     if (path === 'textLineSpace') {
-  //       this._textLineSpace = monitor.value<number>(path)?.now ?? this._textLineSpace
-  //     }
-  //     if (path === 'fontStyle') {
-  //       this._fontStyle = monitor.value(path)?.now ?? this._fontStyle
-  //     }
-  //     if (path === 'mdInlineModifier') {
-  //       this._mdInlineModifier = monitor.value<AttributeModifier<TextAttribute>>(path)?.now
-  //     }
-  //   })
-  // }
-
+  @Monitor('options')
+  watchOptions() {
+    if (this.options) {
+      // this.optionsClass.theme = (this.options.darkMode ? (this.options.darkTheme ?? defaultDarkTheme) : (this.options.theme ?? defaultTheme))
+      this.optionsClass.theme = this.options.darkMode ? deepMerge(defaultDarkTheme, this.options.darkTheme) :
+        deepMerge(defaultTheme, this.options.theme)
+      this.optionsClass.lineSpacing = this.options.lineSpacing ?? 12
+      this.optionsClass.inlineLineSpacing = this.options.inlineLineSpacing ?? LengthMetrics.vp(12)
+      this.optionsClass.imageClick = this.options.imageClick
+      this.optionsClass.linkClick = this.options.linkClick
+    }
+  }
 
   build() {
-    // Stack({ alignContent: Alignment.TopStart }) {
-    if (this.tokenList.length !== 0) {
-      MarkdownComponent({ tokenList: this.tokenList, theme: this.darkMode ? this.darkTheme : this.theme })
+    if (this.tokenList.length != 0) {
+      MarkdownComponent({ tokenList: this.tokenList, options: this.optionsClass })
     }
-    // }
   }
 }

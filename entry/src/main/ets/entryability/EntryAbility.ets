@@ -1,8 +1,6 @@
 import { AbilityConstant, UIAbility, Want } from '@kit.AbilityKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
-import { promptAction, window } from '@kit.ArkUI';
-import { latexBlock, latexInline } from '../Plugin';
-import { markdown } from '@lidary/markdown';
+import { window } from '@kit.ArkUI';
 
 // @Builder
 // function BlockBuilder(type: string, token: Tokens.Generic, that: ESObject) {
@@ -29,33 +27,33 @@ import { markdown } from '@lidary/markdown';
 
 export default class EntryAbility extends UIAbility {
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
-    markdown.init({
-      // theme: {
-      //   themeColor: Color.Red,
-      //   link: {
-      //     fontColor: Color.Red
-      //   }
-      // },
-      options: {
-        gfm: true
-      },
-      extensions: [latexBlock(), latexInline()],
-      enableLatex: true,
-      imageClick: (url?: string) => {
-        promptAction.showToast({
-          message: `图片被点击:${url}`,
-          duration: 1500,
-          bottom: "center",
-        })
-      },
-      linkClick: (url?: string) => {
-        promptAction.showToast({
-          message: `超链接被点击----url:${url}`,
-          duration: 1500,
-          bottom: "center",
-        })
-      }
-    })
+    // markdown.init({
+    //   // theme: {
+    //   //   themeColor: Color.Red,
+    //   //   link: {
+    //   //     fontColor: Color.Red
+    //   //   }
+    //   // },
+    //   options: {
+    //     gfm: true
+    //   },
+    //   extensions: [latexBlock(), latexInline()],
+    //   enableLatex: true,
+    //   imageClick: (url?: string) => {
+    //     promptAction.showToast({
+    //       message: `图片被点击:${url}`,
+    //       duration: 1500,
+    //       bottom: "center",
+    //     })
+    //   },
+    //   linkClick: (url?: string) => {
+    //     promptAction.showToast({
+    //       message: `超链接被点击----url:${url}`,
+    //       duration: 1500,
+    //       bottom: "center",
+    //     })
+    //   }
+    // })
 
 
     // markConfig.customBlockBuilder = wrapBuilder(BlockBuilder)

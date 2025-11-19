@@ -1,10 +1,11 @@
-import { MarkdownTheme } from '../config/MarkdownTheme'
+import { MarkdownOptionsClass } from '../Index'
 
 @ComponentV2
 export struct Hr {
-  @Param @Require theme: MarkdownTheme
+  @Param @Require options: MarkdownOptionsClass
   build() {
     Divider()
-      .strokeWidth(this.theme.hr?.strokeWidth)
+      .strokeWidth(this.options.theme.hrStyle?.driveWidth)
+      .height(this.options.theme.hrStyle?.driveWidth)
   }
 }

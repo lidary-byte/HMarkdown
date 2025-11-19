@@ -3,16 +3,16 @@
  * @CreateData : 2024/7/4
  * @Description:
  */
-import { MarkdownTheme } from '../config/MarkdownTheme'
 import { Tokens } from '../core'
 import { CodeToken, highlightCodeAnalyzer } from '../core/analyzer/HighlightAnalyzer'
+import { MarkdownOptionsClass } from '../Index'
 import { copyToPasteboard } from '../utils'
 
 
 @ComponentV2
 export struct Code {
   @Param @Require token: Tokens.Code
-  @Param @Require theme: MarkdownTheme
+  @Param @Require options: MarkdownOptionsClass
   private codes: string[] = []
   private codeLineHeight: number = 25
   aboutToAppear() {
@@ -24,8 +24,8 @@ export struct Code {
     Text() {
       ForEach(highlightCodeAnalyzer(code), (token: CodeToken) => {
         Span(token.text)
-          .fontColor(this.theme?.code?.fontColor?.[token.type])
-          .fontSize(this.theme.code?.fontSize)
+          .fontColor(this.options.theme?.code?.fontColor?.[token.type])
+          .fontSize(this.options.theme.code?.fontSize)
       })
     }
     .textAlign(TextAlign.Start)
@@ -62,8 +62,8 @@ export struct Code {
         })
     }
     .width('100%')
-    .borderRadius(this.theme.code?.borderRadius)
+    .borderRadius(this.options.theme.code?.borderRadius)
     .alignItems(VerticalAlign.Top)
-    .backgroundColor(this.theme.code?.backgroundColor)
+    .backgroundColor(this.options.theme.code?.backgroundColor)
   }
 }

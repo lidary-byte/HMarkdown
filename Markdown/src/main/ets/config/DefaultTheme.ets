@@ -4,7 +4,6 @@
  * @Description: 默认主题
  */
 import { MarkdownFontStyle, MarkdownTheme } from './MarkdownTheme'
-import { LengthMetrics } from '@kit.ArkUI'
 
 const defaultFontStyle: MarkdownFontStyle = {
   fontWeight: FontWeight.Normal,
@@ -18,16 +17,10 @@ const defaultDarkFontStyle: MarkdownFontStyle = {
 }
 
 export const defaultDarkTheme: MarkdownTheme = {
-  lineSpacing: 8,
-  themeColor: Color.Blue,
-  inlineLineSpacing: LengthMetrics.vp(8),
-  blockQuote: {
-    borderRadius: 4,
-    driveWidth: 4,
-    backgroundColor: '#1020cb58'
-  },
-  heading:
-  [
+  backgroundColor: '#1E1F22',
+  themeColor: '#6B9BFA',
+  fontStyle: defaultDarkFontStyle,
+  headingStyle: [
     {
       fontWeight: FontWeight.Bolder,
       fontColor: Color.White,
@@ -59,125 +52,133 @@ export const defaultDarkTheme: MarkdownTheme = {
       fontSize: 20
     },
   ],
+  blockQuoteStyle: {
+    borderRadius: 4,
+    driveWidth: 2,
+    driveColor: '#485C84',
+    backgroundColor: '#303236',
+  },
 
-  image: {
-    width: 'auto',
-    height: 'auto',
-    objectFit: ImageFit.Contain
+  tableStyle: {
+    driveWidth: 0.5,
+    driveColor: Color.White
   },
-  link: {
-    fontColor: Color.Blue,
+  listStyle: {
+    marginLeft: 8
   },
-  codeSpan: {
-    backgroundColor: '#ff1e6b91',
-    borderRadius: 4
-  },
-  code: {
-    fontColor: {
-      'string': '#653170',
-      'text': Color.White,
-      'keyword': '#0A69DA',
-      'type': '#0A69DA',
-      'symbol': Color.White,
-      'number': '#ffecd9ac',
-      'boolean': '#ff3c1dc3',
-    },
-    fontSize: 16,
-    backgroundColor: '#ff041b30',
-    borderRadius: 10,
-    codeSpanBorderRadius: 10,
-    codeSpanBackgroundColor: '#F6F8FA'
-  },
-  list: {
-    fontStyle: defaultDarkFontStyle,
-    marginLeft: 12
-  },
-  paragraph: defaultDarkFontStyle,
-  latex: {
-    fontSize: 20,
+  paragraphStyle: defaultDarkFontStyle,
+  latexStyle: {
+    fontSize: 22,
     fontColor: 0xffffffff,
     backgroundColor: 0x00000000
   },
-  html: defaultDarkFontStyle
+  code: {
+    fontColor: {
+      'text': Color.White,
+      'string': Color.White,
+      'keyword': '#0A69DA',
+      'type': '#0A69DA',
+      'symbol': '#E3DA90',
+      'number': '#B3E54C',
+      'boolean': Color.White,
+    },
+    backgroundColor: '#303236',
+    borderRadius: 4,
+  },
+  codeSpan: {
+    backgroundColor: '#303236',
+    borderRadius: 4
+  },
+  hrStyle: {
+    driveColor: '#393B41',
+    driveWidth: 1
+  },
+
+  linkColor: '#6A9BFA',
+  imageObjectFit: ImageFit.Contain,
+  // html?: MarkdownFontStyle
 }
 
 
 export const defaultTheme: MarkdownTheme = {
-  lineSpacing: 8,
-  inlineLineSpacing: LengthMetrics.vp(8),
-  themeColor: Color.Blue,
-  blockQuote: {
-    borderRadius: 4,
-    driveWidth: 4,
-    backgroundColor: '#10808080'
-  },
-  heading: [
+  backgroundColor: '#FFFFFF',
+  themeColor: '#6B9BFA',
+  fontStyle: defaultFontStyle,
+  headingStyle: [
     {
       fontWeight: FontWeight.Bolder,
       fontColor: Color.Black,
       fontSize: 30,
-    }, {
-    fontWeight: FontWeight.Bold,
-    fontColor: Color.Black,
-    fontSize: 28
-  }, {
-    fontWeight: FontWeight.Medium,
-    fontColor: Color.Black,
-    fontSize: 26
-  }, {
-    fontWeight: FontWeight.Regular,
-    fontColor: Color.Black,
-    fontSize: 24
-  }, {
-    fontWeight: FontWeight.Normal,
-    fontColor: Color.Black,
-    fontSize: 22
-  }, {
-    fontWeight: FontWeight.Lighter,
-    fontColor: Color.Black,
-    fontSize: 20
-  },
-  ],
-  image: {
-    width: 'auto',
-    height: 'auto',
-    objectFit: ImageFit.Contain
-  },
-  link: {
-    fontColor: Color.Blue,
-  },
-  codeSpan: {
-    backgroundColor: '#EFF1F2',
-    borderRadius: 4
-  },
-  code: {
-    fontColor: {
-      'string': '#653170',
-      'text': Color.Black,
-      'keyword': '#0A69DA',
-      'type': '#0A69DA',
-      'symbol': Color.Black,
-      'number': '#ffecd9ac',
-      'boolean': '#ff3c1dc3',
     },
-    fontSize: 16,
-    backgroundColor: '#F6F8FA',
-    borderRadius: 10,
-    codeSpanFontSize: LengthMetrics.fp(16),
-    codeSpanBorderRadius: 10,
-    codeSpanBackgroundColor: '#F6F8FA'
+    {
+      fontWeight: FontWeight.Bold,
+      fontColor: Color.Black,
+      fontSize: 28
+    },
+    {
+      fontWeight: FontWeight.Medium,
+      fontColor: Color.Black,
+      fontSize: 26
+    },
+    {
+      fontWeight: FontWeight.Regular,
+      fontColor: Color.Black,
+      fontSize: 24
+    },
+    {
+      fontWeight: FontWeight.Normal,
+      fontColor: Color.Black,
+      fontSize: 22
+    },
+    {
+      fontWeight: FontWeight.Lighter,
+      fontColor: Color.Black,
+      fontSize: 20
+    },
+  ],
+  blockQuoteStyle: {
+    borderRadius: 4,
+    driveWidth: 2,
+    driveColor: '#A6BAE1',
+    backgroundColor: '#F5F7F9',
   },
-  list: {
-    fontStyle: defaultFontStyle,
-    marginLeft: 12
+
+  tableStyle: {
+    driveWidth: 0.5,
+    driveColor: Color.White
   },
-  paragraph: defaultFontStyle,
-  latex: {
-    fontSize: 20,
+  listStyle: {
+    marginLeft: 8
+  },
+  paragraphStyle: defaultDarkFontStyle,
+  latexStyle: {
+    fontSize: 22,
     fontColor: 0xff000000,
     backgroundColor: 0x00000000
   },
-  html: defaultFontStyle
+  code: {
+    fontColor: {
+      'text': Color.White,
+      'string': Color.White,
+      'keyword': '#0A69DA',
+      'type': '#0A69DA',
+      'symbol': '#E3DA90',
+      'number': '#B3E54C',
+      'boolean': Color.White,
+    },
+    backgroundColor: '#303236',
+    borderRadius: 4,
+  },
+  codeSpan: {
+    backgroundColor: '#F5F7F9',
+    borderRadius: 4
+  },
+  hrStyle: {
+    driveColor: '#393B41',
+    driveWidth: 1
+  },
+
+  linkColor: '#6A9BFA',
+  imageObjectFit: ImageFit.Contain,
+  // html?: MarkdownFontStyle
 }
-
-

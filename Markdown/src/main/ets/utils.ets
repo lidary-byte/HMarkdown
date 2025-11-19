@@ -43,6 +43,17 @@ export function parseMarkdown(content: string,): Token[] {
   return []
 }
 
+export function textAlign(align?: 'center' | 'left' | 'right' | null) {
+  if (align === 'left') {
+    return TextAlign.Start
+  }
+  if (align === 'right') {
+    return TextAlign.End
+  }
+  return TextAlign.Center
+}
+
+
 export async function copyToPasteboard(text?: string) {
   if (!text) {
     return
@@ -83,3 +94,4 @@ export interface LatexToPixelMap {
   width: number
   height: number
 }
+

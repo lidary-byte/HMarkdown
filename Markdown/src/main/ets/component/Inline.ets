@@ -3,34 +3,32 @@
  * @CreateData : 2024/7/4
  * @Description:
  */
-import { inlineToken } from './span/SpanText'
 import { Token } from '../core'
-import { MarkdownFontStyle, MarkdownTheme } from '../config/MarkdownTheme'
+import { parseInlineToken } from '../core/parseInlineToken'
+import { MarkdownOptionsClass } from '../Index'
 
 
 @ComponentV2
 export struct Inline {
   maxLine?: number
-  @Param @Require theme: MarkdownTheme
+  @Param @Require options: MarkdownOptionsClass
   @Param @Require token: Token[]
-  @Param @Require fontStyle: MarkdownFontStyle
   inlineTextController = new TextController()
 
   aboutToAppear(): void {
     this.watchToken()
   }
 
-  @Monitor('theme')
+  @Monitor('options.theme')
   watchTheme() {
     this.watchToken()
   }
 
   @Monitor('token')
   watchToken() {
-    inlineToken({
+    parseInlineToken({
       token: this.token,
-      theme: this.theme,
-      fontStyle: this.fontStyle,
+      theme: this.options.theme,
       uiContext: this.getUIContext()
     }).then((data) => {
       this.inlineTextController.setStyledString(data)
@@ -40,12 +38,11 @@ export struct Inline {
 
   build() {
     Text(undefined, { controller: this.inlineTextController })
-      .fontColor(this.fontStyle?.fontColor)
-      .fontSize(this.fontStyle?.fontSize)
-      .fontWeight(this.fontStyle?.fontWeight)
+      .fontColor(this.options.theme.fontStyle?.fontColor)
+      .fontSize(this.options.theme.fontStyle?.fontSize)
+      .fontWeight(this.options.theme.fontStyle?.fontWeight)
       .maxLines(this.maxLine)
       .textOverflow({ overflow: TextOverflow.Ellipsis })
-      .lineSpacing(this.theme.inlineLineSpacing)
-    // .attributeModifier(this._mdInlineModifier)
+      .lineSpacing(this.options.inlineLineSpacing)
   }
 }

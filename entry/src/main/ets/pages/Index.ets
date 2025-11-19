@@ -2,6 +2,7 @@ import { Markdown } from '@lidary/markdown';
 import { common } from '@kit.AbilityKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { util } from '@kit.ArkTS';
+import { promptAction } from '@kit.ArkUI';
 
 @Entry
 @Component
@@ -54,19 +55,30 @@ struct Index {
 
         Markdown({
           content: this.text,
-          darkMode: this.isDark
-          // lineSpace: 6,
-          // textLineSpace: 6,
-          // theme: {
-          //   themeColor: Color.Orange,
-          //   link: {
-          //     fontColor: Color.Orange
-          //   }
-          // },
-          // fontStyle: {
-          //   fontColor: this.isDark ? Color.White : Color.Black
-          // },
-          // mdInlineModifier: new TextAttr()
+          options: {
+            darkMode: this.isDark,
+            options: {
+              gfm: true
+            },
+            darkTheme: {
+              themeColor: Color.Orange
+            },
+            imageClick: (url?: string) => {
+              promptAction.showToast({
+                message: `图片被点击:${url}`,
+                duration: 1500,
+                bottom: "center",
+              })
+            },
+            linkClick: (url?: string) => {
+              promptAction.showToast({
+                message: `超链接被点击----url:${url}`,
+                duration: 1500,
+                bottom: "center",
+              })
+            }
+          }
+
         }).onClick(() => {
           console.error('---------点击拦截')
         })

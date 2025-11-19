@@ -4,38 +4,38 @@
  * @Description:
  */
 import { Token, Tokens } from '../core'
-import { MarkdownTheme } from '../config/MarkdownTheme'
 import { Inline } from './Inline'
+import { MarkdownOptionsClass } from '../Index'
 
 @ComponentV2
 export struct MList {
   @Param @Require tokens: Tokens.List
-  @Param @Require theme: MarkdownTheme
+  @Param @Require options: MarkdownOptionsClass
 
   build() {
-    Column({ space: this.theme.lineSpacing }) {
+    Column({ space: this.options.lineSpacing }) {
       ForEach(this.tokens?.items, (item: Tokens.ListItem, index: number) => {
         Row({ space: 8 }) {
           if (this.tokens.ordered) {
             Text(typeof this.tokens.start === 'number' ? `${this.tokens.start + index}.` : '')
-              .fontColor(this.theme.list?.fontStyle?.fontColor)
-              .fontSize(this.theme.list?.fontStyle?.fontSize)
-              .fontWeight(this.theme.list?.fontStyle?.fontWeight)
-              .lineSpacing(this.theme.inlineLineSpacing)
+              .fontColor(this.options.theme.fontStyle?.fontColor)
+              .fontSize(this.options.theme.fontStyle?.fontSize)
+              .fontWeight(this.options.theme.fontStyle?.fontWeight)
+              .lineSpacing(this.options.inlineLineSpacing)
           } else {
             Circle({ width: 6, height: 6 })
-              .margin({ top: this.calcMarginTop(item.text) })
-              .foregroundColor(this.theme?.themeColor)
+              .margin({ top: this.calcMarginTop(item.text, 6) })
+              .foregroundColor(this.options.theme.themeColor)
           }
-          Column({ space: this.theme.lineSpacing }) {
+          Column({ space: this.options.lineSpacing }) {
             ForEach(item.tokens, (itemChild: Token, _: number) => {
               if (itemChild.type === 'list') {
-                MList({ tokens: itemChild as Tokens.List, theme: this.theme })
-                  .padding({ left: 32 })
+                MList({ tokens: itemChild as Tokens.List, options: this.options })
+                  .padding({ left: this.options.theme.listStyle?.marginLeft })
               } else if (itemChild.type === 'space') {
                 Stack()
               } else {
-                Inline({ token: itemChild['tokens'], theme: this.theme, fontStyle: this.theme.list?.fontStyle })
+                Inline({ token: itemChild['tokens'], options: this.options })
               }
             }, (item: Token) => item.raw)
           }.layoutWeight(1)
@@ -46,20 +46,23 @@ export struct MList {
     }.layoutWeight(1)
     .width('100%')
     .alignItems(HorizontalAlign.Start)
-    .padding({ left: this.theme.list?.marginLeft })
   }
 
-  private calcMarginTop(tokenText?: string): number {
+  private calcMarginTop(tokenText?: string, circleSize?: number): number {
     if (tokenText) {
       let textHeight: Length | undefined = this.getUIContext().getMeasureUtils().measureTextSize({
         textContent: tokenText,
         constraintWidth: '100%',
-        fontSize: this.theme.list?.fontStyle?.fontSize,
+        fontSize: this.options.theme.fontStyle?.fontSize,
         maxLines: 1
       }).height
 
       if (textHeight && typeof textHeight === 'number') {
-        return this.getUIContext().px2vp(textHeight / 2)
+        try {
+          return this.getUIContext().px2vp(textHeight) / 2 - (circleSize ?? 0) / 2 +
+            Number.parseInt(this.options.lineSpacing?.toString() ?? '0') / 2
+        } catch (_) {
+        }
       }
     }
     return 0

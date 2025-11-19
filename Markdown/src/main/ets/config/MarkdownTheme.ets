@@ -5,21 +5,35 @@
  */
 
 export interface MarkdownTheme {
-  // 每个item之间的间距
-  lineSpacing?: number | string
-  inlineLineSpacing ?: LengthMetrics
+  // 主题色
   themeColor?: ResourceColor
-  blockQuote?: BlockQuoteTheme
-  heading?: MarkdownFontStyle[],
-  paragraph?: MarkdownFontStyle,
-  defaultFontStyle?: MarkdownFontStyle,
-  list?: ListStyle,
-  image?: ImageTheme
-  link?: LinkTheme,
-  hr?: HrStyle,
-  codeSpan?: CodeSpan,
+  backgroundColor?: ResourceColor
+  fontStyle?: MarkdownFontStyle
+  // 标题样式(h1-h6)
+  headingStyle?: MarkdownFontStyle[],
+
+  // 块样式
+  blockQuoteStyle?: BlockQuoteStyle,
+
+  // 表格样式
+  tableStyle?: DriveStyle
+  // 列表样式
+  listStyle?: ListStyle,
+
+  // 段落样式
+  paragraphStyle?: MarkdownFontStyle,
+
+  // latex 样式
+  latexStyle?: LatexStyle,
+
+  // 代码块及行内代码样式
   code?: CodeStyle,
-  latex?: LatexStyle,
+  codeSpan?: CodeSpan,
+  hrStyle?: DriveStyle,
+
+  // 超链接字体颜色 不设置则为主题色
+  linkColor?: ResourceColor
+  imageObjectFit ?: ImageFit
   html?: MarkdownFontStyle
 }
 
@@ -40,27 +54,31 @@ export interface ImageTheme {
 }
 
 export interface MarkdownFontStyle {
+  // 字体颜色
   fontColor?: ResourceColor
+  // 字重
   fontWeight?: FontWeight
+  // 字体大小
   fontSize?: Length,
-  lineSpacing?: LengthMetrics
+  // lineSpacing?: LengthMetrics
 }
 
-export interface BlockQuoteTheme {
+export interface BlockQuoteStyle {
   backgroundColor?: ResourceColor;
   borderRadius?: Length,
   driveColor?: ResourceColor;
+  driveWidth?: string | number
+}
+
+
+export interface DriveStyle {
+  //线颜色和粗细
+  driveColor?: ResourceColor;
   driveWidth?: string | number,
-  lineSpacing?: LengthMetrics
 }
 
-
-export interface HrStyle {
-  strokeWidth: number | string
-}
 
 export interface ListStyle {
-  fontStyle?: MarkdownFontStyle,
   marginLeft?: Length
 }
 
@@ -82,3 +100,5 @@ export interface LatexStyle {
 }
 
 type CodeHighLight = 'string' | 'text' | 'keyword' | 'type' | 'symbol' | 'number' | 'boolean'
+
+

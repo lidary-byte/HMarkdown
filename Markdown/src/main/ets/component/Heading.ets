@@ -1,11 +1,11 @@
-import { inlineToken } from './span/SpanText'
-import { MarkdownTheme } from '../config/MarkdownTheme'
 import { Tokens } from '../core'
+import { parseInlineToken } from '../core/parseInlineToken'
+import { MarkdownOptionsClass } from '../Index'
 
 @ComponentV2
 export struct Heading {
   @Param @Require token: Tokens.Heading
-  @Param @Require theme: MarkdownTheme
+  @Param @Require options: MarkdownOptionsClass
   inlineTextController = new TextController()
   inlineTextStyle = new MutableStyledString('')
 
@@ -13,7 +13,7 @@ export struct Heading {
     this.watchToken()
   }
 
-  @Monitor('theme')
+  @Monitor('options.theme')
   watchTheme() {
     this.watchToken()
   }
@@ -21,12 +21,33 @@ export struct Heading {
   @Monitor('token')
   watchToken() {
     if (this.token?.tokens) {
-      inlineToken({
+      let fontStyle = this.options.theme.headingStyle?.[this.token.depth]!
+      parseInlineToken({
         token: this.token?.tokens ?? [],
         uiContext: this.getUIContext(),
-        theme: this.theme,
-        fontStyle: this.theme.heading?.[this.token.depth]!
+        theme: this.options.theme,
+        // fontStyle: this.options.theme.headingStyle?.[this.token.depth]!
       }).then((data) => {
+        try {
+          let style = data?.getStyles(0, data.getString().length, StyledStringKey.FONT)
+          style?.forEach((e) => {
+            // e.styledValue['fontColor'] = fontStyle.fontColor
+            // e.styledValue['fontSize'] = fontStyle.fontSize
+            // e.styledValue['fontWeight'] = fontStyle.fontWeight
+            data?.replaceStyle({
+              start: e.start,
+              length: e.length,
+              styledKey: StyledStringKey.FONT,
+              styledValue:
+              new TextStyle({
+                fontWeight: fontStyle.fontWeight,
+                fontColor: e.styledValue['fontColor'],
+              })
+            })
+          })
+
+        } catch (error) {
+        }
         this.inlineTextController.setStyledString(data)
       })
 
@@ -35,9 +56,9 @@ export struct Heading {
 
   build() {
     Text(undefined, { controller: this.inlineTextController })
-      .fontColor(this.theme.heading?.[this.token?.depth]?.fontColor)
-      .fontSize(this.theme.heading?.[this.token?.depth]?.fontSize)
-      .fontWeight(this.theme.heading?.[this.token?.depth]?.fontWeight)
-      .lineSpacing(this.theme.heading?.[this.token?.depth]?.lineSpacing)
+      .fontColor(this.options.theme.headingStyle?.[this.token?.depth]?.fontColor)
+      .fontSize(this.options.theme.headingStyle?.[this.token?.depth]?.fontSize)
+      .fontWeight(this.options.theme.headingStyle?.[this.token?.depth]?.fontWeight)
+      .lineSpacing(this.options.inlineLineSpacing)
   }
 }
