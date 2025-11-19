@@ -19,8 +19,17 @@ Tips:
 1. 本次更新支持Api变动较大,如需旧版本请查看[→]("https://github.com/lidary-byte/HMarkdown/blob/feat-v2.0.8/Markdown/src/main/ets/core/plugins/latex.ets")
 2. v2.0.8因为没有考虑到子线程内存隔离问题会导致设置的插件不生效
 
-![暗色](https://github.com/lidary-byte/HMarkdown/blob/main/screen/image1.mp4)
-![亮色](https://github.com/lidary-byte/HMarkdown/blob/main/screen/image2.mp4)
+![亮色1](https://github.com/lidary-byte/HMarkdown/blob/main/screen/image_1.png)
+![亮色2](https://github.com/lidary-byte/HMarkdown/blob/main/screen/image_2.png)
+![亮色3](https://github.com/lidary-byte/HMarkdown/blob/main/screen/image_3.png)
+![亮色4](https://github.com/lidary-byte/HMarkdown/blob/main/screen/image_4.png)
+![亮色5](https://github.com/lidary-byte/HMarkdown/blob/main/screen/image_5.png)
+
+![暗色1](https://github.com/lidary-byte/HMarkdown/blob/main/screen/dark_image_1.png)
+![暗色2](https://github.com/lidary-byte/HMarkdown/blob/main/screen/dark_image_2.png)
+![暗色3](https://github.com/lidary-byte/HMarkdown/blob/main/screen/dark_image_3.png)
+![暗色4](https://github.com/lidary-byte/HMarkdown/blob/main/screen/dark_image_4.png)
+![暗色5](https://github.com/lidary-byte/HMarkdown/blob/main/screen/dark_image_5.png)
 
 ---
 
