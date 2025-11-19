@@ -89,6 +89,7 @@ struct Index {
           .layoutWeight(1)
 
       }.backgroundColor(this.isDark ? Color.Black : Color.White)
+      .width('100%')
       .expandSafeArea([SafeAreaType.SYSTEM], [SafeAreaEdge.TOP, SafeAreaEdge.BOTTOM])
       if (this.isLoading) {
         LoadingProgress()
