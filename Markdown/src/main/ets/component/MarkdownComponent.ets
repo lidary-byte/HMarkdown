@@ -1,5 +1,5 @@
 import { Token, Tokens } from '../core'
-import { markdown, MarkdownOptionsClass } from '../Index'
+import { MarkdownOptions } from '../Index'
 import { BlockQuote } from './BlockQuote'
 import { Code } from './Code'
 import { Heading } from './Heading'
@@ -13,10 +13,10 @@ import { Table } from './Table'
 @ComponentV2
 export struct MarkdownComponent {
   @Param @Require tokenList: Token[] = []
-  @Param @Require options: MarkdownOptionsClass
+  @Param @Require options: MarkdownOptions
 
   build() {
-    List({ space: this.options.lineSpacing }) {
+    List({ space: this.options.lineSpace }) {
       Repeat(this.tokenList)
         .each((repeatItem) => {
           if (repeatItem.item.type === 'hr') {
@@ -53,10 +53,9 @@ export struct MarkdownComponent {
           } else if (repeatItem.item.type === 'blockLatex') {
             Latex({ token: repeatItem.item, options: this.options })
           } else {
-            markdown.customBlockBuilder?.builder(repeatItem.item, this.options)
+            this.options.customBlockBuilder?.builder(repeatItem.item, this.options)
           }
         })
-
     }.width('100%')
   }
 }

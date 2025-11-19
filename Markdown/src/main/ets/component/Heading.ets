@@ -1,11 +1,12 @@
 import { Tokens } from '../core'
 import { parseInlineToken } from '../core/parseInlineToken'
-import { MarkdownOptionsClass } from '../Index'
+import { MarkdownOptions } from '../Index'
+import { getTheme } from '../utils'
 
 @ComponentV2
 export struct Heading {
   @Param @Require token: Tokens.Heading
-  @Param @Require options: MarkdownOptionsClass
+  @Param @Require options: MarkdownOptions
   inlineTextController = new TextController()
   inlineTextStyle = new MutableStyledString('')
 
@@ -21,19 +22,16 @@ export struct Heading {
   @Monitor('token')
   watchToken() {
     if (this.token?.tokens) {
-      let fontStyle = this.options.theme.headingStyle?.[this.token.depth]!
+      let fontStyle = getTheme(this.options).headingStyle?.[this.token.depth]!
       parseInlineToken({
         token: this.token?.tokens ?? [],
         uiContext: this.getUIContext(),
-        theme: this.options.theme,
+        options: this.options,
         // fontStyle: this.options.theme.headingStyle?.[this.token.depth]!
       }).then((data) => {
         try {
           let style = data?.getStyles(0, data.getString().length, StyledStringKey.FONT)
           style?.forEach((e) => {
-            // e.styledValue['fontColor'] = fontStyle.fontColor
-            // e.styledValue['fontSize'] = fontStyle.fontSize
-            // e.styledValue['fontWeight'] = fontStyle.fontWeight
             data?.replaceStyle({
               start: e.start,
               length: e.length,
@@ -56,9 +54,9 @@ export struct Heading {
 
   build() {
     Text(undefined, { controller: this.inlineTextController })
-      .fontColor(this.options.theme.headingStyle?.[this.token?.depth]?.fontColor)
-      .fontSize(this.options.theme.headingStyle?.[this.token?.depth]?.fontSize)
-      .fontWeight(this.options.theme.headingStyle?.[this.token?.depth]?.fontWeight)
-      .lineSpacing(this.options.inlineLineSpacing)
+      .fontColor(getTheme(this.options).headingStyle?.[this.token?.depth]?.fontColor)
+      .fontSize(getTheme(this.options).headingStyle?.[this.token?.depth]?.fontSize)
+      .fontWeight(getTheme(this.options).headingStyle?.[this.token?.depth]?.fontWeight)
+      .lineSpacing(this.options.inlineLineSpace)
   }
 }

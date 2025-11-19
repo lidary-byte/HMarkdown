@@ -7,8 +7,8 @@
 import { MarkdownTheme } from '../config/MarkdownTheme'
 import { Tokens } from '../core'
 import { parseInlineToken } from '../core/parseInlineToken'
-import { MarkdownOptionsClass } from '../Index'
-import { textAlign } from '../utils'
+import { MarkdownOptions } from '../Index'
+import { getTheme, textAlign } from '../utils'
 
 export const defaultHorPadding: number = 20
 
@@ -18,7 +18,7 @@ export const itemLineHeight: number = 44
 @ComponentV2
 export struct Table {
   @Param @Require token: Tokens.Table
-  @Param @Require options: MarkdownOptionsClass
+  @Param @Require options: MarkdownOptions
   // 每一列最大宽度
   @Local itemMaxWidth: Map<number, number> = new Map()
 
@@ -26,14 +26,14 @@ export struct Table {
 
     Scroll() {
       Column() {
-        TableHeader({ tokens: this.token?.header, itemMaxWidth: this.itemMaxWidth, theme: this.options.theme })
-        TableBody({ tokens: this.token?.rows, itemMaxWidth: this.itemMaxWidth, theme: this.options.theme })
+        TableHeader({ tokens: this.token?.header, itemMaxWidth: this.itemMaxWidth, theme: getTheme(this.options) })
+        TableBody({ tokens: this.token?.rows, itemMaxWidth: this.itemMaxWidth, options: this.options })
       }.alignItems(HorizontalAlign.Start)
     }
     .scrollable(ScrollDirection.Horizontal)
     .scrollBar(BarState.Off)
-    .borderWidth(this.options.theme.tableStyle?.driveWidth)
-    .borderColor(this.options.theme.tableStyle?.driveColor)
+    .borderWidth(getTheme(this.options).tableStyle?.driveWidth)
+    .borderColor(getTheme(this.options).tableStyle?.driveColor)
 
   }
 }
@@ -44,7 +44,6 @@ export struct TableHeader {
   @Param @Require tokens: Tokens.TableCell[]
   @Param @Require theme: MarkdownTheme
   @Param @Require itemMaxWidth: Map<number, number>
-
 
   build() {
 
@@ -98,7 +97,7 @@ export struct TableHeader {
 @ComponentV2
 struct TableBody {
   @Param @Require tokens: Tokens.TableCell[][]
-  @Param @Require theme: MarkdownTheme
+  @Param @Require options: MarkdownOptions
   @Param @Require itemMaxWidth: Map<number, number>
 
   build() {
@@ -111,12 +110,12 @@ struct TableBody {
               tableCell: item,
               itemMaxWidth: this.itemMaxWidth,
               index: index,
-              theme: this.theme
+              options: this.options
             })
 
             if (index != row.length - 1) {
-              Divider().color(this.theme?.tableStyle?.driveColor)
-                .strokeWidth(this.theme?.tableStyle?.driveWidth)
+              Divider().color(getTheme(this.options).tableStyle?.driveColor)
+                .strokeWidth(getTheme(this.options).tableStyle?.driveWidth)
                 .vertical(true)
             }
 
@@ -126,9 +125,9 @@ struct TableBody {
         .height(itemLineHeight)
         .border({
           width: {
-            bottom:this.theme?.tableStyle?.driveWidth
+            bottom: getTheme(this.options).tableStyle?.driveWidth
           },
-          color: this.theme?.tableStyle?.driveColor
+          color: getTheme(this.options).tableStyle?.driveColor
         })
       })
     }
@@ -141,20 +140,18 @@ export struct TableInline {
   @Param @Require index: number
   @Param @Require tableCell: Tokens.TableCell
   @Param @Require itemMaxWidth: Map<number, number>
-  @Param @Require theme: MarkdownTheme
-  @Consumer() _mdInlineModifier?: AttributeModifier<TextAttribute>
+  @Param @Require options: MarkdownOptions
   inlineTextController = new TextController()
 
   aboutToAppear(): void {
     this.watchToken()
   }
 
-  @Monitor('theme')
+  @Monitor('options')
   watchToken() {
     parseInlineToken({
       token: this.tableCell.tokens ?? [],
-      theme: this.theme,
-      // fontStyle: this.theme.fontStyle!,
+      options: this.options,
       uiContext: this.getUIContext()
     }).then((data) => {
       this.inlineTextController.setStyledString(data)
@@ -164,7 +161,7 @@ export struct TableInline {
   build() {
     Text(undefined, { controller: this.inlineTextController })
       .textAlign(textAlign(this.tableCell.align))
-      .fontColor(this.theme?.fontStyle?.fontColor)
+      .fontColor(getTheme(this.options).fontStyle?.fontColor)
       .padding({
         top: 10,
         bottom: 10,
@@ -172,7 +169,7 @@ export struct TableInline {
         right: 8
       })
       .maxLines(1)
-      .fontSize(this.theme?.fontStyle?.fontSize)
+      .fontSize(getTheme(this.options).fontStyle?.fontSize)
       .width(this.itemMaxWidth[this.index])
       .onSizeChange((_: SizeOptions, newValue: SizeOptions) => {
         const width: number = this.itemMaxWidth[this.index]

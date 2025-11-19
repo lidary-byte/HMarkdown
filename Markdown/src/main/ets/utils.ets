@@ -9,6 +9,9 @@ import { BusinessError, pasteboard } from '@kit.BasicServicesKit';
 import { Marked, MarkedOptions, Token, TokenizerExtension } from './core';
 import { image } from '@kit.ImageKit';
 import { latexBlock, latexInline } from './core/plugins/latex';
+import { MarkdownTheme } from './config/MarkdownTheme';
+import { defaultDarkTheme, defaultTheme } from './config/DefaultTheme';
+import { MarkdownOptions } from './Index';
 
 
 /**
@@ -37,7 +40,8 @@ export function isFirstCharDigit(str: string): boolean {
 }
 
 @Concurrent
-export function parseMarkdown(content: string, markedOptions?: MarkedOptions, markedExtensions?: TokenizerExtension[]): Token[] {
+export function parseMarkdown(content: string, markedOptions?: MarkedOptions,
+  markedExtensions?: TokenizerExtension[]): Token[] {
   const marked = new Marked()
   let extensions = markedExtensions ?? []
   extensions.push(latexBlock(), latexInline())
@@ -102,3 +106,7 @@ export interface LatexToPixelMap {
   height: number
 }
 
+
+export const getTheme =
+  (options?: MarkdownOptions) => options?.darkMode ? (options?.darkTheme ?? defaultDarkTheme) :
+    (options?.theme ?? defaultTheme)

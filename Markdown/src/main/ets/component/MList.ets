@@ -5,33 +5,34 @@
  */
 import { Token, Tokens } from '../core'
 import { Inline } from './Inline'
-import { MarkdownOptionsClass } from '../Index'
+import { MarkdownOptions } from '../Index'
+import { getTheme } from '../utils'
 
 @ComponentV2
 export struct MList {
   @Param @Require tokens: Tokens.List
-  @Param @Require options: MarkdownOptionsClass
+  @Param @Require options: MarkdownOptions
 
   build() {
-    Column({ space: this.options.lineSpacing }) {
+    Column({ space: this.options.lineSpace }) {
       ForEach(this.tokens?.items, (item: Tokens.ListItem, index: number) => {
         Row({ space: 8 }) {
           if (this.tokens.ordered) {
             Text(typeof this.tokens.start === 'number' ? `${this.tokens.start + index}.` : '')
-              .fontColor(this.options.theme.fontStyle?.fontColor)
-              .fontSize(this.options.theme.fontStyle?.fontSize)
-              .fontWeight(this.options.theme.fontStyle?.fontWeight)
-              .lineSpacing(this.options.inlineLineSpacing)
+              .fontColor(getTheme(this.options).fontStyle?.fontColor)
+              .fontSize(getTheme(this.options).fontStyle?.fontSize)
+              .fontWeight(getTheme(this.options).fontStyle?.fontWeight)
+              .lineSpacing(this.options.inlineLineSpace)
           } else {
             Circle({ width: 6, height: 6 })
               .margin({ top: this.calcMarginTop(item.text, 6) })
-              .foregroundColor(this.options.theme.themeColor)
+              .foregroundColor(getTheme(this.options).themeColor)
           }
-          Column({ space: this.options.lineSpacing }) {
+          Column({ space: this.options.lineSpace }) {
             ForEach(item.tokens, (itemChild: Token, _: number) => {
               if (itemChild.type === 'list') {
                 MList({ tokens: itemChild as Tokens.List, options: this.options })
-                  .padding({ left: this.options.theme.listStyle?.marginLeft })
+                  .padding({ left: getTheme(this.options).listStyle?.marginLeft })
               } else if (itemChild.type === 'space') {
                 Stack()
               } else {
@@ -53,14 +54,14 @@ export struct MList {
       let textHeight: Length | undefined = this.getUIContext().getMeasureUtils().measureTextSize({
         textContent: tokenText,
         constraintWidth: '100%',
-        fontSize: this.options.theme.fontStyle?.fontSize,
+        fontSize: getTheme(this.options).fontStyle?.fontSize,
         maxLines: 1
       }).height
 
       if (textHeight && typeof textHeight === 'number') {
         try {
           return this.getUIContext().px2vp(textHeight) / 2 - (circleSize ?? 0) / 2 +
-            Number.parseInt(this.options.lineSpacing?.toString() ?? '0') / 2
+            Number.parseInt(this.options.lineSpace?.toString() ?? '0') / 2
         } catch (_) {
         }
       }

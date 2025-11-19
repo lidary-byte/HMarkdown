@@ -1,5 +1,6 @@
 import { Tokens } from '../core'
-import { MarkdownOptionsClass } from '../Index'
+import { MarkdownOptions } from '../Index'
+import { getTheme } from '../utils'
 import { MarkdownComponent } from './MarkdownComponent'
 
 /**
@@ -10,23 +11,23 @@ import { MarkdownComponent } from './MarkdownComponent'
 @ComponentV2
 export struct BlockQuote {
   @Param @Require token: Tokens.Blockquote
-  @Param @Require options: MarkdownOptionsClass
+  @Param @Require options: MarkdownOptions
   @Local blockHeight: Length = 0
 
   build() {
     Row() {
       Divider()
         .vertical(true)
-        .strokeWidth(this.options.theme.blockQuoteStyle?.driveWidth)
+        .strokeWidth(getTheme(this.options).blockQuoteStyle?.driveWidth)
         .height(this.blockHeight)
-        .color(this.options.theme.blockQuoteStyle?.driveColor)
+        .color(getTheme(this.options).blockQuoteStyle?.driveColor)
       MarkdownComponent({ tokenList: this.token?.tokens, options: this.options })
         .margin({ left: 10, right: 20 })
         .layoutWeight(1)
-        .padding({ top: this.options.inlineLineSpacing, bottom: this.options.inlineLineSpacing })
+        .padding({ top: this.options.inlineLineSpace, bottom: this.options.inlineLineSpace })
     }
-    .backgroundColor(this.options.theme.blockQuoteStyle?.backgroundColor)
-    .borderRadius(this.options.theme.blockQuoteStyle?.borderRadius)
+    .backgroundColor(getTheme(this.options).blockQuoteStyle?.backgroundColor)
+    .borderRadius(getTheme(this.options).blockQuoteStyle?.borderRadius)
     .onSizeChange((_: SizeOptions, newValue: SizeOptions) => {
       if (newValue.height) {
         this.blockHeight = newValue.height

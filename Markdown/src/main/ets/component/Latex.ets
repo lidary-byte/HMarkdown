@@ -5,13 +5,13 @@
  */
 import { image } from '@kit.ImageKit';
 import { MarkdownTheme, Tokens } from '../../../../Index';
-import { MarkdownOptionsClass } from '../Index';
-import { latexToPixelMap } from '../utils';
+import { MarkdownOptions } from '../Index';
+import { getTheme, latexToPixelMap } from '../utils';
 
 @ComponentV2
 export struct Latex {
   @Param @Require token: Tokens.Generic
-  @Param @Require options: MarkdownOptionsClass
+  @Param @Require options: MarkdownOptions
   @Local pixelMap: image.PixelMap = undefined!;
   @Local imageWidth: number = 0;
   @Local imageHeight: number = 0;
@@ -27,8 +27,8 @@ export struct Latex {
 
   @Monitor('token')
   watchToken() {
-    latexToPixelMap(this.token.text, this.getUIContext().fp2px(this.options.theme.latexStyle?.fontSize),
-      this.options.theme.latexStyle?.fontColor ?? 0xffffffff, this.options.theme.latexStyle?.backgroundColor ?? 0xffffffff)
+    latexToPixelMap(this.token.text, this.getUIContext().fp2px(getTheme(this.options).latexStyle?.fontSize),
+      getTheme(this.options).latexStyle?.fontColor ?? 0xffffffff, getTheme(this.options).latexStyle?.backgroundColor ?? 0xffffffff)
       .then((data) => {
         if (data) {
           this.pixelMap = data.pixelMap

@@ -3,15 +3,14 @@
  * @CreateData : 2024/7/4
  * @Description:
  */
-import { MarkdownTheme } from '../config/MarkdownTheme'
-import { markdown } from '../Index'
-import { clearMarkdown, latexToPixelMap } from '../utils'
+import { MarkdownOptions } from '../Index'
+import { clearMarkdown, getTheme, latexToPixelMap } from '../utils'
 import { Token } from './Tokens'
 
 
 export interface InlineParams {
   token: Token[],
-  theme: MarkdownTheme,
+  options: MarkdownOptions,
   uiContext: UIContext,
   inlineTextStyle?: MutableStyledString,
   isLink?: boolean
@@ -32,7 +31,7 @@ export async function parseInlineToken(params: InlineParams): Promise<MutableSty
         resourceValue: tokenItem.href,
         verticalAlign: ImageSpanAlignment.CENTER,
         size: { width: '100%' },
-        objectFit: params.theme?.imageObjectFit,
+        objectFit: getTheme(params.options).imageObjectFit,
       })))
       try {
         params.inlineTextStyle.setStyle({
@@ -41,7 +40,7 @@ export async function parseInlineToken(params: InlineParams): Promise<MutableSty
           styledKey: StyledStringKey.GESTURE,
           styledValue: new GestureStyle({
             onClick: () => {
-              markdown.registerImageClick?.(tokenItem['href'])
+              params.options.imageClick?.(tokenItem['href'])
             }
           })
         })
@@ -53,7 +52,7 @@ export async function parseInlineToken(params: InlineParams): Promise<MutableSty
       if (tokenItem.tokens?.length != 0) {
         await parseInlineToken({
           token: tokenItem.tokens ?? [],
-          theme: params.theme,
+          options: params.options,
           inlineTextStyle: params.inlineTextStyle,
           fontWeight: FontWeight.Bold,
           isLink: params.isLink,
@@ -68,9 +67,9 @@ export async function parseInlineToken(params: InlineParams): Promise<MutableSty
             length: text.length,
             styledKey: StyledStringKey.FONT,
             styledValue: new TextStyle({
-              fontColor: params?.isLink ? params.theme?.linkColor :
-                params.theme.fontStyle?.fontColor,
-              fontWeight: params?.fontWeight ?? params?.theme?.fontStyle?.fontWeight
+              fontColor: params?.isLink ? getTheme(params.options).linkColor :
+                getTheme(params.options).fontStyle?.fontColor,
+              fontWeight: params?.fontWeight ?? getTheme(params.options).fontStyle?.fontWeight
             })
           }, {
             start: 0,
@@ -88,7 +87,7 @@ export async function parseInlineToken(params: InlineParams): Promise<MutableSty
           styledKey: StyledStringKey.DECORATION,
           styledValue: new DecorationStyle({
             type: TextDecorationType.LineThrough,
-            color: params?.isLink ? params.theme?.linkColor : params.theme.fontStyle?.fontColor,
+            color: params?.isLink ? getTheme(params.options).linkColor : getTheme(params.options).fontStyle?.fontColor,
             style: TextDecorationStyle.SOLID
           })
         }, {
@@ -96,7 +95,8 @@ export async function parseInlineToken(params: InlineParams): Promise<MutableSty
           length: text.length,
           styledKey: StyledStringKey.FONT,
           styledValue: new TextStyle({
-            fontColor: params?.isLink ? params.theme?.linkColor : params.theme.fontStyle?.fontColor,
+            fontColor: params?.isLink ? getTheme(params.options).linkColor :
+              getTheme(params.options).fontStyle?.fontColor,
           })
         }, {
           start: 0,
@@ -113,8 +113,9 @@ export async function parseInlineToken(params: InlineParams): Promise<MutableSty
           length: text.length,
           styledKey: StyledStringKey.FONT,
           styledValue: new TextStyle({
-            fontColor: params?.isLink ? params.theme?.linkColor : params.theme.fontStyle?.fontColor,
-            fontWeight: params?.fontWeight ?? params?.theme?.fontStyle?.fontWeight
+            fontColor: params?.isLink ? getTheme(params.options).linkColor :
+              getTheme(params.options).fontStyle?.fontColor,
+            fontWeight: params?.fontWeight ?? getTheme(params.options).fontStyle?.fontWeight
           })
         }, {
           start: 0,
@@ -132,7 +133,8 @@ export async function parseInlineToken(params: InlineParams): Promise<MutableSty
           length: text.length,
           styledKey: StyledStringKey.FONT,
           styledValue: new TextStyle({
-            fontColor: params?.isLink ? params.theme?.linkColor : params.theme.fontStyle?.fontColor,
+            fontColor: params?.isLink ? getTheme(params.options).linkColor :
+              getTheme(params.options).fontStyle?.fontColor,
             fontStyle: FontStyle.Italic
           })
         }, {
@@ -149,32 +151,34 @@ export async function parseInlineToken(params: InlineParams): Promise<MutableSty
           length: codeSpan.length,
           styledKey: StyledStringKey.FONT,
           styledValue: new TextStyle({
-            fontColor: params.theme?.fontStyle?.fontColor
+            fontColor: getTheme(params.options).fontStyle?.fontColor
           })
         }, {
           start: 0,
           length: codeSpan.length,
           styledKey: StyledStringKey.BACKGROUND_COLOR,
           styledValue: new BackgroundColorStyle({
-            color: params.theme?.codeSpan?.backgroundColor,
-            radius: params.theme?.codeSpan?.borderRadius
+            color: getTheme(params.options).codeSpan?.backgroundColor,
+            radius: getTheme(params.options).codeSpan?.borderRadius
           })
         }]))
     } else if (tokenItem.type === 'link') {
       await parseInlineToken({
         token: tokenItem.tokens ?? [],
-        theme: params.theme,
+        options: params.options,
         inlineTextStyle: params.inlineTextStyle,
         fontWeight: params.fontWeight,
         uiContext: params.uiContext,
         isLink: true,
         onSpanClick: () => {
-          markdown.registerLinkClick?.(tokenItem['href'])
+          params.options.linkClick?.(tokenItem['href'])
         }
       })
     } else if (tokenItem.type === 'inlineLatex') {
-      let imageInfo = await latexToPixelMap(tokenItem.text, params.uiContext.fp2px(params.theme.latexStyle?.fontSize),
-        params.theme.latexStyle?.fontColor ?? 0xffffffff, params.theme.latexStyle?.backgroundColor ?? 0xffffffff)
+      let imageInfo =
+        await latexToPixelMap(tokenItem.text, params.uiContext.fp2px(getTheme(params.options).latexStyle?.fontSize),
+          getTheme(params.options).latexStyle?.fontColor ?? 0xffffffff,
+          getTheme(params.options).latexStyle?.backgroundColor ?? 0xffffffff)
       params.inlineTextStyle.appendStyledString(new MutableStyledString(new ImageAttachment({
         value: imageInfo.pixelMap,
         verticalAlign: ImageSpanAlignment.CENTER,
@@ -200,7 +204,7 @@ export async function parseInlineToken(params: InlineParams): Promise<MutableSty
       // let text = await StyledString.fromHtml(tokenItem.text)
       // this.inlineTextStyle.appendStyledString(text)
     } else {
-      markdown.customInlineBuilder?.(tokenItem, params)
+      params.options.customInlineBuilder?.(tokenItem, params)
     }
   }
   return params.inlineTextStyle

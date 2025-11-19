@@ -5,12 +5,13 @@
  */
 import { Token } from '../core'
 import { parseInlineToken } from '../core/parseInlineToken'
-import { MarkdownOptionsClass } from '../Index'
+import { MarkdownOptions } from '../Index'
+import { getTheme } from '../utils'
 
 
 @ComponentV2
 export struct Inline {
-  @Param @Require options: MarkdownOptionsClass
+  @Param @Require options: MarkdownOptions
   @Param @Require token: Token[]
   inlineTextController = new TextController()
 
@@ -18,16 +19,11 @@ export struct Inline {
     this.watchToken()
   }
 
-  @Monitor('options.theme')
-  watchTheme() {
-    this.watchToken()
-  }
-
-  @Monitor('token')
+  @Monitor('token','options')
   watchToken() {
     parseInlineToken({
       token: this.token,
-      theme: this.options.theme,
+      options: this.options,
       uiContext: this.getUIContext()
     }).then((data) => {
       this.inlineTextController.setStyledString(data)
@@ -35,13 +31,23 @@ export struct Inline {
 
   }
 
+  parseToken() {
+    parseInlineToken({
+      token: this.token,
+      options: this.options,
+      uiContext: this.getUIContext()
+    }).then((data) => {
+      this.inlineTextController.setStyledString(data)
+    })
+  }
+
   build() {
     Text(undefined, { controller: this.inlineTextController })
-      .fontColor(this.options.theme.fontStyle?.fontColor)
-      .fontSize(this.options.theme.fontStyle?.fontSize)
-      .fontWeight(this.options.theme.fontStyle?.fontWeight)
+      .fontColor(getTheme(this.options).fontStyle?.fontColor)
+      .fontSize(getTheme(this.options).fontStyle?.fontSize)
+      .fontWeight(getTheme(this.options).fontStyle?.fontWeight)
       .maxLines(this.options.maxLines)
       .textOverflow({ overflow: TextOverflow.Ellipsis })
-      .lineSpacing(this.options.inlineLineSpacing)
+      .lineSpacing(this.options.inlineLineSpace)
   }
 }

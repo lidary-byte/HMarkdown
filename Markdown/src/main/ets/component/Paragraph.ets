@@ -4,13 +4,13 @@
  * @Description:
  */
 import { Tokens } from '../core'
-import { MarkdownOptionsClass } from '../Index'
+import { MarkdownOptions } from '../Index'
 import { Inline } from './Inline'
 
 @ComponentV2
 export struct Paragraph {
   @Param @Require token: Tokens.Paragraph
-  @Param @Require options: MarkdownOptionsClass
+  @Param @Require options: MarkdownOptions
 
   build() {
     Inline({ token: this.token?.tokens, options:this.options })

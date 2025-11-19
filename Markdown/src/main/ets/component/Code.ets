@@ -5,14 +5,14 @@
  */
 import { Tokens } from '../core'
 import { CodeToken, highlightCodeAnalyzer } from '../core/analyzer/HighlightAnalyzer'
-import { MarkdownOptionsClass } from '../Index'
-import { copyToPasteboard } from '../utils'
+import { MarkdownOptions } from '../Index'
+import { copyToPasteboard, getTheme } from '../utils'
 
 
 @ComponentV2
 export struct Code {
   @Param @Require token: Tokens.Code
-  @Param @Require options: MarkdownOptionsClass
+  @Param @Require options: MarkdownOptions
   private codes: string[] = []
   private codeLineHeight: number = 25
   aboutToAppear() {
@@ -24,8 +24,8 @@ export struct Code {
     Text() {
       ForEach(highlightCodeAnalyzer(code), (token: CodeToken) => {
         Span(token.text)
-          .fontColor(this.options.theme?.code?.fontColor?.[token.type])
-          .fontSize(this.options.theme.code?.fontSize)
+          .fontColor(getTheme(this.options)?.code?.fontColor?.[token.type])
+          .fontSize(getTheme(this.options).code?.fontSize)
       })
     }
     .textAlign(TextAlign.Start)
@@ -62,8 +62,8 @@ export struct Code {
         })
     }
     .width('100%')
-    .borderRadius(this.options.theme.code?.borderRadius)
+    .borderRadius(getTheme(this.options).code?.borderRadius)
     .alignItems(VerticalAlign.Top)
-    .backgroundColor(this.options.theme.code?.backgroundColor)
+    .backgroundColor(getTheme(this.options).code?.backgroundColor)
   }
 }
