@@ -4,6 +4,7 @@ import { BlockQuote } from './BlockQuote'
 import { Code } from './Code'
 import { Heading } from './Heading'
 import { Hr } from './Hr'
+import { Html } from './Html'
 import { Inline } from './Inline'
 import { Latex } from './Latex'
 import { MList } from './MList'
@@ -49,7 +50,7 @@ export struct MarkdownComponent {
               token: repeatItem.item as Tokens.Table, options: this.options
             })
           } else if (repeatItem.item.type === 'html') {
-            // Html({ html: repeatItem.item.text, options: this.options })
+            Html({ html: repeatItem.item, options: this.options })
           } else if (repeatItem.item.type === 'blockLatex') {
             Latex({ token: repeatItem.item, options: this.options })
           } else {

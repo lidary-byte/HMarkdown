@@ -188,21 +188,12 @@ export async function parseInlineToken(params: InlineParams): Promise<MutableSty
         },
         objectFit: ImageFit.Contain,
       })))
-      // }  else if (tokenItem.type === 'html') {
-      //   // 从当前i忘下找 找到最近的html
-      //   let htmlToken: string = tokenItem.text;
-      //   for (let j = i + 1; j < params.token.length; j++) {
-      //     let htmlTokenItem = params.token[j]
-      //     htmlToken += htmlTokenItem['text']
-      //     if (htmlTokenItem.type == 'html') {
-      //       break;
-      //     }
-      //   }
-      //   htmlToken
-      // params.token.slice()
-      // Span(tokenItem.text)
-      // let text = await StyledString.fromHtml(tokenItem.text)
-      // this.inlineTextStyle.appendStyledString(text)
+    } else if (tokenItem.type === 'html') {
+      try {
+        let htmlStyledString = await StyledString.fromHtml(tokenItem.text)
+        params.inlineTextStyle.appendStyledString(htmlStyledString)
+      } catch (error) {
+      }
     } else {
       params.options.customInlineBuilder?.(tokenItem, params)
     }
