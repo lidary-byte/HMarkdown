@@ -1,9 +1,4 @@
-import { TokenizerExtension, Tokens } from "../marked";
-
-
-const inlineRule = /^(\${1,2})(?!\$)((?:\\.|[^\\\n])*?(?:\\.|[^\\\n\$]))\1(?=[\s?!\.,:？！。，：]|$)/;
-
-const blockRule = /^(\${1,2})\n((?:\\[^]|[^\\])+?)\n\1(?:\n|$)/;
+import { TokenizerExtension, Tokens } from '../marked';
 
 
 
@@ -11,14 +6,31 @@ export function latexBlock(): TokenizerExtension {
   return {
     name: 'blockLatex',
     level: 'block',
+    start: (src: string): number | void => {
+      let index = 0;
+      let indexSrc = src
+      while (indexSrc) {
+        index = indexSrc.indexOf('$$');
+        if (index == -1) {
+          return
+        }
+        if (index > -1 || indexSrc.charAt(index - 1) === ' ') {
+          const possibleKatex = indexSrc.substring(index);
+
+          if (possibleKatex.startsWith('$$')) {
+            return index;
+          }
+        }
+        indexSrc = indexSrc.substring(index + 2).replace(/^\$+/, '');
+      }
+    },
     tokenizer(src: string): Tokens.Generic | undefined {
-      const match = src.match(blockRule);
-      if (match) {
+      if (src.startsWith("$$")) {
+        const end = src.indexOf('$$', 2)
         return {
           type: 'blockLatex',
-          raw: match[0],
-          text: match[2].trim(),
-          displayMode: match[1].length === 2,
+          raw: src.substring(0, end + 2),
+          text: src.substring(2, end - 1).trim()
         }
       }
       return undefined
@@ -38,10 +50,10 @@ export function latexInline(): TokenizerExtension {
         if (index === -1) {
           return
         }
-        if (index === 0 || indexSrc.charAt(index - 1) === ' ') {
+        if (index > -1 || indexSrc.charAt(index - 1) === ' ') {
           const possibleKatex = indexSrc.substring(index);
 
-          if (possibleKatex.match(inlineRule)) {
+          if (possibleKatex.startsWith('$')) {
             return index;
           }
         }
@@ -50,13 +62,12 @@ export function latexInline(): TokenizerExtension {
       }
     },
     tokenizer: (src: string): Tokens.Generic | undefined => {
-      const match = src.match(inlineRule);
-      if (match) {
+      if (src.startsWith("$")) {
+        const end = src.indexOf('$', 2)
         return {
           type: 'inlineLatex',
-          raw: match[0],
-          text: match[2].trim(),
-          displayMode: match[1].length === 2
+          raw: src.substring(0, end+1),
+          text: src.substring(1, end).trim()
         }
       }
       return undefined
