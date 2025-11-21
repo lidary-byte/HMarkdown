@@ -17,48 +17,91 @@ jobs:
     container: ghcr.io/sanchuanhehe/harmony-next-pipeline-docker/harmonyos-ci-image:v5.0.4
 
     steps:
-      # 1. 拉取代码
+      # 拉取代码
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # 2. 安装项目依赖
+      # 安装项目依赖
       - name: Install dependencies
         run: |
           cd $GITHUB_WORKSPACE
           ohpm install --all
 
-      # 3. 构建 HAP 文件
-      #      - name: Build HAP
-      #        run: |
-      #          cd $GITHUB_WORKSPACE
-      #          hvigorw clean --no-daemon
-      #          hvigorw assembleHap --mode module -p product=default -p buildMode=debug --no-daemon
+      # 构建har
       - name: Build HAR
         run: |
           cd $GITHUB_WORKSPACE
           hvigorw clean --no-daemon
           hvigorw assembleHar --mode module -p module=Markdown@default -p product=default --no-daemon
-      #          hvigorw assembleHap --mode module -p product=default -p buildMode=debug --no-daemon
 
-      #      # 4. 获取构建输出路径
-      #      - name: Get build output path
-      #        id: get_build_output_path
-      #        run: |
-      #          cd $GITHUB_WORKSPACE
-      #          echo "output_path=$(ls -d $PWD/entry/build/default/outputs/default)" >> $GITHUB_OUTPUT
-      # 4. 获取构建输出路径
+      # 4. 定义动态命名变量（区分 Tag/分支、Commit 哈希、构建日期）
+      - name: Define dynamic naming variables
+        id: naming_vars
+        run: |
+          cd $GITHUB_WORKSPACE
+          # 1. 区分是 Tag 触发还是分支触发（优先用 Tag 名）
+          if [[ "${{ github.event_name }}" == "push" && "${{ github.ref_type }}" == "tag" ]]; then
+            echo "version=${{ github.ref_name }}" >> $GITHUB_OUTPUT
+          else
+            echo "version=${{ github.ref_name }}" >> $GITHUB_OUTPUT
+          fi
+          # 2. 短 Commit 哈希（前7位）
+          echo "commit_sha=${{ github.sha_short }}" >> $GITHUB_OUTPUT
+          # 3. 构建日期（年月日，格式：20251121）
+          echo "build_date=$(date +%Y%m%d)" >> $GITHUB_OUTPUT
+          # 4. 原始 HAR 文件名（HarmonyOS 构建默认命名：模块名-产物类型.har，这里是 Markdown-default.har）
+          echo "original_har_name=Markdown-default.har" >> $GITHUB_OUTPUT
+
+      # 5. 重命名 HAR 文件（核心步骤）
+      - name: Rename HAR artifact
+        id: rename_har
+        run: |
+          cd $GITHUB_WORKSPACE
+          # 获取上一步定义的变量
+          VERSION=${{ steps.naming_vars.outputs.version }}
+          COMMIT_SHA=${{ steps.naming_vars.outputs.commit_sha }}
+          BUILD_DATE=${{ steps.naming_vars.outputs.build_date }}
+          ORIGINAL_HAR_NAME=${{ steps.naming_vars.outputs.original_har_name }}
+          # 输出路径（和你原有步骤一致）
+          OUTPUT_DIR=$PWD/Markdown/build/default/outputs/default
+          # 新文件名格式：模块名-版本/分支-Commit哈希-构建日期.har
+          NEW_HAR_NAME="Markdown-${VERSION}-${COMMIT_SHA}-${BUILD_DATE}.har"
+          # 原始文件完整路径
+          ORIGINAL_HAR_PATH="${OUTPUT_DIR}/${ORIGINAL_HAR_NAME}"
+          # 新文件完整路径
+          NEW_HAR_PATH="${OUTPUT_DIR}/${NEW_HAR_NAME}"
+          
+          # 检查原始文件是否存在，避免构建失败导致的报错
+          if [ -f "${ORIGINAL_HAR_PATH}" ]; then
+            # 执行重命名
+            mv "${ORIGINAL_HAR_PATH}" "${NEW_HAR_PATH}"
+            echo "✅ HAR 文件重命名成功："
+            echo "原始：${ORIGINAL_HAR_PATH}"
+            echo "新名：${NEW_HAR_PATH}"
+            # 输出新路径和新文件名，供后续上传步骤使用
+            echo "new_har_path=${NEW_HAR_PATH}" >> $GITHUB_OUTPUT
+            echo "new_har_name=${NEW_HAR_NAME}" >> $GITHUB_OUTPUT
+          else
+            echo "❌ 错误：原始 HAR 文件不存在！"
+            echo "查找路径：${ORIGINAL_HAR_PATH}"
+            exit 1
+          fi
+      #  获取构建输出路径
       - name: Get build output path
         id: get_build_output_path
         run: |
           cd $GITHUB_WORKSPACE
           echo "output_path=$(ls -d $PWD/Markdown/build/default/outputs/default)" >> $GITHUB_OUTPUT
 
-      # 5. 上传构建输出作为 artifact
+
+      #  上传构建输出作为 artifact
       - name: Upload Build Output
         uses: actions/upload-artifact@v4
         with:
-          name: build-output
-          path: ${{ steps.get_build_output_path.outputs.output_path }}
+#          name: build-output
+          name: Markdown-HAR-${{ steps.naming_vars.outputs.version }}
+          path: ${{ steps.rename_har.outputs.new_har_path }}
+#          path: ${{ steps.get_build_output_path.outputs.output_path }}
 
   publish:
     needs: build
@@ -102,7 +145,7 @@ jobs:
       # 4. 创建 GitHub Release 并上传资产
       - name: Create Release and Upload Assets
         uses: softprops/action-gh-release@v1
-#        if: startsWith(github.ref, 'refs/tags/v')
+        #        if: startsWith(github.ref, 'refs/tags/v')
         with:
           name: ${{ github.ref_name }}
           files: |
