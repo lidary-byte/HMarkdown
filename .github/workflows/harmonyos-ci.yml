@@ -50,7 +50,7 @@ jobs:
           # 3. 构建日期（年月日，格式：20251121）
           echo "build_date=$(date +%Y%m%d)" >> $GITHUB_OUTPUT
           # 4. 原始 HAR 文件名（HarmonyOS 构建默认命名：模块名-产物类型.har，这里是 Markdown-default.har）
-          echo "original_har_name=Markdown-default.har" >> $GITHUB_OUTPUT
+          echo "original_har_name=Markdown.har" >> $GITHUB_OUTPUT
 
       # 5. 重命名 HAR 文件（核心步骤）
       - name: Rename HAR artifact
