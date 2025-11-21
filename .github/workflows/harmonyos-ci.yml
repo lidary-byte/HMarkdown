@@ -37,7 +37,7 @@ jobs:
         run: |
           cd $GITHUB_WORKSPACE
           hvigorw clean --no-daemon
-          hvigorw assembleHar --mode module -p module=Markdonw@default -p product=default --no-daemon
+          hvigorw assembleHar --mode module -p module=Markdown@default -p product=default --no-daemon
       #          hvigorw assembleHap --mode module -p product=default -p buildMode=debug --no-daemon
 
       #      # 4. 获取构建输出路径
