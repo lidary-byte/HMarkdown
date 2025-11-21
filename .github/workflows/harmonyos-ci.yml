@@ -96,7 +96,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
 #          name: build-output
-          name: ${{ steps.rename_har.outputs.new_har_name }}//Markdown-HAR-${{ steps.naming_vars.outputs.version }}
+          name: ${{ steps.rename_har.outputs.new_har_name }}
           path: ${{ steps.rename_har.outputs.new_har_path }}
 #          path: ${{ steps.get_build_output_path.outputs.output_path }}
 
