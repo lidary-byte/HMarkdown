@@ -3,14 +3,13 @@ name: HarmonyOS CI/CD Pipeline
 on:
   push:
     branches:
-      - master
-      - openharmony_master
+      - main
+      - test-ci
     tags:
       - '*'
   pull_request:
     branches:
-      - master
-      - openharmony_master
+      - main
 
 jobs:
   build:
