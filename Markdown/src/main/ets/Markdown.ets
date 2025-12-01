@@ -22,6 +22,15 @@ export struct Markdown {
   @Event onError?: (e: BusinessError) => void
   @Local tokenList: Token[] = []
 
+  aboutToAppear(): void {
+    this.watchOptions()
+    if (this.token.length != 0) {
+      this.watchToken()
+    } else {
+      this.watchContent()
+    }
+  }
+
   @Monitor('token')
   watchToken() {
     this.tokenList = this.token
