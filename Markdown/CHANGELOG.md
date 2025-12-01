@@ -1,5 +1,8 @@
 # 更新日志
 
+## v3.0.2
+1. 修复数据首次传入未加载bug  [#32](https://github.com/lidary-byte/HMarkdown/issues/32)
+
 ## v3.0.1
 1. 优化公式解析规则
 2. 新增行间html解析，渲染
