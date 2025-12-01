@@ -189,10 +189,22 @@ export async function parseInlineToken(params: InlineParams): Promise<MutableSty
         objectFit: ImageFit.Contain,
       })))
     } else if (tokenItem.type === 'html') {
-      try {
-        let htmlStyledString = await StyledString.fromHtml(tokenItem.text)
-        params.inlineTextStyle.appendStyledString(htmlStyledString)
-      } catch (error) {
+      if (tokenItem.block) {
+        try {
+          let htmlStyledString = await StyledString.fromHtml(tokenItem.text)
+          params.inlineTextStyle.appendStyledString(htmlStyledString)
+        } catch (error) {
+        }
+      } else {
+        // 行内
+        // const htmlTokens = [tokenItem]
+        // for (let j = i + 1; j < params.token.length; j++) {
+        //   htmlTokens.push(params.token[j])
+        //   if (params.token[j].type === 'html') {
+        //     break
+        //   }
+        // }
+        // console.error('')
       }
     } else {
       params.options.customInlineBuilder?.(tokenItem, params)
