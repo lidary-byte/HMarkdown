@@ -16,7 +16,12 @@ export struct Markdown {
    */
   @Param token: Token[] = []
   @Param content: string = ''
-  @Param options?: MarkdownOptions = undefined
+  @Param options: MarkdownOptions = {
+    theme: defaultTheme,
+    darkTheme: defaultDarkTheme,
+    lineSpace: 12,
+    inlineLineSpace: LengthMetrics.vp(12)
+  }
   @Event onLoading?: () => void
   @Event onSuccess?: () => void
   @Event onError?: (e: BusinessError) => void
