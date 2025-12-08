@@ -1,5 +1,8 @@
 # 更新日志
 
+## v3.0.3
+1.修复options参数为空时程序崩溃bug [#32](https://github.com/lidary-byte/HMarkdown/issues/32#issuecomment-3620309424)
+
 ## v3.0.2
 1. 修复数据首次传入未加载bug  [#32](https://github.com/lidary-byte/HMarkdown/issues/32)
 
