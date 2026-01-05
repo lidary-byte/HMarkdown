@@ -23,6 +23,7 @@ export interface MarkdownOptions {
   customBlockBuilder?: WrappedBuilder<[Token, MarkdownOptions]>
   customInlineBuilder?: (tokenItem: Token, params: InlineParams) => void
   //inline元素中 需要显示的最大行数
-  maxLines?: number
+  maxLines?: number,
+  latexResPath?: string
 }
 

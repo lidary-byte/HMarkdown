@@ -178,7 +178,7 @@ export async function parseInlineToken(params: InlineParams): Promise<MutableSty
       let imageInfo =
         await latexToPixelMap(tokenItem.text, params.uiContext.fp2px(getTheme(params.options).latexStyle?.fontSize),
           getTheme(params.options).latexStyle?.fontColor ?? 0xffffffff,
-          getTheme(params.options).latexStyle?.backgroundColor ?? 0xffffffff)
+          getTheme(params.options).latexStyle?.backgroundColor ?? 0xffffffff, params.options.latexResPath)
       params.inlineTextStyle.appendStyledString(new MutableStyledString(new ImageAttachment({
         value: imageInfo.pixelMap,
         verticalAlign: ImageSpanAlignment.CENTER,

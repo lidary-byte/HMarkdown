@@ -4,7 +4,7 @@
  * @Description:
  */
 import { image } from '@kit.ImageKit';
-import { MarkdownTheme, Tokens } from '../../../../Index';
+import { Tokens } from '../../../../Index';
 import { MarkdownOptions } from '../Index';
 import { getTheme, latexToPixelMap } from '../utils';
 
@@ -28,7 +28,8 @@ export struct Latex {
   @Monitor('token')
   watchToken() {
     latexToPixelMap(this.token.text, this.getUIContext().fp2px(getTheme(this.options).latexStyle?.fontSize),
-      getTheme(this.options).latexStyle?.fontColor ?? 0xffffffff, getTheme(this.options).latexStyle?.backgroundColor ?? 0xffffffff)
+      getTheme(this.options).latexStyle?.fontColor ?? 0xffffffff,
+      getTheme(this.options).latexStyle?.backgroundColor ?? 0xffffffff, this.options.latexResPath)
       .then((data) => {
         if (data) {
           this.pixelMap = data.pixelMap

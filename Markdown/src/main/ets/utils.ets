@@ -82,12 +82,11 @@ export async function copyToPasteboard(text?: string) {
 }
 
 export async function latexToPixelMap(latexText: string, latexMathTextSize: number, latexMathTextColor: number,
-  latexMathBackGroupColor: number): Promise<LatexToPixelMap> {
-
+  latexMathBackGroupColor: number, resPath?: string): Promise<LatexToPixelMap> {
   // 通过接口解析数学公式获取数学公式图片数组数据
   let buf: ArrayBuffer =
     await latexStringToImage(latexText, latexMathTextSize, latexMathTextColor, latexMathBackGroupColor,
-      LatexMathColorFormat.COLOR_FORMAT_BGRA_8888)
+      LatexMathColorFormat.COLOR_FORMAT_BGRA_8888, resPath)
   let imageSource = image.createImageSource(buf)
   // 图片pixelMap
   let pixelMap = imageSource.createPixelMapSync()
