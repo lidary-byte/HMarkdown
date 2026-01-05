@@ -29,11 +29,11 @@
         "material": {
           "certpath": "/Users/lidary/.ohos/config/default_HMarkdown_d1RdGfglH1yNW6sR9gse-32NsW7JlsN3uCH4ScfPmdk=.cer",
           "keyAlias": "debugKey",
-          "keyPassword": "0000001B6C28C7D47973ADFB5049627A7469BCD843F5305B1743FBA4D61C825108590EAA2C8358DC67474A",
+          "keyPassword": "0000001B1CA41AA48E4AD9A778B5E6616E48C41C0D6CACCEE669239CEE25EF61EBB1192120241528B59F7F",
           "profile": "/Users/lidary/.ohos/config/default_HMarkdown_d1RdGfglH1yNW6sR9gse-32NsW7JlsN3uCH4ScfPmdk=.p7b",
           "signAlg": "SHA256withECDSA",
           "storeFile": "/Users/lidary/.ohos/config/default_HMarkdown_d1RdGfglH1yNW6sR9gse-32NsW7JlsN3uCH4ScfPmdk=.p12",
-          "storePassword": "0000001B840D86C95400A216E34457B80FFCE9EA135F0F4CC812C9AA50FB59518D06D0B30AE57C495FE25A"
+          "storePassword": "0000001BD4104CFB502B0894EDB0EE0E2059A5CE0E91BC2292F569413CF4F418FADEA8BCD7910DBBBB8F66"
         }
       }
     ]
