@@ -1,5 +1,8 @@
 # 更新日志
 
+## v3.0.4 [#34](https://github.com/lidary-byte/HMarkdown/issues/34)
+对外暴露[latexResPath](https://ohpm.openharmony.cn/#/cn/detail/@cangjie-tpc%2Fformula_hybrid:~:text=resPath%E9%BB%98%E8%AE%A4%E5%8F%82%E6%95%B0%22/data/storage/el1/bundle/entry/resources/resfile/res%22%EF%BC%8C%E5%A6%82%E6%9E%9C%E4%BF%AE%E6%94%B9entry%E5%91%BD%E5%90%8D%EF%BC%8C%E9%9C%80%E8%A6%81%E6%94%B9%E6%88%90%E5%AF%B9%E5%BA%94%E7%9A%84%22/data/storage/el1/bundle/xxxx/resources/resfile/res%22%E3%80%82) 
+
 ## v3.0.3
 1.修复options参数为空时程序崩溃bug [#32](https://github.com/lidary-byte/HMarkdown/issues/32#issuecomment-3620309424)
 
