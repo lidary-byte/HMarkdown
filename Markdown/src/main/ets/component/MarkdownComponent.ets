@@ -15,6 +15,13 @@ import { Table } from './Table'
 export struct MarkdownComponent {
   @Param @Require tokenList: Token[] = []
   @Param @Require options: MarkdownOptions
+  @Param nestedScroll: NestedScrollOptions | undefined = undefined
+  @Param contentStartOffset: number | undefined = undefined
+  @Param contentEndOffset: number | undefined = undefined
+  @Param paddings: Padding | number | undefined = undefined
+  @Param scrollBar: BarState | undefined = undefined
+  @Param cachedCount: number = 0;
+  @Param cachedShow: boolean = false;
 
   build() {
     List({ space: this.options.lineSpace }) {
@@ -58,5 +65,12 @@ export struct MarkdownComponent {
           }
         })
     }.width('100%')
+    .clip(false)
+    .nestedScroll(this.nestedScroll)
+    .contentStartOffset(this.contentStartOffset)
+    .contentEndOffset(this.contentEndOffset)
+    .padding(this.paddings)
+    .scrollBar(this.scrollBar)
+    .cachedCount(this.cachedCount, this.cachedShow)
   }
 }
