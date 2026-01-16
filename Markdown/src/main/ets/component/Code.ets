@@ -55,7 +55,8 @@ export struct Code {
       .alignItems(HorizontalAlign.Start)
 
       Image($r('app.media.ic_copy'))
-        .width(20)
+        .fillColor(getTheme(this.options)?.code?.fontColor?.["string"])
+        .width(20).height(20)
         .margin({ right: 8, top: 8 })
         .onClick(() => {
           copyToPasteboard(this.token?.text)
