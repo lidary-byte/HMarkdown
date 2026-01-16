@@ -54,8 +54,8 @@ export struct Code {
       }.layoutWeight(1)
       .alignItems(HorizontalAlign.Start)
 
-      Image($r('app.media.ic_copy'))
-        .fillColor(getTheme(this.options)?.code?.fontColor?.["string"])
+      Image(getTheme(this.options)?.code?.copyIcon || $r('app.media.ic_copy'))
+        .fillColor(getTheme(this.options)?.code?.copyIconColor || "#fff")
         .width(20).height(20)
         .margin({ right: 8, top: 8 })
         .onClick(() => {

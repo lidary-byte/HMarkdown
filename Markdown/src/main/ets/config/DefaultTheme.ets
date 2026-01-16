@@ -84,6 +84,9 @@ export const defaultDarkTheme: MarkdownTheme = {
     },
     backgroundColor: '#303236',
     borderRadius: 4,
+    codeSpanBorderRadius: 8,
+    copyIcon: $r('app.media.ic_copy'),
+    copyIconColor: Color.White,
   },
   codeSpan: {
     backgroundColor: '#303236',
@@ -142,7 +145,6 @@ export const defaultTheme: MarkdownTheme = {
     driveColor: '#A6BAE1',
     backgroundColor: '#F5F7F9',
   },
-
   tableStyle: {
     driveWidth: 0.5,
     driveColor: '#EBECF0'
@@ -168,6 +170,8 @@ export const defaultTheme: MarkdownTheme = {
     },
     backgroundColor: '#303236',
     borderRadius: 4,
+    copyIcon: $r('app.media.ic_copy'),
+    copyIconColor: Color.White,
   },
   codeSpan: {
     backgroundColor: '#F5F7F9',
@@ -177,7 +181,6 @@ export const defaultTheme: MarkdownTheme = {
     driveColor: '#393B41',
     driveWidth: 1
   },
-
   linkColor: '#6A9BFA',
   imageObjectFit: ImageFit.Contain,
   // html?: MarkdownFontStyle

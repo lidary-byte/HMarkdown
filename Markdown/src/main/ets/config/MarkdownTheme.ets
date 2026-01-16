@@ -91,6 +91,8 @@ export interface CodeStyle {
   codeSpanFontSize?: LengthMetrics,
   codeSpanBorderRadius ?: Dimension | BorderRadiuses,
   codeSpanBackgroundColor?: ResourceColor,
+  copyIcon?: ResourceStr,
+  copyIconColor?: ResourceColor,
 }
 
 export interface LatexStyle {
