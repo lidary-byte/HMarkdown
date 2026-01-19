@@ -1,6 +1,7 @@
-import { AbilityConstant, UIAbility, Want } from '@kit.AbilityKit';
+import { AbilityConstant, Configuration, UIAbility, Want } from '@kit.AbilityKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { window } from '@kit.ArkUI';
+import { AppUtils } from "@tangs/apputils"
 
 // @Builder
 // function BlockBuilder(type: string, token: Tokens.Generic, that: ESObject) {
@@ -26,7 +27,12 @@ import { window } from '@kit.ArkUI';
 // }
 
 export default class EntryAbility extends UIAbility {
+  static install: EntryAbility
+
+  configurationUpdateListener: ((config: Configuration) => void) | undefined = undefined;
+
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
+    EntryAbility.install = this;
     // markdown.init({
     //   // theme: {
     //   //   themeColor: Color.Red,
@@ -65,8 +71,11 @@ export default class EntryAbility extends UIAbility {
   }
 
   onWindowStageCreate(windowStage: window.WindowStage): void {
-    // Main window is created, set main page for this ability
-    hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onWindowStageCreate');
+    AppUtils.WindowUtil.getInstance().init(windowStage);
+    // 开启沉浸式
+    AppUtils.WindowUtil.getInstance().setImmerseBar({
+      statusBarContentColor: this.context.config.colorMode == 0 ? "#FFFFFFFF" : "#FF000000",
+    });
 
     windowStage.loadContent('pages/Index', (err) => {
       if (err.code) {
@@ -90,5 +99,15 @@ export default class EntryAbility extends UIAbility {
   onBackground(): void {
     // Ability has back to background
     hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onBackground');
+  }
+
+  onConfigurationUpdate(newConfig: Configuration): void {
+    AppUtils.WindowUtil.setStatusBarBgColor({
+      statusBarContentColor: newConfig.colorMode == 0 ? "#FFFFFFFF" : "#FF000000",
+    })
+
+    if (this.configurationUpdateListener != undefined) {
+      this.configurationUpdateListener(newConfig)
+    }
   }
 }

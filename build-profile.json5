@@ -27,13 +27,13 @@
         "name": "default",
         "type": "HarmonyOS",
         "material": {
-          "certpath": "/Users/lidary/.ohos/config/default_HMarkdown_d1RdGfglH1yNW6sR9gse-32NsW7JlsN3uCH4ScfPmdk=.cer",
+          "certpath": "C:\\Users\\21466\\.ohos\\config\\default_HMarkdown_vSACsWX1VTOdKwsc6GI3PcQwrG9-JnJlx4j-Zg33-og=.cer",
           "keyAlias": "debugKey",
-          "keyPassword": "0000001B1CA41AA48E4AD9A778B5E6616E48C41C0D6CACCEE669239CEE25EF61EBB1192120241528B59F7F",
-          "profile": "/Users/lidary/.ohos/config/default_HMarkdown_d1RdGfglH1yNW6sR9gse-32NsW7JlsN3uCH4ScfPmdk=.p7b",
+          "keyPassword": "0000001BAC4927141C1A00B1F877874BE544E321E14AC8C3B8C965C6D8C61DB5E9AF58BD616C2983128EA8",
+          "profile": "C:\\Users\\21466\\.ohos\\config\\default_HMarkdown_vSACsWX1VTOdKwsc6GI3PcQwrG9-JnJlx4j-Zg33-og=.p7b",
           "signAlg": "SHA256withECDSA",
-          "storeFile": "/Users/lidary/.ohos/config/default_HMarkdown_d1RdGfglH1yNW6sR9gse-32NsW7JlsN3uCH4ScfPmdk=.p12",
-          "storePassword": "0000001BD4104CFB502B0894EDB0EE0E2059A5CE0E91BC2292F569413CF4F418FADEA8BCD7910DBBBB8F66"
+          "storeFile": "C:\\Users\\21466\\.ohos\\config\\default_HMarkdown_vSACsWX1VTOdKwsc6GI3PcQwrG9-JnJlx4j-Zg33-og=.p12",
+          "storePassword": "0000001BC0C525C4505C54AE44C74D875F1402749B7D5E899B73D927B54488F4A07D3BA5E27BFAFAC084D5"
         }
       }
     ]

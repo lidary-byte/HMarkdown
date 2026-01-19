@@ -45,23 +45,30 @@ Tips:
 |             token              |  否   | []        | markdown文本内容解析后Tokens |
 |            options             |  否   | undefined |      属性，主题等相关配置       |
 | onLoading,  onSuccess ,onError |  否   | undefined | 加载状态回调(方面设置Loading等)  |
+|          nestedScroll          |  否   | undefined |         嵌套滚动          |
+|       contentStartOffset       |  否   | undefined |   内容头部偏移量，参考List组件    |
+|        contentEndOffset        |  否   | undefined |   内容尾部偏移量，参考List组件    |
+|            paddings            |  否   | undefined |          内边距          |
+|           scrollBar            |  否   | undefined |         滚动条状态         |
+|          cachedCount           |  否   | undefined |        懒加载缓存数量        |
+|           cachedShow           |  否   | undefined |      懒加载缓存组件是否显示      |
 
 ### MarkdownOptions参数
 
-|         名称          | 是否必传 | 默认值                              |                                                                                         说明                                                                                          |
-|:-------------------:|:----:|----------------------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
-|        theme        |  否   | defaultTheme(参考Jetbrains的ui)     |                                                                                      亮色主题相关配置                                                                                       | 
-|      darkTheme      |  否   | defaultDarkTheme(参考Jetbrains的ui) |                                                                                      暗色主题相关配置                                                                                       |
-|      darkMode       |  否   | false                            |                                                                                       是否亮色/暗色                                                                                       |
-|      lineSpace      |  否   | 12                               |                                                                                      item之间的间距                                                                                      | 
-|    textLineSpace    |  否   | LengthMetrics.vp(12)             |                                                                                    item中text的行间距                                                                                    |
-|       options       |  否   | undefined                        |                                                                 <a href="https://marked.js.org/using_advanced">marked相关配置</a>                                                               |
-|     extensions      |  否   | undefined                        |   <a href="https://marked.js.org/using_advanced#extensions">marked插件</a>,可参考<a href="https://github.com/lidary-byte/HMarkdown/blob/feat-v3.0.0/Markdown/src/main/ets/core/plugins/latex.ets">数学公式</a>  |
-|     imageClick      |  否   | undefined                        |                                                                                       图片点击事件                                                                                        |
-|      linkClick      |  否   | undefined                        |                                                                                       超链接点击事件                                                                                       |
-| customBlockBuilder  |  否   | undefined                        |                                                                                      自定义块元素渲染                                                                                       |
-| customInlineBuilder |  否   | undefined                        |                                                                                      自定义行内元素渲染                                                                                      |
-|      maxLines       |  否   | undefined                        |                                                                     如果是行内元素则显示最大行数(多为List列表内item都是Markdown时使用)                                                                      |
+|         名称          | 是否必传 | 默认值                              |                                                                                                 说明                                                                                                  |
+|:-------------------:|:----:|----------------------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
+|        theme        |  否   | defaultTheme(参考Jetbrains的ui)     |                                                                                              亮色主题相关配置                                                                                               | 
+|      darkTheme      |  否   | defaultDarkTheme(参考Jetbrains的ui) |                                                                                              暗色主题相关配置                                                                                               |
+|      darkMode       |  否   | false                            |                                                                                               是否亮色/暗色                                                                                               |
+|      lineSpace      |  否   | 12                               |                                                                                              item之间的间距                                                                                              | 
+|    textLineSpace    |  否   | LengthMetrics.vp(12)             |                                                                                            item中text的行间距                                                                                            |
+|       options       |  否   | undefined                        |                                                                    <a href="https://marked.js.org/using_advanced">marked相关配置</a>                                                                    |
+|     extensions      |  否   | undefined                        | <a href="https://marked.js.org/using_advanced#extensions">marked插件</a>,可参考<a href="https://github.com/lidary-byte/HMarkdown/blob/feat-v3.0.0/Markdown/src/main/ets/core/plugins/latex.ets">数学公式</a> |
+|     imageClick      |  否   | undefined                        |                                                                                               图片点击事件                                                                                                |
+|      linkClick      |  否   | undefined                        |                                                                                               超链接点击事件                                                                                               |
+| customBlockBuilder  |  否   | undefined                        |                                                                                              自定义块元素渲染                                                                                               |
+| customInlineBuilder |  否   | undefined                        |                                                                                              自定义行内元素渲染                                                                                              |
+|      maxLines       |  否   | undefined                        |                                                                             如果是行内元素则显示最大行数(多为List列表内item都是Markdown时使用)                                                                              |
 
 ---
 
@@ -118,8 +125,18 @@ Markdown({
   },
   onSuccess: () => {
     this.isLoading = false
-  }
-})
+  },
+  contentStartOffset: AppUtils.WindowUtil.getBottomHeight(),
+  contentEndOffset: AppUtils.WindowUtil.getBottomHeight(),
+  paddings: {left: 16, right: 16},
+  scrollBar: BarState.Off,
+  nestedScroll: {
+    scrollForward: NestedScrollMode.PARENT_FIRST,
+    scrollBackward: NestedScrollMode.SELF_FIRST
+  },
+  cachedCount: 3,
+  cachedShow: true
+}).height("100%")
 ```
 
  

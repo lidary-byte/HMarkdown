@@ -6,7 +6,9 @@
   "author": "",
   "license": "",
   "dependencies": {
-    '@lidary/markdown': "file:../Markdown"
-  }
+    "@lidary/markdown": "file:../Markdown",
+    "@tangs/apputils": "^1.1.4"
+  },
+  "devDependencies": {},
+  "dynamicDependencies": {}
 }
-

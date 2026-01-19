@@ -27,6 +27,14 @@ export struct Markdown {
   @Event onError?: (e: BusinessError) => void
   @Local tokenList: Token[] = []
 
+  @Param nestedScroll: NestedScrollOptions | undefined = undefined
+  @Param contentStartOffset: number | undefined = undefined
+  @Param contentEndOffset: number | undefined = undefined
+  @Param paddings: Padding | number | undefined = undefined
+  @Param scrollBar: BarState | undefined = undefined
+  @Param cachedCount: number = 0;
+  @Param cachedShow: boolean = false;
+
   aboutToAppear(): void {
     this.watchOptions()
     if (this.token.length != 0) {
@@ -70,7 +78,17 @@ export struct Markdown {
 
   build() {
     if (this.tokenList.length != 0) {
-      MarkdownComponent({ tokenList: this.tokenList, options: this.options })
+      MarkdownComponent({
+        tokenList: this.tokenList,
+        options: this.options,
+        nestedScroll: this.nestedScroll,
+        contentStartOffset: this.contentStartOffset,
+        contentEndOffset: this.contentEndOffset,
+        paddings: this.paddings,
+        scrollBar: this.scrollBar,
+        cachedCount: this.cachedCount,
+        cachedShow: this.cachedShow
+      })
     }
   }
 }
